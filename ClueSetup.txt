@@ -1,0 +1,13 @@
+// Rooms and room cards
+Room, Ballroom, B
+Room, Armory, A
+Room, Great Hall, G
+Room, Dungeon, D
+Room, Throne Room, K
+Room, Library, L
+Room, Tower, T
+Room, Stables, S
+Room, Courtyard, C
+// Other spaces on board
+Space, Unused, X
+Space, Walkway, W
