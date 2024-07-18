@@ -1,4 +1,5 @@
 package tests;
+
 //
 //
 //import java.util.HashSet;
@@ -59,6 +60,9 @@ package tests;
 //        return targets;
 //    }
 //}
-class Filler{
-	
+
+
+public class Filler {
+
 }
+
