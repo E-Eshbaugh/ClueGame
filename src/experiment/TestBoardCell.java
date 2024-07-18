@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
+
 public class TestBoardCell {
     private int row;
     private int col;
