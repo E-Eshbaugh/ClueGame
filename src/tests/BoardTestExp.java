@@ -19,6 +19,7 @@ public class BoardTestExp {
     }
 
     @Test
+    //tests the adjacent spots to (0,0)
     public void testAdjacencyTopLeftCorner() {
         TestBoardCell cell = board.getCell(0, 0);
         Set<TestBoardCell> adjList = cell.getAdjList();
@@ -28,6 +29,7 @@ public class BoardTestExp {
     }
 
     @Test
+    //tests the adjacent spots to (3,3)
     public void testAdjacencyBottomRightCorner() {
         TestBoardCell cell = board.getCell(3, 3);
         Set<TestBoardCell> adjList = cell.getAdjList();
@@ -37,6 +39,7 @@ public class BoardTestExp {
     }
 
     @Test
+    //tests adjacent spots to (1,3)
     public void testAdjacencyRightEdge() {
         TestBoardCell cell = board.getCell(1, 3);
         Set<TestBoardCell> adjList = cell.getAdjList();
@@ -47,6 +50,7 @@ public class BoardTestExp {
     }
 
     @Test
+    //tests adjacent spots to (3, 0)
     public void testAdjacencyLeftEdge() {
         TestBoardCell cell = board.getCell(3, 0);
         Set<TestBoardCell> adjList = cell.getAdjList();
@@ -58,6 +62,7 @@ public class BoardTestExp {
     }
 
     @Test
+    //tests for proper targets for movement off (0,0)
     public void testTargetsEmptyBoard() {
         TestBoardCell cell = board.getCell(0, 0);
         board.calcTargets(cell, 3);
@@ -74,6 +79,7 @@ public class BoardTestExp {
     }
 
     @Test
+    //tests for proper targets for movement off (0,0) with occupied spaces
     public void testTargetsWithOccupiedCells() {
         board.getCell(1, 0).setOccupied(true);
         board.getCell(2, 1).setOccupied(true);
@@ -89,6 +95,7 @@ public class BoardTestExp {
     }
 
     @Test
+    //tests for proper movement targets off (0,0) with room cells
     public void testTargetsWithRoomCells() {
         board.getCell(2, 1).setRoom(true);
         TestBoardCell cell = board.getCell(0, 0);
