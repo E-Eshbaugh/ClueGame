@@ -4,7 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-
+/*
+ * Class TestBoardCell: One cell of the TestBoardClass contains information deciding if cell is
+ * a room or occupied by player. 
+ * 
+ * By Ethan Eshbaugh and Colin Myers
+ */
 public class TestBoardCell {
     private int row;
     private int col;
@@ -43,20 +48,31 @@ public class TestBoardCell {
     public boolean getOccupied() {
         return isOccupied;
     }
-
+    
+    /*
+     * Method equals: overided default equals to test for equal values rather than same memory spot
+     * 
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestBoardCell that = (TestBoardCell) o;
         return row == that.row && col == that.col;
-    }
-
+    } 
+    
+    /*
+     * Method hashCode: equal objects must have same hash code this fixes default hash issue
+     * 
+     */
     @Override
     public int hashCode() {
         return Objects.hash(row, col);
     }
-
+    /*
+     * Method toString: easier more readable print format
+     * 
+     */
     @Override
     public String toString() {
         return "Cell (" + row + "," + col + ")";
