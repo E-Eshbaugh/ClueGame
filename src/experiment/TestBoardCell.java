@@ -1,6 +1,8 @@
 package experiment;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Objects;
 
 public class TestBoardCell {
     private int row;
@@ -40,7 +42,7 @@ public class TestBoardCell {
     public boolean getOccupied() {
         return isOccupied;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,6 +51,10 @@ public class TestBoardCell {
         return row == that.row && col == that.col;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, col);
+    }
 
     @Override
     public String toString() {
