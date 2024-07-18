@@ -1,4 +1,5 @@
 package experiment;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +8,13 @@ public class TestBoard {
     private Set<TestBoardCell> targets;
 
     public TestBoard() {
-        
+    grid = new TestBoardCell[4][4];
+      targets = new HashSet<>();
+      for (int row = 0; row < 4; row++) {
+          for (int col = 0; col < 4; col++) {
+              grid[row][col] = new TestBoardCell(row, col);
+          }
+      }
     }
 
 
@@ -15,9 +22,6 @@ public class TestBoard {
 
     }
 
-    private void findAllTargets(TestBoardCell cell, int steps, Set<TestBoardCell> visited) {
-
-    }
 
     public TestBoardCell getCell(int row, int col) {
         return grid[row][col];
