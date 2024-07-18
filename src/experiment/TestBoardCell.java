@@ -40,6 +40,15 @@ public class TestBoardCell {
     public boolean getOccupied() {
         return isOccupied;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TestBoardCell that = (TestBoardCell) o;
+        return row == that.row && col == that.col;
+    }
+
 
     @Override
     public String toString() {

@@ -77,6 +77,7 @@ public class BoardTestExp {
         TestBoardCell cell = board.getCell(0, 0);
         board.calcTargets(cell, 3);
         Set<TestBoardCell> targets = board.getTargets();
+        //System.out.println(targets);
         assertEquals(3, targets.size());
         assertTrue(targets.contains(board.getCell(0, 3)));
         assertTrue(targets.contains(board.getCell(1, 2)));
@@ -89,6 +90,7 @@ public class BoardTestExp {
         TestBoardCell cell = board.getCell(0, 0);
         board.calcTargets(cell, 3);
         Set<TestBoardCell> targets = board.getTargets();
+        System.out.println(targets);
         assertEquals(6, targets.size());
         assertTrue(targets.contains(board.getCell(0, 3)));
         assertTrue(targets.contains(board.getCell(1, 2)));
