@@ -1,8 +1,16 @@
 package clueGame;
 
+/*Board class
+ * 
+ * @author Colin Myers
+ * @author Ethan Eshbaugh
+ * 
+ * Lays out the behavior of the Board for clue game
+ * 
+ */
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -32,6 +40,7 @@ public class Board {
     	loadLayoutConfig();
     }
 
+    //Read csv file and set up cells and rooms to fill board
     public void loadSetupConfig() {
         try (Scanner scanner = new Scanner(new File(setupConfigFile))) {
         while (scanner.hasNextLine()) {
@@ -68,6 +77,7 @@ public class Board {
          grid = new BoardCell[numRows][numCols];
     }
     
+    //set config files
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
         this.layoutConfigFile = layoutConfigFile;
         this.setupConfigFile = setupConfigFile;
@@ -78,6 +88,7 @@ public class Board {
     	return new Room("temp");
     }
     
+    //return a room
     public Room getRoom(BoardCell cell) {
         for (Room room : roomMap.values()) {
             if (room.getCenterCell() == cell || room.getLabelCell() == cell) {

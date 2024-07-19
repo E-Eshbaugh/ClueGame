@@ -1,4 +1,11 @@
 package clueGame;
+/* Room class
+ * 
+ * @author Colin Myers
+ * @author Ethan Eshbaugh
+ * 
+ * Room class to keep track of room names and functionality
+ */
 
 public class Room {
     private String name;
