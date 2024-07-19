@@ -11,8 +11,8 @@ import java.util.Objects;
  * By Ethan Eshbaugh and Colin Myers
  */
 public class TestBoardCell {
-    private int row;
-    private int col;
+    public int row;
+    public int col;
     private boolean isRoom;
     private boolean isOccupied;
     private Set<TestBoardCell> adjList;
