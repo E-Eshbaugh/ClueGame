@@ -6,6 +6,9 @@ public class Room {
     private BoardCell labelCell;
 
     // Getters and setters for the attributes
+    public Room(String roomName) {
+    	name = roomName;
+    }
     public String getName() {
         return name;
     }

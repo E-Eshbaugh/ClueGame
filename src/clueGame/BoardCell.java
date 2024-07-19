@@ -21,6 +21,7 @@ public class BoardCell {
         this.row = row;
         this.col = col;
         this.adjList = new HashSet<>();
+        initial = 'N';
     }
 
     // Getters and setters for the attributes
