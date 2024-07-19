@@ -1,0 +1,13 @@
+Tests Differences:
+
+Dungeon has a door that opens up
+Armory has a door that opens left
+Great Hall has a door that opens right
+Library has a door that opens down
+
+Board col: 29
+Board rows: 42
+
+Doors: 17
+
+Secret Passages: 2, one from Tower to Dungeon & one from Ballroom to Stables
