@@ -177,7 +177,7 @@ public class Board {
         return numCols;
     }
 
-    public BoardCell getCell(int row, int col) {
+    public BoardCell getCell(int col, int row) {
         return grid[row][col];
     }
     
