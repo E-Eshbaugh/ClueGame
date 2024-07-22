@@ -17,11 +17,11 @@ public class BoardCell {
     private char secretPassage;
     private Set<BoardCell> adjList;
 
-    public BoardCell(int row, int col) {
+    public BoardCell(int row, int col, char init) {
         this.row = row;
         this.col = col;
         this.adjList = new HashSet<>();
-        initial = 'N';
+        initial = init;
     }
 
     // Getters and setters for the attributes
