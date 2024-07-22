@@ -107,15 +107,9 @@ public class Board {
 	}
 
 	//load the layoutconfig file (csv file)
-<<<<<<< HEAD
-	public void loadLayoutConfig() { 
-=======
+
 	public void loadLayoutConfig() { 	
-		//         numRows = 25;
-		//         numCols = 24;
-		//         grid = new BoardCell[numRows][numCols];
 		this.updateDimensions();
->>>>>>> 1d2ac322c200ffc9957be1fbbd865c4ba5134b8c
 		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
 			int row = 0;
 			while (scanner.hasNextLine()) {
@@ -203,21 +197,7 @@ public class Board {
 	}
 
 	public Room getRoom(BoardCell cell) {
-//	    // Check if the cell is a room center or label
-//	    for (Room room : roomMap.values()) {
-//	        if (room.getCenterCell() == cell || room.getLabelCell() == cell) {
-//	            return room;
-//	        }
-//	    }
-//	    
-//	    // Check if the cell has a secret passage and return the corresponding room
-//	    char secretPassage = cell.getSecretPassage();
-//	    if (secretPassage != '\0') {
-//	        return roomMap.get(secretPassage);
-//	    }
-//	    
-//	    // If no associated room is found, return null
-//	    return null;
+
 		return cell.getRoom();
 	}
 
@@ -232,7 +212,6 @@ public class Board {
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col];
 	}
-    //load the layoutconfig file (csv file)
     
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
         this.layoutConfigFile = layoutConfigFile;
