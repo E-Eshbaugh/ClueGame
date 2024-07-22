@@ -6,6 +6,7 @@ import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.FileWriter;
 
 public class Board {
     private BoardCell[][] grid;
@@ -36,6 +37,52 @@ public class Board {
     }
 
     public void loadSetupConfig() {
+
+        try (Scanner scanner = new Scanner(new File(setupConfigFile))) {
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine().trim();
+            if (line.startsWith("//") || line.isEmpty()) {
+                continue; // Skip comments and empty lines
+            }
+            //split the legend into the 3 seperate parts
+            String[] parts = line.split(", ");
+            if (parts.length == 3) {
+                String type = parts[0];
+                String name = parts[1];
+                char initial = parts[2].charAt(0);
+
+                if (type.equals("Room") || type.equals("Space")) {
+                    Room room = new Room(name);
+                    roomMap.put(initial, room);
+                 //a line isnt formatted properly
+                } else {
+                	//append to errorlog before throwing exception
+                	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
+                    	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
+                    } catch (Exception e) {
+                    	System.out.println("ERROR WRITING TO errorlog.txt");
+                    	e.printStackTrace();
+                    }
+                    throw new BadConfigFormatException("Invalid type in setup configuration file: " + type);
+                }
+            //bad file format overall
+            } else {
+            	//append to errorlog before throwing exception
+            	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
+                	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad file format");
+                } catch (Exception e) {
+                	System.out.println("ERROR WRITING TO errorlog.txt");
+                	e.printStackTrace();
+                }
+                throw new BadConfigFormatException("Invalid format in setup configuration file");
+            }
+        }
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (BadConfigFormatException e) {
+        System.out.println(e.getMessage());
+    }
+
     	try (Scanner scanner = new Scanner(new File(setupConfigFile))) {
     		while (scanner.hasNextLine()) {
     			String line = scanner.nextLine().trim();
