@@ -49,6 +49,7 @@ public class Board {
             if (line.startsWith("//") || line.isEmpty()) {
                 continue; // Skip comments and empty lines
             }
+            //split the legend into the 3 seperate parts
             String[] parts = line.split(", ");
             if (parts.length == 3) {
                 String type = parts[0];
@@ -58,20 +59,22 @@ public class Board {
                 if (type.equals("Room") || type.equals("Space")) {
                     Room room = new Room(name);
                     roomMap.put(initial, room);
+                 //a line isnt formatted properly
                 } else {
                 	//append to errorlog before throwing exception
                 	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-                    	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile);
+                    	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
                     } catch (Exception e) {
                     	System.out.println("ERROR WRITING TO errorlog.txt");
                     	e.printStackTrace();
                     }
                     throw new BadConfigFormatException("Invalid type in setup configuration file: " + type);
                 }
+            //bad file format overall
             } else {
             	//append to errorlog before throwing exception
             	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-                	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile);
+                	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad file format");
                 } catch (Exception e) {
                 	System.out.println("ERROR WRITING TO errorlog.txt");
                 	e.printStackTrace();
