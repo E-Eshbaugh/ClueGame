@@ -52,7 +52,7 @@ public class FileInitTests {
 	// These cells are white on the planning spreadsheet
 	@Test
 	public void FourDoorDirections() {
-		BoardCell cell = board.getCell(3, 7);
+		BoardCell cell = board.getCell(7, 3);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.UP, cell.getDoorDirection());
 		cell = board.getCell(15, 7);
@@ -83,7 +83,8 @@ public class FileInitTests {
 		Assert.assertEquals(17, numDoors);
 	}
 
-	// Test a few room cells to ensure the room initial is correct.
+
+// Test a few room cells to ensure the room initial is correct.
 	@Test
 	public void testRooms() {
 		//standard room location
@@ -99,7 +100,7 @@ public class FileInitTests {
 		cell = board.getCell(0, 14);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
-		assertEquals( room.getName(), "Great Hall" ) ;
+		assertEquals( room.getName(), "Great Hall") ;
 		assertTrue( cell.isLabel() );
 		assertTrue( room.getLabelCell() == cell );
 		
@@ -119,7 +120,7 @@ public class FileInitTests {
 		assertTrue( cell.getSecretPassage() == 'D' );
 		
 		//test a walkway
-		cell = board.getCell(7, 9);
+		cell = board.getCell(9, 7);
 		room = board.getRoom( cell );
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Walkway" ) ;

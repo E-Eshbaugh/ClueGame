@@ -63,7 +63,7 @@ public class BoardCell {
 	    }
 
 	    public boolean isDoorway() {
-	        return room != null && room.getDoorDirection() != DoorDirection.NONE;
+	        return (room != null && room.getDoorDirection() != DoorDirection.NONE);
 	    }
 
 	    public DoorDirection getDoorDirection() {

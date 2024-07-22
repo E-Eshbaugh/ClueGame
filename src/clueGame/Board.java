@@ -197,7 +197,6 @@ public class Board {
 	}
 
 	public Room getRoom(BoardCell cell) {
-
 		return cell.getRoom();
 	}
 
