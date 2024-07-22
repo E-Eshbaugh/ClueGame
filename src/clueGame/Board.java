@@ -7,6 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Board {
     private BoardCell[][] grid;
@@ -14,6 +18,8 @@ public class Board {
     public int numCols;
     private String layoutConfigFile;
     private String setupConfigFile;
+    private Path layoutConfigPath;
+    private Path setupConfigPath;
     public Map<Character, Room> roomMap;
     private static Board theInstance = new Board();
 
@@ -30,8 +36,10 @@ public class Board {
     public void initialize() {
         // Implementation to initialize the board
 //    	//layoutConfigFile = "ClueLayout306.csv";
-    	layoutConfigFile =  "C:\\Users\\User\\eclipse-workspace\\ClueGame\\ClueInitFiles\\data\\ClueLayout306.csv";
-    	setupConfigFile = "C:\\Users\\User\\eclipse-workspace\\ClueGame\\ClueInitFiles\\data\\ClueSetup306.txt";
+    	layoutConfigFile =  "ClueLayout306.csv";
+    	setupConfigFile = "ClueSetup306.txt";
+    	layoutConfigPath = Paths.get("ClueInitFiles", "data", layoutConfigFile);
+    	setupConfigPath = Paths.get("ClueInitFiles", "data", setupConfigFile);
     	setConfigFiles(layoutConfigFile, setupConfigFile);
     	loadLayoutConfig();
     	loadSetupConfig();
@@ -39,7 +47,7 @@ public class Board {
     
     //read and interpret the key for the rooms (txt file)
     public void loadSetupConfig() {
-    	try (Scanner scanner = new Scanner(new File(setupConfigFile))) {
+    	try (Scanner scanner = new Scanner(Files.newInputStream(setupConfigPath))) {
     		while (scanner.hasNextLine()) {
     			String line = scanner.nextLine().trim();
     			if (line.startsWith("//") || line.isEmpty()) {
@@ -78,7 +86,7 @@ public class Board {
     				throw new BadConfigFormatException("Invalid format in setup configuration file");
     			}
     		}
-    	} catch (FileNotFoundException e) {
+    	} catch (IOException e) {
     		e.printStackTrace();
     	} catch (BadConfigFormatException e) {
     		System.out.println(e.getMessage());
@@ -91,7 +99,7 @@ public class Board {
          numRows = 25;
          numCols = 24;
 //         grid = new BoardCell[numRows][numCols];
-         try (Scanner scanner = new Scanner(new File(layoutConfigFile))) {
+         try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
              int row = 0;
              while (scanner.hasNextLine()) {
                  String line = scanner.nextLine().trim();
@@ -108,7 +116,7 @@ public class Board {
                  }
                  row++;
              }
-         } catch (FileNotFoundException e) {
+         } catch (IOException e) {
              e.printStackTrace();
          }
          printGrid();
