@@ -35,7 +35,6 @@ public class FileInitTests306 {
 		board.setConfigFiles("ClueLayout306.csv", "ClueSetup306.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
-		System.out.println(board.roomMap);
 	}
 
 	@Test
