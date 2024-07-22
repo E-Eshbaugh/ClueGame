@@ -35,7 +35,21 @@ public class Board {
 	public static Board getInstance() {
 		return theInstance;
 	}
-
+	
+	//Updates row and col nums based on the file
+	public void updateDimensions() {
+		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))){
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				this.numRows++;
+				this.numCols = line.length();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		this.numCols = (this.numCols+1)/2;
+	}
 
     public void initialize() {
     	loadSetupConfig();
@@ -97,6 +111,7 @@ public class Board {
 		//         numRows = 25;
 		//         numCols = 24;
 		//         grid = new BoardCell[numRows][numCols];
+		this.updateDimensions();
 		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
 			int row = 0;
 			while (scanner.hasNextLine()) {
@@ -106,7 +121,7 @@ public class Board {
 					numCols = values.length;
 				}
 				if (grid == null) {
-					numRows = 25; // You can dynamically adjust this if needed
+					//numRows = 25; // You can dynamically adjust this if needed
 					grid = new BoardCell[numRows][numCols];
 				}
 				for (int col = 0; col < values.length; col++) {
