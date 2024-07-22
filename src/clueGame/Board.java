@@ -31,64 +31,20 @@ public class Board {
         // Implementation to initialize the board
 //    	//layoutConfigFile = "ClueLayout306.csv";
     	layoutConfigFile =  "C:\\Users\\User\\eclipse-workspace\\ClueGame\\ClueInitFiles\\data\\ClueLayout306.csv";
-    	setupConfigFile = "C:\\Users\\User\\eclipse-workspace\\ClueGame\\ClueInitFiles\\data\\ClueLayout306.txt";
+    	setupConfigFile = "C:\\Users\\User\\eclipse-workspace\\ClueGame\\ClueInitFiles\\data\\ClueSetup306.txt";
     	setConfigFiles(layoutConfigFile, setupConfigFile);
     	loadLayoutConfig();
+    	loadSetupConfig();
     }
 
     public void loadSetupConfig() {
-
-        try (Scanner scanner = new Scanner(new File(setupConfigFile))) {
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine().trim();
-            if (line.startsWith("//") || line.isEmpty()) {
-                continue; // Skip comments and empty lines
-            }
-            //split the legend into the 3 seperate parts
-            String[] parts = line.split(", ");
-            if (parts.length == 3) {
-                String type = parts[0];
-                String name = parts[1];
-                char initial = parts[2].charAt(0);
-
-                if (type.equals("Room") || type.equals("Space")) {
-                    Room room = new Room(name);
-                    roomMap.put(initial, room);
-                 //a line isnt formatted properly
-                } else {
-                	//append to errorlog before throwing exception
-                	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-                    	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
-                    } catch (Exception e) {
-                    	System.out.println("ERROR WRITING TO errorlog.txt");
-                    	e.printStackTrace();
-                    }
-                    throw new BadConfigFormatException("Invalid type in setup configuration file: " + type);
-                }
-            //bad file format overall
-            } else {
-            	//append to errorlog before throwing exception
-            	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-                	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad file format");
-                } catch (Exception e) {
-                	System.out.println("ERROR WRITING TO errorlog.txt");
-                	e.printStackTrace();
-                }
-                throw new BadConfigFormatException("Invalid format in setup configuration file");
-            }
-        }
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    } catch (BadConfigFormatException e) {
-        System.out.println(e.getMessage());
-    }
-
     	try (Scanner scanner = new Scanner(new File(setupConfigFile))) {
     		while (scanner.hasNextLine()) {
     			String line = scanner.nextLine().trim();
     			if (line.startsWith("//") || line.isEmpty()) {
     				continue; // Skip comments and empty lines
     			}
+    			//split the legend into the 3 seperate parts
     			String[] parts = line.split(", ");
     			if (parts.length == 3) {
     				String type = parts[0];
@@ -98,10 +54,26 @@ public class Board {
     				if (type.equals("Room") || type.equals("Space")) {
     					Room room = new Room(name);
     					roomMap.put(initial, room);
+    					//a line isnt formatted properly
     				} else {
+    					//append to errorlog before throwing exception
+    					try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
+    						errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
+    					} catch (Exception e) {
+    						System.out.println("ERROR WRITING TO errorlog.txt");
+    						e.printStackTrace();
+    					}
     					throw new BadConfigFormatException("Invalid type in setup configuration file: " + type);
     				}
+    				//bad file format overall
     			} else {
+    				//append to errorlog before throwing exception
+    				try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
+    					errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad file format");
+    				} catch (Exception e) {
+    					System.out.println("ERROR WRITING TO errorlog.txt");
+    					e.printStackTrace();
+    				}
     				throw new BadConfigFormatException("Invalid format in setup configuration file");
     			}
     		}
@@ -110,6 +82,7 @@ public class Board {
     	} catch (BadConfigFormatException e) {
     		System.out.println(e.getMessage());
     	}
+    	printRoomMap();
     }
 
     public void loadLayoutConfig() { 	
@@ -150,6 +123,11 @@ public class Board {
                 System.out.print(grid[row][col].getInitial() + " ");
             }
             System.out.println();
+        }
+    }
+    public void printRoomMap() {
+        for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
+            System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName());
         }
     }
     
