@@ -107,11 +107,15 @@ public class Board {
 	}
 
 	//load the layoutconfig file (csv file)
+<<<<<<< HEAD
+	public void loadLayoutConfig() { 
+=======
 	public void loadLayoutConfig() { 	
 		//         numRows = 25;
 		//         numCols = 24;
 		//         grid = new BoardCell[numRows][numCols];
 		this.updateDimensions();
+>>>>>>> 1d2ac322c200ffc9957be1fbbd865c4ba5134b8c
 		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
 			int row = 0;
 			while (scanner.hasNextLine()) {
@@ -129,9 +133,12 @@ public class Board {
 					char initial = cellValue.charAt(0);
 					BoardCell cell = new BoardCell(row, col, String.valueOf(initial));
 
-					// Set the room for the cell
-					Room room = roomMap.get(initial);
-					cell.setRoom(room);
+
+					Room originalRoom = roomMap.get(initial);
+					if (originalRoom != null) {
+						Room roomCopy = new Room(originalRoom.getName());
+						cell.setRoom(roomCopy);
+					}
 
 					// Check for special characters
 					for (int i = 1; i < cellValue.length(); i++) {
@@ -139,31 +146,31 @@ public class Board {
 						switch (special) {
 						case '*':
 							cell.setRoomCenter(true);
-							room.setCenterCell(cell);
+							cell.getRoom().setCenterCell(cell);
 							break;
 						case '#':
 							cell.setLabel(true);
-							room.setLabelCell(cell);
+							cell.getRoom().setLabelCell(cell);
 							break;
 						case '<':
 							cell.setDoorDirection(DoorDirection.LEFT);
-							room.setDoorDirection(DoorDirection.LEFT);
+							cell.getRoom().setDoorDirection(DoorDirection.LEFT);
 							break;
 						case '^':
 							cell.setDoorDirection(DoorDirection.UP);
-							room.setDoorDirection(DoorDirection.UP);
+							cell.getRoom().setDoorDirection(DoorDirection.UP);
 							break;
 						case 'v':
 							cell.setDoorDirection(DoorDirection.DOWN);
-							room.setDoorDirection(DoorDirection.DOWN);
+							cell.getRoom().setDoorDirection(DoorDirection.DOWN);
 							break;
 						case '>':
 							cell.setDoorDirection(DoorDirection.RIGHT);
-							room.setDoorDirection(DoorDirection.RIGHT);
+							cell.getRoom().setDoorDirection(DoorDirection.RIGHT);
 							break;
 						default:
 							cell.setSecretPassage(special);
-							room.setSecretPassage(special);
+							cell.getRoom().setSecretPassage(special);
 							break;
 						}
 					}

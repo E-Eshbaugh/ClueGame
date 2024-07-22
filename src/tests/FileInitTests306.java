@@ -99,9 +99,7 @@ public class FileInitTests306 {
 		BoardCell cell = board.getCell( 23, 23);
 		Room room = board.getRoom( cell ) ;
 		assertTrue( room != null );
-		//System.out.println(room.getName());
 		assertEquals( room.getName(), "Kitchen" ) ;
-		System.out.println(cell.isLabel());
 		assertFalse( cell.isLabel() );
 		assertFalse( cell.isRoomCenter() ) ;
 		assertFalse( cell.isDoorway()) ;
