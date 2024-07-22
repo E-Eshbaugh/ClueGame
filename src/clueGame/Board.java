@@ -60,6 +60,7 @@ public class Board {
 		this.numColumns = (this.numColumns+1)/2;
 	}
 
+	
     public void initialize() {
 	    try {
 	    	loadSetupConfig();
@@ -69,6 +70,7 @@ public class Board {
 	    }
     }
    
+    
 	//read and interpret the key for the rooms (txt file)
 	public void loadSetupConfig(){
 		try (Scanner scanner = new Scanner(Files.newInputStream(setupConfigPath))) {
