@@ -26,6 +26,10 @@ public class Board {
     // Private constructor for singleton pattern
     private Board() {
     	roomMap = new HashMap<>();
+    	layoutConfigFile =  "ClueLayout306.csv";
+    	setupConfigFile = "ClueSetup306.txt";
+    	layoutConfigPath = Paths.get("ClueInitFiles", "data", layoutConfigFile);
+    	setupConfigPath = Paths.get("ClueInitFiles", "data", setupConfigFile);
     }
 
     // Static method to get the single instance of the Board
@@ -35,11 +39,6 @@ public class Board {
 
     public void initialize() {
         // Implementation to initialize the board
-    	layoutConfigFile =  "ClueLayout.csv";
-    	setupConfigFile = "ClueSetup.txt";
-    	layoutConfigPath = Paths.get("ClueInitFiles", "data", layoutConfigFile);
-    	setupConfigPath = Paths.get("ClueInitFiles", "data", setupConfigFile);
-    	setConfigFiles(layoutConfigFile, setupConfigFile);
     	loadLayoutConfig();
     	loadSetupConfig();
     }
@@ -140,6 +139,8 @@ public class Board {
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
         this.layoutConfigFile = layoutConfigFile;
         this.setupConfigFile = setupConfigFile;
+        this.layoutConfigPath = Paths.get("ClueInitFiles", "data", this.layoutConfigFile);
+    	this.setupConfigPath = Paths.get("ClueInitFiles", "data", this.setupConfigFile);
     }
     
     public void printGrid() {
