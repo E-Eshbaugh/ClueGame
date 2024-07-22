@@ -16,117 +16,119 @@ import java.util.Set;
 //import clueGame.Board;
 
 public class BoardCell {
-    public int row;
-    public int col;
-    private char initial;
-    private DoorDirection doorDirection;
-    private boolean roomLabel;
-    private boolean roomCenter;
-    private char secretPassage;
-    private Set<BoardCell> adjList;
+	 public int row;
+	 public int col;
+	 private String initial;
+	 private Room room; // Reference to the Room class
+	 private Set<BoardCell> adjList;
 
-    public BoardCell(int row, int col, char init) {
-        this.row = row;
-        this.col = col;
-        this.adjList = new HashSet<>();
-        initial = init;
-    }
+	 public BoardCell(int row, int col, String initial) {
+	        this.row = row;
+	        this.col = col;
+	        this.initial = initial;
+	        this.adjList = new HashSet<>();
+	    }
 
-    // Getters and setters for the attributes
-    public int getRow() {
-        return row;
-    }
+	    // Getters and setters for the attributes
+	    public int getRow() {
+	        return row;
+	    }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
+	    public void setRow(int row) {
+	        this.row = row;
+	    }
 
-    public int getCol() {
-        return col;
-    }
+	    public int getCol() {
+	        return col;
+	    }
 
-    public void setCol(int col) {
-        this.col = col;
-    }
+	    public void setCol(int col) {
+	        this.col = col;
+	    }
 
-    public char getInitial() {
-        return initial;
-    }
+	    public String getInitial() {
+	        return initial;
+	    }
 
-    public void setInitial(char initial) {
-        this.initial = initial;
-    }
-    
-    public boolean isDoorway() {
-        return doorDirection != DoorDirection.NONE;
-    }
-    
-    public DoorDirection getDoorDirection() {
-        return doorDirection;
-    }
+	    public void setInitial(String initial) {
+	        this.initial = initial;
+	    }
 
-    public void setDoorDirection(DoorDirection doorDirection) {
-        this.doorDirection = doorDirection;
-    }
+	    public Room getRoom() {
+	        return room;
+	    }
 
-    public boolean isLabel() {
-        return roomLabel;
-    }
+	    public void setRoom(Room room) {
+	        this.room = room;
+	    }
 
-    public void setLabel(boolean roomLabel) {
-        this.roomLabel = roomLabel;
-    }
+	    public boolean isDoorway() {
+	        return room != null && room.getDoorDirection() != DoorDirection.NONE;
+	    }
 
-    public boolean isRoomCenter() {
-        return roomCenter;
-    }
+	    public DoorDirection getDoorDirection() {
+	        return room != null ? room.getDoorDirection() : DoorDirection.NONE;
+	    }
 
-    public void setRoomCenter(boolean roomCenter) {
-        this.roomCenter = roomCenter;
-    }
+	    public void setDoorDirection(DoorDirection doorDirection) {
+	        if (room != null) {
+	            room.setDoorDirection(doorDirection);
+	        }
+	    }
 
-    public char getSecretPassage() {
-        return secretPassage;
-    }
+	    public boolean isLabel() {
+	        return room != null && room.isLabel();
+	    }
 
-    public void setSecretPassage(char secretPassage) {
-        this.secretPassage = secretPassage;
-    }
+	    public void setLabel(boolean roomLabel) {
+	        if (room != null) {
+	            room.setLabel(roomLabel);
+	        }
+	    }
 
-    public Set<BoardCell> getAdjList() {
-        return adjList;
-    }
+	    public boolean isRoomCenter() {
+	        return room != null && room.isRoomCenter();
+	    }
 
-    public void addAdj(BoardCell adj) {
-        adjList.add(adj);
-    }
-    
-    /*
-     * Method equals: overided default equals to test for equal values rather than same memory spot
-     * 
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Board that = (Board) o;
-        return row == that.numRows && col == that.numCols;
-    } 
-    
-    /*
-     * Method hashCode: equal objects must have same hash code this fixes default hash issue
-     * 
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(row, col);
-    }
-    /*
-     * Method toString: easier more readable print format
-     * 
-     */
-    @Override
-    public String toString() {
-        return "Cell (" + row + "," + col + ")";
-    }
-}
+	    public void setRoomCenter(boolean roomCenter) {
+	        if (room != null) {
+	            room.setRoomCenter(roomCenter);
+	        }
+	    }
+
+	    public char getSecretPassage() {
+	        return room != null ? room.getSecretPassage() : '\0';
+	    }
+
+	    public void setSecretPassage(char secretPassage) {
+	        if (room != null) {
+	            room.setSecretPassage(secretPassage);
+	        }
+	    }
+
+	    public Set<BoardCell> getAdjList() {
+	        return adjList;
+	    }
+
+	    public void addAdj(BoardCell adj) {
+	        adjList.add(adj);
+	    }
+
+	    @Override
+	    public boolean equals(Object o) {
+	        if (this == o) return true;
+	        if (o == null || getClass() != o.getClass()) return false;
+	        BoardCell that = (BoardCell) o;
+	        return row == that.row && col == that.col;
+	    }
+
+	    @Override
+	    public int hashCode() {
+	        return Objects.hash(row, col);
+	    }
+
+	    @Override
+	    public String toString() {
+	        return "Cell (" + row + "," + col + ")";
+	    }
+	}

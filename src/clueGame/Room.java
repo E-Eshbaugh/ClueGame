@@ -9,27 +9,58 @@ package clueGame;
 
 public class Room {
     private String name;
-    private BoardCell centerCell;
+    private boolean roomLabel;
+    private boolean roomCenter;
+    private char secretPassage;
+    private DoorDirection doorDirection = DoorDirection.NONE; 
     private BoardCell labelCell;
+    private BoardCell centerCell;
 
     // Getters and setters for the attributes
     public Room(String roomName) {
-    	name = roomName;
+        this.name = roomName;
+        roomLabel = false;
     }
+
     public String getName() {
         return name;
+        
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public BoardCell getCenterCell() {
-        return centerCell;
+    public boolean isLabel() {
+        return roomLabel;
     }
 
-    public void setCenterCell(BoardCell centerCell) {
-        this.centerCell = centerCell;
+    public void setLabel(boolean roomLabel) {
+        this.roomLabel = roomLabel;
+    }
+
+    public boolean isRoomCenter() {
+        return roomCenter;
+    }
+
+    public void setRoomCenter(boolean roomCenter) {
+        this.roomCenter = roomCenter;
+    }
+
+    public char getSecretPassage() {
+        return secretPassage;
+    }
+
+    public void setSecretPassage(char secretPassage) {
+        this.secretPassage = secretPassage;
+    }
+
+    public DoorDirection getDoorDirection() {
+        return doorDirection;
+    }
+
+    public void setDoorDirection(DoorDirection doorDirection) {
+        this.doorDirection = doorDirection;
     }
 
     public BoardCell getLabelCell() {
@@ -38,5 +69,13 @@ public class Room {
 
     public void setLabelCell(BoardCell labelCell) {
         this.labelCell = labelCell;
+    }
+
+    public BoardCell getCenterCell() {
+        return centerCell;
+    }
+
+    public void setCenterCell(BoardCell centerCell) {
+        this.centerCell = centerCell;
     }
 }
