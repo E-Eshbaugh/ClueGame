@@ -14,6 +14,7 @@ import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.FileWriter;
 
 public class Board {
     private BoardCell[][] grid;
@@ -58,9 +59,23 @@ public class Board {
                     Room room = new Room(name);
                     roomMap.put(initial, room);
                 } else {
+                	//write to errorlog before throwing exception
+                	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt")) {
+                    	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile);
+                    } catch (Exception e) {
+                    	System.out.println("ERROR WRITING TO errorlog.txt");
+                    	e.printStackTrace();
+                    }
                     throw new BadConfigFormatException("Invalid type in setup configuration file: " + type);
                 }
             } else {
+            	//write to errorlog before throwing exception
+            	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt")) {
+                	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile);
+                } catch (Exception e) {
+                	System.out.println("ERROR WRITING TO errorlog.txt");
+                	e.printStackTrace();
+                }
                 throw new BadConfigFormatException("Invalid format in setup configuration file");
             }
         }
