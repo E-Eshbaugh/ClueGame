@@ -52,14 +52,16 @@ public class Board {
 	}
 
     public void initialize() {
+    try {
     	loadSetupConfig();
 		loadLayoutConfig();
+    } catch (Exception e) {
+    	e.printStackTrace();
     }
-    
-    //read and interpret the key for the rooms (txt file)
+    }
    
 	//read and interpret the key for the rooms (txt file)
-	public void loadSetupConfig() {
+	public void loadSetupConfig(){
 		try (Scanner scanner = new Scanner(Files.newInputStream(setupConfigPath))) {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine().trim();
@@ -108,7 +110,7 @@ public class Board {
 
 	//load the layoutconfig file (csv file)
 
-	public void loadLayoutConfig() { 	
+	public void loadLayoutConfig() throws BadConfigFormatException{ 	
 		this.updateDimensions();
 		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
 			int row = 0;
@@ -175,9 +177,14 @@ public class Board {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		printGrid();
+		try {
+			printGrid();
+		}catch(Exception e) {
+			throw new BadConfigFormatException();
+		}
 	}
 
+	//DONT DELTE LATER WIHTOUT REWORKING THE TRY CATCH BLOCK ABOVE ^
 	public void printGrid() {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
