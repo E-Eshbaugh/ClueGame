@@ -142,10 +142,8 @@ public class FileInitTests {
 		BoardCell firstCell = board.getCell(0,0);
 		//col 27 and not 28 because 28 is Null type, (27,41) is last cell of any type
 		BoardCell lastCell = board.getCell(27,41);
-		Room firstRoom = board.getRoom(firstCell);
-		Room lastRoom = board.getRoom(lastCell);
-		assertEquals(firstRoom.getName(), "Unused");
-		assertEquals(lastRoom.getName(), "Unused");
+		assertEquals(board.getRoom(firstCell).getName(), "Unused");
+		assertEquals(board.getRoom(lastCell).getName(), "Unused");
 		
 	}
 

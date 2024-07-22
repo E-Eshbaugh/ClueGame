@@ -3,8 +3,6 @@ package clueGame;
 import java.util.HashMap;
 import java.util.Map;
 //import java.util.Set;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
