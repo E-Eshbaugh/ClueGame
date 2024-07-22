@@ -59,8 +59,8 @@ public class Board {
                     Room room = new Room(name);
                     roomMap.put(initial, room);
                 } else {
-                	//write to errorlog before throwing exception
-                	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt")) {
+                	//append to errorlog before throwing exception
+                	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
                     	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile);
                     } catch (Exception e) {
                     	System.out.println("ERROR WRITING TO errorlog.txt");
@@ -69,8 +69,8 @@ public class Board {
                     throw new BadConfigFormatException("Invalid type in setup configuration file: " + type);
                 }
             } else {
-            	//write to errorlog before throwing exception
-            	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt")) {
+            	//append to errorlog before throwing exception
+            	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
                 	errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile);
                 } catch (Exception e) {
                 	System.out.println("ERROR WRITING TO errorlog.txt");
