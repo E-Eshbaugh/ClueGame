@@ -110,8 +110,6 @@ public class Board {
          }
          
          numCols = (numCols+1)/2;
-         System.out.println(numRows);
-         System.out.println(numCols);
          
          try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))){
         	 int row = 0;
