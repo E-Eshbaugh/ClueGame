@@ -23,29 +23,29 @@ public class Board {
 	public Map<Character, Room> roomMap;
 	private static Board theInstance = new Board();
 
-	// Private constructor for singleton pattern
-	private Board() {
-		roomMap = new HashMap<>();
-	}
+
+    // Private constructor for singleton pattern
+    private Board() {
+    	roomMap = new HashMap<>();
+    	layoutConfigFile =  "ClueLayout306.csv";
+    	setupConfigFile = "ClueSetup306.txt";
+    	layoutConfigPath = Paths.get("ClueInitFiles", "data", layoutConfigFile);
+    	setupConfigPath = Paths.get("ClueInitFiles", "data", setupConfigFile);
+    }
 
 	// Static method to get the single instance of the Board
 	public static Board getInstance() {
 		return theInstance;
 	}
 
-	public void initialize() {
-		// Implementation to initialize the board
-		//    	//layoutConfigFile = "ClueLayout306.csv";
-		layoutConfigFile =  "ClueLayout306.csv";
-		setupConfigFile = "ClueSetup306.txt";
-		layoutConfigPath = Paths.get("ClueInitFiles", "data", layoutConfigFile);
-		setupConfigPath = Paths.get("ClueInitFiles", "data", setupConfigFile);
-		setConfigFiles(layoutConfigFile, setupConfigFile);
-		
-		loadSetupConfig();
-		loadLayoutConfig();
-	}
 
+    public void initialize() {
+    	loadSetupConfig();
+		loadLayoutConfig();
+    }
+    
+    //read and interpret the key for the rooms (txt file)
+   
 	//read and interpret the key for the rooms (txt file)
 	public void loadSetupConfig() {
 		try (Scanner scanner = new Scanner(Files.newInputStream(setupConfigPath))) {
@@ -60,7 +60,6 @@ public class Board {
 					String type = parts[0];
 					String name = parts[1];
 					char initial = parts[2].charAt(0);
-
 					if (type.equals("Room") || type.equals("Space")) {
 						Room room = new Room(name);
 						roomMap.put(initial, room);
@@ -165,11 +164,6 @@ public class Board {
 		printGrid();
 	}
 
-	public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
-		this.layoutConfigFile = layoutConfigFile;
-		this.setupConfigFile = setupConfigFile;
-	}
-
 	public void printGrid() {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
@@ -218,6 +212,21 @@ public class Board {
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col];
 	}
+    //load the layoutconfig file (csv file)
+    
+    public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
+        this.layoutConfigFile = layoutConfigFile;
+        this.setupConfigFile = setupConfigFile;
+        this.layoutConfigPath = Paths.get("ClueInitFiles", "data", this.layoutConfigFile);
+    	this.setupConfigPath = Paths.get("ClueInitFiles", "data", this.setupConfigFile);
+    }
+    
+
+    
+
+    
+
+
 
 
 }
