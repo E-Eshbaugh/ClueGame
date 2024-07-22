@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import clueGame.BadConfigFormatException;
 
 public class Board {
 	private BoardCell[][] grid;
@@ -37,14 +38,16 @@ public class Board {
 	}
 	
 	//Updates row and col nums based on the file
-	public void updateDimensions() {
+	public void updateDimensions() throws BadConfigFormatException {
 		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))){
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				this.numRows++;
-				this.numCols = line.length();
+				if (this.numCols != line.length()) {
+					throw new BadConfigFormatException("Illegal configuraiton format");
+				}
 			}
-		}catch (Exception e) {
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -53,7 +56,11 @@ public class Board {
 
     public void initialize() {
     	loadSetupConfig();
-		loadLayoutConfig();
+		try {
+			loadLayoutConfig();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
     }
     
     //read and interpret the key for the rooms (txt file)
@@ -80,6 +87,7 @@ public class Board {
 						//append to errorlog before throwing exception
 						try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
 							errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
+							errorLogWrite.write("\n");
 						} catch (Exception e) {
 							System.out.println("ERROR WRITING TO errorlog.txt");
 							e.printStackTrace();
@@ -91,6 +99,7 @@ public class Board {
 					//append to errorlog before throwing exception
 					try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
 						errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad file format");
+						errorLogWrite.write("\n");
 					} catch (Exception e) {
 						System.out.println("ERROR WRITING TO errorlog.txt");
 						e.printStackTrace();
@@ -108,7 +117,7 @@ public class Board {
 
 	//load the layoutconfig file (csv file)
 
-	public void loadLayoutConfig() { 	
+	public void loadLayoutConfig() throws BadConfigFormatException { 	
 		this.updateDimensions();
 		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
 			int row = 0;
