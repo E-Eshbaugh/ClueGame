@@ -22,7 +22,7 @@ public class BoardAdjTargetTest {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ClueLayout306.csv", "ClueSetup306.txt");		
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
 		// Initialize will load config files 
 		board.initialize();
 	}
@@ -33,22 +33,24 @@ public class BoardAdjTargetTest {
 	public void testAdjacenciesRooms()
 	{
 		// we want to test a couple of different rooms.
-		// First, the study that only has a single door but a secret room
-		Set<BoardCell> testList = board.getAdjList(2, 2);
+		// First, the Dungeon that only has a single door but a secret room
+		Set<BoardCell> testList = board.getAdjList(3, 3);
 		assertEquals(2, testList.size());
-		assertTrue(testList.contains(board.getCell(4, 6)));
-		assertTrue(testList.contains(board.getCell(20, 19)));
+		assertTrue(testList.contains(board.getCell(3, 7)));
+		assertTrue(testList.contains(board.getCell(25, 37)));
 		
-		// now test the ballroom (note not marked since multiple test here)
-		testList = board.getAdjList(20, 11);
-		assertEquals(4, testList.size());
-		assertTrue(testList.contains(board.getCell(16, 9)));
-		
-		// one more room, the kitchen
-		testList = board.getAdjList(20, 19);
+		// now test the library (note not marked since multiple test here)
+		testList = board.getAdjList(3, 26);
 		assertEquals(2, testList.size());
-		assertTrue(testList.contains(board.getCell(17, 18)));
-		assertTrue(testList.contains(board.getCell(2, 2)));
+		assertTrue(testList.contains(board.getCell(7, 26)));
+		assertTrue(testList.contains(board.getCell(3, 22)));
+		
+		// one more room, the courtyard
+		testList = board.getAdjList(24, 20);
+		assertEquals(3, testList.size());
+		assertTrue(testList.contains(board.getCell(23, 14)));
+		assertTrue(testList.contains(board.getCell(18, 20)));
+		assertTrue(testList.contains(board.getCell(23, 26)));
 	}
 
 	
