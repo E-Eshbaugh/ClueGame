@@ -107,10 +107,8 @@ public class Board {
 	}
 
 	//load the layoutconfig file (csv file)
+
 	public void loadLayoutConfig() { 	
-		//         numRows = 25;
-		//         numCols = 24;
-		//         grid = new BoardCell[numRows][numCols];
 		this.updateDimensions();
 		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
 			int row = 0;
@@ -213,7 +211,6 @@ public class Board {
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col];
 	}
-    //load the layoutconfig file (csv file)
     
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
         this.layoutConfigFile = layoutConfigFile;

@@ -77,8 +77,8 @@ public class FileInitTests {
 	@Test
 	public void testNumberOfDoorways() {
 		int numDoors = 0;
-		for (int row = 0; row < board.getNumRows(); row++)
-			for (int col = 0; col < board.getNumColumns(); col++) {
+		for (int row = 0; row < NUM_ROWS; row++)
+			for (int col = 0; col < NUM_COLUMNS; col++) {
 				BoardCell cell = board.getCell(row, col);
 				if (cell.isDoorway())
 					numDoors++;
@@ -86,7 +86,8 @@ public class FileInitTests {
 		Assert.assertEquals(17, numDoors);
 	}
 
-	// Test a few room cells to ensure the room initial is correct.
+
+// Test a few room cells to ensure the room initial is correct.
 	@Test
 	public void testRooms() {
 		//standard room location
