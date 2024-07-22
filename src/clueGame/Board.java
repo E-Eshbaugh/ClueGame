@@ -221,9 +221,6 @@ public class Board {
     	this.setupConfigPath = Paths.get("ClueInitFiles", "data", this.setupConfigFile);
     }
     
-
-    
-
     
 
 
