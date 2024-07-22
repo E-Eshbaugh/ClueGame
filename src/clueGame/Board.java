@@ -102,7 +102,7 @@ public class Board {
                      grid = new BoardCell[numRows][numCols];
                  }
                  for (int col = 0; col < values.length; col++) {
-                     grid[row][col] = new BoardCell(row, col, values[col].trim().charAt(0));
+                     grid[row][col] = new BoardCell(row, col, values[col].trim());
                  }
                  row++;
              }

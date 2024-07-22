@@ -18,14 +18,14 @@ import java.util.Set;
 public class BoardCell {
     public int row;
     public int col;
-    private char initial;
+    private String initial;
     private DoorDirection doorDirection;
     private boolean roomLabel;
     private boolean roomCenter;
     private char secretPassage;
     private Set<BoardCell> adjList;
 
-    public BoardCell(int row, int col, char init) {
+    public BoardCell(int row, int col, String init) {
         this.row = row;
         this.col = col;
         this.adjList = new HashSet<>();
@@ -49,11 +49,11 @@ public class BoardCell {
         this.col = col;
     }
 
-    public char getInitial() {
+    public String getInitial() {
         return initial;
     }
 
-    public void setInitial(char initial) {
+    public void setInitial(String initial) {
         this.initial = initial;
     }
     
