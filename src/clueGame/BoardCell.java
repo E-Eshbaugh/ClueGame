@@ -21,6 +21,7 @@ public class BoardCell {
 	 private String initial;
 	 private Room room; // Reference to the Room class
 	 private Set<BoardCell> adjList;
+	 public boolean isOccupied;
 
 	 public BoardCell(int row, int col, String initial) {
 	        this.row = row;
@@ -129,4 +130,9 @@ public class BoardCell {
 	    public String toString() {
 	        return "Cell (" + row + "," + col + ")";
 	    }
+
+		public void setOccupied(boolean b) {
+			isOccupied = b;
+			
+		}
 	}

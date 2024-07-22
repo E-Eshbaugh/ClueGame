@@ -1,8 +1,12 @@
 package clueGame;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-//import java.util.Set;
+import java.util.Set;
+
+import experiment.TestBoardCell;
+
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,6 +24,7 @@ public class Board {
 	private Path setupConfigPath;
 	public Map<Character, Room> roomMap;
 	private static Board theInstance = new Board();
+	private Set<BoardCell> targets;
 
 
     // Private constructor for singleton pattern
@@ -198,6 +203,46 @@ public class Board {
 			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName());
 		}
 	}
+	//initializes cell adjacency lists for board, only runs once for whole game
+    private void setAdjacencies() {
+//        for (int row = 0; row < ROWS; row++) {
+//            for (int col = 0; col < COLS; col++) {
+//                TestBoardCell cell = board[row][col];
+//                if (row > 0) cell.addAdjacency(board[row - 1][col]);
+//                if (row < ROWS - 1) cell.addAdjacency(board[row + 1][col]);
+//                if (col > 0) cell.addAdjacency(board[row][col - 1]);
+//                if (col < COLS - 1) cell.addAdjacency(board[row][col + 1]);
+//            }
+//        }
+    }
+    
+    //BFD search, calculating targets for where player can move
+    public void calcTargets(BoardCell boardCell, int pathLength) {
+//        targets.clear();
+//        Set<TestBoardCell> visited = new HashSet<>();
+//        visited.add(startCell);
+//        findAllTargets(startCell, pathLength, visited);
+    }
+    
+    //part of BFD search for finding movement targets 3 steps away
+    private void findAllTargets(BoardCell cell, int steps, Set<BoardCell> visited) {
+    	
+//    	//for all adjacent spots to each cell, starting at desired first cell
+//        for (TestBoardCell adj : cell.getAdjList()) {
+//        	//if cell is occupied skip this iteration
+//            if (visited.contains(adj) || adj.getOccupied()) continue;
+//            //add cell's adjacencies to visited
+//            visited.add(adj);
+//            //if at last step, add to targets list
+//            if (steps == 1 || adj.isRoom()) {
+//                targets.add(adj);
+//            //continue until at step 3
+//            } else {
+//                findAllTargets(adj, steps - 1, visited);
+//            }
+//            visited.remove(adj);
+//        }
+    }
 
 	public Room getRoom(char initial) {
 		return roomMap.get(initial);
@@ -225,6 +270,15 @@ public class Board {
         this.layoutConfigPath = Paths.get("ClueInitFiles", "data", this.layoutConfigFile);
     	this.setupConfigPath = Paths.get("ClueInitFiles", "data", this.setupConfigFile);
     }
+
+	public Set<BoardCell> getAdjList(int i, int j) {
+		return getCell(i,j).getAdjList();
+	}
+
+	public Set<BoardCell> getTargets() { 
+		targets = new HashSet<>();
+		return targets;
+	}
     
     
 
