@@ -28,8 +28,9 @@ public class Board {
 
     public void initialize() {
         // Implementation to initialize the board
-    	layoutConfigFile = "ClueLayout306.csv";
-    	setupConfigFile = "ClueSetup306.txt";
+//    	//layoutConfigFile = "ClueLayout306.csv";
+    	layoutConfigFile =  "C:\\Users\\User\\eclipse-workspace\\ClueGame\\ClueInitFiles\\data\\ClueLayout306.csv";
+    	setupConfigFile = "C:\\Users\\User\\eclipse-workspace\\ClueGame\\ClueInitFiles\\data\\ClueLayout306.txt";
     	setConfigFiles(layoutConfigFile, setupConfigFile);
     	loadLayoutConfig();
     }
@@ -88,11 +89,21 @@ public class Board {
          } catch (FileNotFoundException e) {
              e.printStackTrace();
          }
+         printGrid();
     }
     
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
         this.layoutConfigFile = layoutConfigFile;
         this.setupConfigFile = setupConfigFile;
+    }
+    
+    public void printGrid() {
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
+                System.out.print(grid[row][col].getInitial() + " ");
+            }
+            System.out.println();
+        }
     }
     
     public Room getRoom(char initial) {
