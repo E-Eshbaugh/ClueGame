@@ -29,12 +29,13 @@ public class Board {
 
     public void initialize() {
         // Implementation to initialize the board
-    	layoutConfigFile = "ClueLayout306.csv";
-    	setupConfigFile = "ClueSetup306.txt";
+    	layoutConfigFile = "ClueLayout.csv";
+    	setupConfigFile = "ClueSetup.txt";
     	setConfigFiles(layoutConfigFile, setupConfigFile);
     	loadLayoutConfig();
     }
-
+    
+    //read and interpret the key for the rooms (txt file)
     public void loadSetupConfig() {
 
         try (Scanner scanner = new Scanner(new File(setupConfigFile))) {
@@ -111,6 +112,7 @@ public class Board {
     	}
     }
 
+    //load the layoutconfig file (csv file)
     public void loadLayoutConfig() { 	
          numRows = 25;
          numCols = 24;
