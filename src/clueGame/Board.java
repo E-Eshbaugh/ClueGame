@@ -35,9 +35,8 @@ public class Board {
 
     public void initialize() {
         // Implementation to initialize the board
-//    	//layoutConfigFile = "ClueLayout306.csv";
-    	layoutConfigFile =  "ClueLayout306.csv";
-    	setupConfigFile = "ClueSetup306.txt";
+    	layoutConfigFile =  "ClueLayout.csv";
+    	setupConfigFile = "ClueSetup.txt";
     	layoutConfigPath = Paths.get("ClueInitFiles", "data", layoutConfigFile);
     	setupConfigPath = Paths.get("ClueInitFiles", "data", setupConfigFile);
     	setConfigFiles(layoutConfigFile, setupConfigFile);
@@ -96,11 +95,27 @@ public class Board {
 
     //load the layoutconfig file (csv file)
     public void loadLayoutConfig() { 	
-         numRows = 25;
-         numCols = 24;
+         numRows = 0;
+         numCols = 0;
 //         grid = new BoardCell[numRows][numCols];
          try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
-             int row = 0;
+        	 //Get number of rows and columns
+        	 while (scanner.hasNextLine()) {
+        		 numRows++;
+        		 String curLine = scanner.nextLine();
+        		 numCols = curLine.length();
+        	 }
+        	 
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+         
+         numCols = (numCols+1)/2;
+         System.out.println(numRows);
+         System.out.println(numCols);
+         
+         try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))){
+        	 int row = 0;
              while (scanner.hasNextLine()) {
                  String line = scanner.nextLine().trim();
                  String[] values = line.split(",");
@@ -108,7 +123,7 @@ public class Board {
                      numCols = values.length;
                  }
                  if (grid == null) {
-                     numRows = 25; // You can dynamically adjust this if needed
+                     //numRows = 25; // You can dynamically adjust this if needed
                      grid = new BoardCell[numRows][numCols];
                  }
                  for (int col = 0; col < values.length; col++) {
@@ -117,7 +132,7 @@ public class Board {
                  row++;
              }
          } catch (IOException e) {
-             e.printStackTrace();
+        	 e.printStackTrace();
          }
          printGrid();
     }
