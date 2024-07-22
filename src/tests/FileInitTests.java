@@ -52,20 +52,20 @@ public class FileInitTests {
 	// These cells are white on the planning spreadsheet
 	@Test
 	public void FourDoorDirections() {
-		BoardCell cell = board.getCell(3, 7);
+		BoardCell cell = board.getCell(7, 3);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.UP, cell.getDoorDirection());
-		cell = board.getCell(7, 15);
+		cell = board.getCell(15, 7);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
-		cell = board.getCell(10, 3);
+		cell = board.getCell(3, 10);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.RIGHT, cell.getDoorDirection());
-		cell = board.getCell(3, 22);
+		cell = board.getCell(22, 3);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.DOWN, cell.getDoorDirection());
 		// Test that walkways are not doors
-		cell = board.getCell(3, 8);
+		cell = board.getCell(8, 3);
 		assertFalse(cell.isDoorway());
 	}
 	
@@ -76,7 +76,7 @@ public class FileInitTests {
 		int numDoors = 0;
 		for (int row = 0; row < board.getNumRows(); row++)
 			for (int col = 0; col < board.getNumColumns(); col++) {
-				BoardCell cell = board.getCell(col, row);
+				BoardCell cell = board.getCell(row, col);
 				if (cell.isDoorway())
 					numDoors++;
 			}
@@ -96,15 +96,15 @@ public class FileInitTests {
 		assertFalse( cell.isDoorway()) ;
 
 		//label cell test
-		cell = board.getCell(14, 0);
+		cell = board.getCell(0, 14);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
-		assertEquals( room.getName(), "Great Hall" ) ;
+		assertEquals( room.getName(), "Great Hall") ;
 		assertTrue( cell.isLabel() );
 		assertTrue( room.getLabelCell() == cell );
 		
 		//room center cell test
-		cell = board.getCell(3, 15);
+		cell = board.getCell(15, 3);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Armory" ) ;
@@ -112,14 +112,14 @@ public class FileInitTests {
 		assertTrue( room.getCenterCell() == cell );
 		
 		//Secret passage test -> Tower to Dungeon
-		cell = board.getCell(27, 39);
+		cell = board.getCell(39, 27);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Tower" ) ;
 		assertTrue( cell.getSecretPassage() == 'D' );
 		
 		//test a walkway
-		cell = board.getCell(7, 9);
+		cell = board.getCell(9, 7);
 		room = board.getRoom( cell );
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Walkway" ) ;
@@ -141,7 +141,7 @@ public class FileInitTests {
 	public void testFirstLast() {
 		BoardCell firstCell = board.getCell(0,0);
 		//col 27 and not 28 because 28 is Null type, (27,41) is last cell of any type
-		BoardCell lastCell = board.getCell(27,41);
+		BoardCell lastCell = board.getCell(41,27);
 		Room firstRoom = board.getRoom(firstCell);
 		Room lastRoom = board.getRoom(lastCell);
 		assertEquals(firstRoom.getName(), "Unused");
