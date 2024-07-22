@@ -1,3 +1,12 @@
+/*Board class
+ * 
+ * @author Ethan Eshbaugh
+ * @author Colin Myers
+ * 
+ * outlines the behaviors of the Board for clue game
+ * 
+ */
+
 package clueGame;
 
 import java.util.HashMap;
@@ -17,7 +26,7 @@ import java.nio.file.Paths;
 public class Board {
 	private BoardCell[][] grid;
 	public int numRows;
-	public int numCols;
+	public int numColumns;
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private Path layoutConfigPath;
@@ -47,24 +56,26 @@ public class Board {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				this.numRows++;
-				this.numCols = line.length();
+				this.numColumns = line.length();
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		this.numCols = (this.numCols+1)/2;
+		//get correct length (minus the ,'s)
+		this.numColumns = (this.numColumns+1)/2;
 	}
 
+	
     public void initialize() {
-    try {
-    	loadSetupConfig();
-		loadLayoutConfig();
-    } catch (Exception e) {
-    	e.printStackTrace();
-    }
+	    try {
+	    	loadSetupConfig();
+			loadLayoutConfig();
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
     }
    
+    
 	//read and interpret the key for the rooms (txt file)
 	public void loadSetupConfig(){
 		try (Scanner scanner = new Scanner(Files.newInputStream(setupConfigPath))) {
@@ -87,6 +98,7 @@ public class Board {
 						//append to errorlog before throwing exception
 						try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
 							errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
+							errorLogWrite.write("\n");
 						} catch (Exception e) {
 							System.out.println("ERROR WRITING TO errorlog.txt");
 							e.printStackTrace();
@@ -98,6 +110,7 @@ public class Board {
 					//append to errorlog before throwing exception
 					try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
 						errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad file format");
+						errorLogWrite.write("\n");
 					} catch (Exception e) {
 						System.out.println("ERROR WRITING TO errorlog.txt");
 						e.printStackTrace();
@@ -123,11 +136,11 @@ public class Board {
 				String line = scanner.nextLine().trim();
 				String[] values = line.split(",");
 				if (row == 0) {
-					numCols = values.length;
+					numColumns = values.length;
 				}
 				if (grid == null) {
 					//numRows = 25; // You can dynamically adjust this if needed
-					grid = new BoardCell[numRows][numCols];
+					grid = new BoardCell[numRows][numColumns];
 				}
 				for (int col = 0; col < values.length; col++) {
 					String cellValue = values[col].trim();
@@ -182,6 +195,7 @@ public class Board {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		//print out the map in character format
 		try {
 			printGrid();
 		}catch(Exception e) {
@@ -192,7 +206,7 @@ public class Board {
 	//DONT DELTE LATER WIHTOUT REWORKING THE TRY CATCH BLOCK ABOVE ^
 	public void printGrid() {
 		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numCols; col++) {
+			for (int col = 0; col < numColumns; col++) {
 				System.out.print(grid[row][col].getInitial() + " ");
 			}
 			System.out.println();
@@ -257,13 +271,14 @@ public class Board {
 	}
 
 	public int getNumColumns() {
-		return numCols;
+		return numColumns;
 	}
 
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col];
 	}
     
+	//set config files and the paths to them
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
         this.layoutConfigFile = layoutConfigFile;
         this.setupConfigFile = setupConfigFile;

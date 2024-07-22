@@ -62,7 +62,8 @@ public class BoardCell {
 	    public void setRoom(Room room) {
 	        this.room = room;
 	    }
-
+	    
+	    //if direction == none, isnt a door
 	    public boolean isDoorway() {
 	        return (room != null && room.getDoorDirection() != DoorDirection.NONE);
 	    }
