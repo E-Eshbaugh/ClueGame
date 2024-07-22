@@ -81,9 +81,7 @@ public class BoardCell {
 	    }
 
 	    public void setLabel(boolean roomLabel) {
-	        if (room != null) {
 	            room.setLabel(roomLabel);
-	        }
 	    }
 
 	    public boolean isRoomCenter() {
