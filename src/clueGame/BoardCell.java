@@ -1,3 +1,11 @@
+/*BoardCell
+ * 
+ * @author Colin Myers
+ * @author Ethan Eshbaugh
+ * 
+ * Board cell class to keep track of where each type of cell is on board
+ */
+
 package clueGame;
 
 
