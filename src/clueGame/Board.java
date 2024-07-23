@@ -71,6 +71,7 @@ public class Board {
 	    try {
 	    	loadSetupConfig();
 			loadLayoutConfig();
+			setAdjacencies();
 	    } catch (Exception e) {
 	    	//write to error log
 	    	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
@@ -151,8 +152,9 @@ public class Board {
 				}
 				for (int col = 0; col < values.length; col++) {
 					String cellValue = values[col].trim();
+//					System.out.println( cellValue);
 					char initial = cellValue.charAt(0);
-					BoardCell cell = new BoardCell(row, col, String.valueOf(initial));
+					BoardCell cell = new BoardCell(row, col, cellValue);
 
 
 					Room originalRoom = roomMap.get(initial);
@@ -213,11 +215,16 @@ public class Board {
 	//DONT DELTE LATER WIHTOUT REWORKING THE TRY CATCH BLOCK ABOVE ^
 	public void printGrid() {
 		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numColumns; col++) {
-				System.out.print(grid[row][col].getInitial() + " ");
-			}
-			System.out.println();
-		}
+	        for (int col = 0; col < numColumns; col++) {
+	            String initial = grid[row][col].getInitial();
+	            if (initial.length() > 1) {
+	                System.out.print(initial + ""); // Add extra space if the value is more than one letter
+	            } else {
+	                System.out.print(initial + " ");
+	            }
+	        }
+	        System.out.println();
+	    }
 	}
 	public void printRoomMap() {
 		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
@@ -225,17 +232,80 @@ public class Board {
 		}
 	}
 	//initializes cell adjacency lists for board, only runs once for whole game
-    private void setAdjacencies() {
-//        for (int row = 0; row < ROWS; row++) {
-//            for (int col = 0; col < COLS; col++) {
-//                TestBoardCell cell = board[row][col];
-//                if (row > 0) cell.addAdjacency(board[row - 1][col]);
-//                if (row < ROWS - 1) cell.addAdjacency(board[row + 1][col]);
-//                if (col > 0) cell.addAdjacency(board[row][col - 1]);
-//                if (col < COLS - 1) cell.addAdjacency(board[row][col + 1]);
-//            }
-//        }
-    }
+	private void setAdjacencies() {
+	    for (int row = 0; row < numRows; row++) {
+	        for (int col = 0; col < numColumns; col++) {
+	            BoardCell cell = grid[row][col];
+	            // Only set adjacencies if the cell is a walkway or a doorway
+	            if (cell.getInitial().equals("W") || cell.isDoorway()) {
+	                // Check adjacent cells
+	                // Up
+	                if (row > 0) {
+	                    BoardCell adj = grid[row - 1][col];
+	                    if (adj.getInitial().equals("W") || adj.isDoorway()) {
+	                        cell.addAdj(adj);
+	                    }
+	                }
+	                // Down
+	                if (row < numRows - 1) {
+	                    BoardCell adj = grid[row + 1][col];
+	                    if (adj.getInitial().equals("W") || adj.isDoorway()) {
+	                        cell.addAdj(adj);
+	                    }
+	                }
+	                // Left
+	                if (col > 0) {
+	                    BoardCell adj = grid[row][col - 1];
+	                    if (adj.getInitial().equals("W") || adj.isDoorway()) {
+	                        cell.addAdj(adj);
+	                    }
+	                }
+	                // Right
+	                if (col < numColumns - 1) {
+	                    BoardCell adj = grid[row][col + 1];
+	                    if (adj.getInitial().equals("W") || adj.isDoorway()) {
+	                        cell.addAdj(adj);
+	                    }
+	                }
+
+	                // If the cell is a doorway, add the center cell of the room it leads to
+	                if (cell.isDoorway()) {
+	                    BoardCell adj = null;
+	                    switch (cell.getDoorDirection()) {
+	                        case UP:
+	                            if (row > 0) {
+	                                adj = grid[row - 1][col];
+	                            }
+	                            break;
+	                        case DOWN:
+	                            if (row < numRows - 1) {
+	                                adj = grid[row + 1][col];
+	                            }
+	                            break;
+	                        case LEFT:
+	                            if (col > 0) {
+	                                adj = grid[row][col - 1];
+	                            }
+	                            break;
+	                        case RIGHT:
+	                            if (col < numColumns - 1) {
+	                                adj = grid[row][col + 1];
+	                            }
+	                            break;
+	                        default:
+	                            break;
+	                    }
+	                    if (adj != null && adj.getRoom() != null) {
+	                        BoardCell centerCell = adj.getRoom().getCenterCell();
+	                        if (centerCell != null) {
+	                            cell.addAdj(centerCell);
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	    }
+	}
     
     //BFD search, calculating targets for where player can move
     public void calcTargets(BoardCell boardCell, int pathLength) {
