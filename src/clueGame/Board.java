@@ -3,7 +3,8 @@
  * @author Ethan Eshbaugh
  * @author Colin Myers
  * 
- * outlines the behaviors of the Board for clue game
+ * outlines the behaviors of the Board for clue game, controls board actions
+ * info in class -> [the game board ("grid"), where each player is, player movement targets]
  * 
  */
 
@@ -71,7 +72,14 @@ public class Board {
 	    	loadSetupConfig();
 			loadLayoutConfig();
 	    } catch (Exception e) {
-	    	e.printStackTrace();
+	    	//write to error log
+	    	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
+				errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
+				errorLogWrite.write("\n");
+			} catch (Exception e2) {
+				System.out.println("ERROR WRITING TO errorlog.txt");
+				e.printStackTrace();
+			}
 	    }
     }
    

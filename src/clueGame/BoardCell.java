@@ -4,6 +4,7 @@
  * @author Ethan Eshbaugh
  * 
  * Board cell class to keep track of where each type of cell is on board
+ * info in class -> [current occupation, a room class, positions, and list of adjacent cells]
  */
 
 package clueGame;
@@ -18,15 +19,17 @@ import java.util.Set;
 public class BoardCell {
 	 public int row;
 	 public int col;
-	 private String initial;
+	 private String roomSymbol; //Rooms -> A,B,BS,C,D,DT,G,K,L,SB,T,TD 
+	 							//(* and # variant for every single letter e.g. for A, there is also A* and A# too)
+	 							//Non-Rooms -> N,W,W^,Wv,W>,W<,X
 	 private Room room; // Reference to the Room class
 	 private Set<BoardCell> adjList;
 	 public boolean isOccupied;
 
-	 public BoardCell(int row, int col, String initial) {
+	 public BoardCell(int row, int col, String symbol) {
 	        this.row = row;
 	        this.col = col;
-	        this.initial = initial;
+	        this.roomSymbol = symbol;
 	        this.adjList = new HashSet<>();
 	    }
 
@@ -48,11 +51,11 @@ public class BoardCell {
 	    }
 
 	    public String getInitial() {
-	        return initial;
+	        return roomSymbol;
 	    }
 
-	    public void setInitial(String initial) {
-	        this.initial = initial;
+	    public void setInitial(String symbol) {
+	        this.roomSymbol = symbol;
 	    }
 
 	    public Room getRoom() {
@@ -113,7 +116,8 @@ public class BoardCell {
 	    public void addAdj(BoardCell adj) {
 	        adjList.add(adj);
 	    }
-
+	    
+	    //equality override for comparison
 	    @Override
 	    public boolean equals(Object o) {
 	        if (this == o) return true;
@@ -121,7 +125,8 @@ public class BoardCell {
 	        BoardCell that = (BoardCell) o;
 	        return row == that.row && col == that.col;
 	    }
-
+	    
+	    //hash
 	    @Override
 	    public int hashCode() {
 	        return Objects.hash(row, col);
