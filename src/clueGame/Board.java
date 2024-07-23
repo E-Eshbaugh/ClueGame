@@ -28,10 +28,10 @@ public class Board {
 	private BoardCell[][] grid;
 	public int numRows;
 	public int numColumns;
-	private String layoutConfigFile;
-	private String setupConfigFile;
-	private Path layoutConfigPath;
-	private Path setupConfigPath;
+	private String configFileCSV;
+	private String configFileTXT;
+	private Path csvFilePath;
+	private Path txtFilePath;
 	public Map<Character, Room> roomMap;
 	private static Board theInstance = new Board();
 	private Set<BoardCell> targets;
@@ -40,10 +40,10 @@ public class Board {
     // Private constructor for singleton pattern
     private Board() {
     	roomMap = new HashMap<>();
-    	layoutConfigFile =  "ClueLayout306.csv";
-    	setupConfigFile = "ClueSetup306.txt";
-    	layoutConfigPath = Paths.get("ClueInitFiles", "data", layoutConfigFile);
-    	setupConfigPath = Paths.get("ClueInitFiles", "data", setupConfigFile);
+    	configFileCSV =  "ClueLayout306.csv";
+    	configFileTXT = "ClueSetup306.txt";
+    	csvFilePath = Paths.get("ClueInitFiles", "data", configFileCSV);
+    	txtFilePath = Paths.get("ClueInitFiles", "data", configFileTXT);
     }
 
 	// Static method to get the single instance of the Board
@@ -53,7 +53,7 @@ public class Board {
 	
 	//Updates row and col nums based on the file
 	public void updateDimensions() {
-		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))){
+		try (Scanner scanner = new Scanner(Files.newInputStream(csvFilePath))){
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				this.numRows++;
@@ -74,7 +74,7 @@ public class Board {
 	    } catch (Exception e) {
 	    	//write to error log
 	    	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-				errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
+				errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad value in file");
 				errorLogWrite.write("\n");
 			} catch (Exception e2) {
 				System.out.println("ERROR WRITING TO errorlog.txt");
@@ -86,7 +86,7 @@ public class Board {
     
 	//read and interpret the key for the rooms (txt file)
 	public void loadSetupConfig(){
-		try (Scanner scanner = new Scanner(Files.newInputStream(setupConfigPath))) {
+		try (Scanner scanner = new Scanner(Files.newInputStream(txtFilePath))) {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine().trim();
 				if (line.startsWith("//") || line.isEmpty()) {
@@ -105,7 +105,7 @@ public class Board {
 					} else {
 						//append to errorlog before throwing exception
 						try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-							errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
+							errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad value in file");
 							errorLogWrite.write("\n");
 						} catch (Exception e) {
 							System.out.println("ERROR WRITING TO errorlog.txt");
@@ -117,7 +117,7 @@ public class Board {
 				} else {
 					//append to errorlog before throwing exception
 					try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-						errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad file format");
+						errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad file format");
 						errorLogWrite.write("\n");
 					} catch (Exception e) {
 						System.out.println("ERROR WRITING TO errorlog.txt");
@@ -135,10 +135,9 @@ public class Board {
 	}
 
 	//load the layoutconfig file (csv file)
-
 	public void loadLayoutConfig() throws BadConfigFormatException{ 	
 		this.updateDimensions();
-		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
+		try (Scanner scanner = new Scanner(Files.newInputStream(csvFilePath))) {
 			int row = 0;
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine().trim();
@@ -288,10 +287,10 @@ public class Board {
     
 	//set config files and the paths to them
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
-        this.layoutConfigFile = layoutConfigFile;
-        this.setupConfigFile = setupConfigFile;
-        this.layoutConfigPath = Paths.get("ClueInitFiles", "data", this.layoutConfigFile);
-    	this.setupConfigPath = Paths.get("ClueInitFiles", "data", this.setupConfigFile);
+        this.configFileCSV = layoutConfigFile;
+        this.configFileTXT = setupConfigFile;
+        this.csvFilePath = Paths.get("ClueInitFiles", "data", this.configFileCSV);
+    	this.txtFilePath = Paths.get("ClueInitFiles", "data", this.configFileTXT);
     }
 
 	public Set<BoardCell> getAdjList(int i, int j) {
@@ -303,9 +302,4 @@ public class Board {
 		return targets;
 	}
     
-    
-
-
-
-
 }
