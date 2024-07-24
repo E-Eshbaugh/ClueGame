@@ -33,13 +33,16 @@ public class Board {
 	private Path csvFilePath;
 	private Path txtFilePath;
 	public Map<Character, Room> roomMap;
+	public Map<Character, Room> roomCenterMap;
 	private static Board theInstance = new Board();
 	private Set<BoardCell> targets;
+	
 
 
     // Private constructor for singleton pattern
     private Board() {
     	roomMap = new HashMap<>();
+    	roomCenterMap = new HashMap<>();
     	configFileCSV =  "ClueLayout306.csv";
     	configFileTXT = "ClueSetup306.txt";
     	csvFilePath = Paths.get("ClueInitFiles", "data", configFileCSV);
@@ -160,6 +163,7 @@ public class Board {
 					Room originalRoom = roomMap.get(initial);
 					if (originalRoom != null) {
 						Room roomCopy = new Room(originalRoom.getName());
+						//roomCopy.setCenterCell(cell);
 						cell.setRoom(roomCopy);
 					}
 
@@ -210,7 +214,27 @@ public class Board {
 		}catch(Exception e) {
 			throw new BadConfigFormatException();
 		}
+		setRoomCenters();
+		printCenterRoomMap();
+		System.out.println(grid[3][20] + "is" +grid[3][20].getRoom().isRoomCenter());
 	}
+	
+	// Fill the roomCenterMap
+	private void setRoomCenters() {
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numColumns; col++) {
+                BoardCell cell = grid[row][col];
+                if (cell.isRoomCenter()) {
+                    Room room = cell.getRoom();
+                    if (room != null) {
+                        room.setCenterCell(cell);
+						roomCenterMap.put(Character.valueOf(room.getName().charAt(0)), cell.getRoom()); 
+						
+                    }
+                }
+            }
+        }
+    }
 
 	//DONT DELTE LATER WIHTOUT REWORKING THE TRY CATCH BLOCK ABOVE ^
 	public void printGrid() {
@@ -231,11 +255,17 @@ public class Board {
 			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName());
 		}
 	}
+	public void printCenterRoomMap() {
+		for (Map.Entry<Character, Room> entry : roomCenterMap.entrySet()) {
+			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName()+  entry.getValue().getCenterCell());
+		}
+	}
 	//initializes cell adjacency lists for board, only runs once for whole game
 	private void setAdjacencies() {
 	    for (int row = 0; row < numRows; row++) {
 	        for (int col = 0; col < numColumns; col++) {
 	            BoardCell cell = grid[row][col];
+
 	            // Only set adjacencies if the cell is a walkway or a doorway
 	            if (cell.getInitial().equals("W") || cell.isDoorway()) {
 	                // Check adjacent cells
@@ -300,6 +330,58 @@ public class Board {
 	                        if (centerCell != null) {
 	                            cell.addAdj(centerCell);
 	                        }
+	                    }
+	                }
+	            }
+	            //setCenterCell
+	            
+	            // Set the center cell of a room to have its adjacencies as all doors leading to the room
+	            if (cell.isRoomCenter()) {
+	                Room room = cell.getRoom();
+	                for (int r = 0; r < numRows; r++) {
+	                    for (int c = 0; c < numColumns; c++) {
+	                        BoardCell potentialDoor = grid[r][c];
+	                        if (potentialDoor.isDoorway()) {
+	                            BoardCell adj = null;
+	                            switch (potentialDoor.getDoorDirection()) {
+	                                case UP:
+	                                    if (r > 0) {
+	                                        adj = grid[r - 1][c];
+	                                    }
+	                                    break;
+	                                case DOWN:
+	                                    if (r < numRows - 1) {
+	                                        adj = grid[r + 1][c];
+	                                    }
+	                                    break;
+	                                case LEFT:
+	                                    if (c > 0) {
+	                                        adj = grid[r][c - 1];
+	                                    }
+	                                    break;
+	                                case RIGHT:
+	                                    if (c < numColumns - 1) {
+	                                        adj = grid[r][c + 1];
+	                                    }
+	                                    break;
+	                                default:
+	                                    break;
+	                            }
+	                            if (adj != null && adj.getRoom() == room) {
+	                                cell.addAdj(potentialDoor);
+	                            }
+	                        }
+	                    }
+	                }
+	            }
+
+	            // Set the center cell that the secret passage leads to
+	            if (cell.getSecretPassage() != '\0') {
+	                Room secretRoom = getRoom(cell.getSecretPassage());
+	                if (secretRoom != null) {
+	                    BoardCell centerCell = secretRoom.getCenterCell();
+	                    if (centerCell != null) {
+	                        cell.addAdj(centerCell);
 	                    }
 	                }
 	            }
