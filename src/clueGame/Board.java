@@ -221,6 +221,7 @@ public class Board {
 		printRoomMap();
 //		System.out.println(grid[3][20] + " " + grid[3][20].getRoom().getName() + "is" +grid[3][20].getRoom().isRoomCenter());
 //		System.out.println(grid[14][2] + "is" +grid[3][20].getRoom().isRoomCenter());
+		System.out.println(grid[3][3] + " center cell is" +grid[3][3].getRoom().getCenterCell());
 		
 	}
 	
@@ -390,7 +391,7 @@ public class Board {
 	                                default:
 	                                    break;
 	                            }
-	                            if (adj != null && adj.getRoom() == room) {
+	                            if (adj != null && adj.getRoom().getCenterCell().equals(cell) ) {
 	                                cell.addAdj(potentialDoor);
 	                            }
 	                        }
