@@ -31,6 +31,7 @@ public class BoardCell {
 	        this.col = col;
 	        this.roomSymbol = symbol;
 	        this.adjList = new HashSet<>();
+	        isOccupied = false;
 	    }
 
 	    // Getters and setters for the attributes
@@ -140,5 +141,10 @@ public class BoardCell {
 		public void setOccupied(boolean b) {
 			isOccupied = b;
 			
+		}
+		
+		//occupation getter
+		public boolean getOccupied() {
+			return isOccupied;
 		}
 	}

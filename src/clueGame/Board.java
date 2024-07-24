@@ -309,30 +309,31 @@ public class Board {
     
     //BFD search, calculating targets for where player can move
     public void calcTargets(BoardCell boardCell, int pathLength) {
-//        targets.clear();
-//        Set<TestBoardCell> visited = new HashSet<>();
-//        visited.add(startCell);
-//        findAllTargets(startCell, pathLength, visited);
+        targets = new HashSet<>();
+        Set<BoardCell> visited = new HashSet<>();
+        visited.add(boardCell);
+        findAllTargets(boardCell, pathLength, visited);
+        targets = visited;
     }
     
-    //part of BFD search for finding movement targets 3 steps away
+    //part of BFD search for finding movement targets
     private void findAllTargets(BoardCell cell, int steps, Set<BoardCell> visited) {
     	
-//    	//for all adjacent spots to each cell, starting at desired first cell
-//        for (TestBoardCell adj : cell.getAdjList()) {
-//        	//if cell is occupied skip this iteration
-//            if (visited.contains(adj) || adj.getOccupied()) continue;
-//            //add cell's adjacencies to visited
-//            visited.add(adj);
-//            //if at last step, add to targets list
-//            if (steps == 1 || adj.isRoom()) {
-//                targets.add(adj);
-//            //continue until at step 3
-//            } else {
-//                findAllTargets(adj, steps - 1, visited);
-//            }
-//            visited.remove(adj);
-//        }
+//    	for all adjacent spots to each cell, starting at desired first cell
+        for (BoardCell currCell : cell.getAdjList()) {
+//        	if cell is occupied or has already been visited, skip this iteration
+            if (visited.contains(currCell) || currCell.getOccupied()) continue;
+//            add current cell to list of visited cells
+            visited.add(currCell);
+//            if at last step, add to targets list
+            if (steps == 1 ) {
+                targets.add(currCell);
+            //continue until at step 3
+            } else {
+                findAllTargets(currCell, steps - 1, visited);
+            }
+            visited.remove(currCell);
+        }
     }
 
 	public Room getRoom(char initial) {
