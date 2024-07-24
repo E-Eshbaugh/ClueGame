@@ -3,7 +3,8 @@
  * @author Ethan Eshbaugh
  * @author Colin Myers
  * 
- * outlines the behaviors of the Board for clue game
+ * outlines the behaviors of the Board for clue game, controls board actions
+ * info in class -> [the game board ("grid"), where each player is, player movement targets]
  * 
  */
 
@@ -27,10 +28,10 @@ public class Board {
 	private BoardCell[][] grid;
 	public int numRows;
 	public int numColumns;
-	private String layoutConfigFile;
-	private String setupConfigFile;
-	private Path layoutConfigPath;
-	private Path setupConfigPath;
+	private String configFileCSV;
+	private String configFileTXT;
+	private Path csvFilePath;
+	private Path txtFilePath;
 	public Map<Character, Room> roomMap;
 	public Map<Character, Room> roomCenterMap;
 	private static Board theInstance = new Board();
@@ -42,10 +43,10 @@ public class Board {
     private Board() {
     	roomMap = new HashMap<>();
     	roomCenterMap = new HashMap<>();
-    	layoutConfigFile =  "ClueLayout306.csv";
-    	setupConfigFile = "ClueSetup306.txt";
-    	layoutConfigPath = Paths.get("ClueInitFiles", "data", layoutConfigFile);
-    	setupConfigPath = Paths.get("ClueInitFiles", "data", setupConfigFile);
+    	configFileCSV =  "ClueLayout306.csv";
+    	configFileTXT = "ClueSetup306.txt";
+    	csvFilePath = Paths.get("ClueInitFiles", "data", configFileCSV);
+    	txtFilePath = Paths.get("ClueInitFiles", "data", configFileTXT);
     }
 
 	// Static method to get the single instance of the Board
@@ -55,7 +56,7 @@ public class Board {
 	
 	//Updates row and col nums based on the file
 	public void updateDimensions() {
-		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))){
+		try (Scanner scanner = new Scanner(Files.newInputStream(csvFilePath))){
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				this.numRows++;
@@ -75,14 +76,21 @@ public class Board {
 			loadLayoutConfig();
 			setAdjacencies();
 	    } catch (Exception e) {
-	    	e.printStackTrace();
+	    	//write to error log
+	    	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
+				errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad value in file");
+				errorLogWrite.write("\n");
+			} catch (Exception e2) {
+				System.out.println("ERROR WRITING TO errorlog.txt");
+				e.printStackTrace();
+			}
 	    }
     }
    
     
 	//read and interpret the key for the rooms (txt file)
 	public void loadSetupConfig(){
-		try (Scanner scanner = new Scanner(Files.newInputStream(setupConfigPath))) {
+		try (Scanner scanner = new Scanner(Files.newInputStream(txtFilePath))) {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine().trim();
 				if (line.startsWith("//") || line.isEmpty()) {
@@ -101,7 +109,7 @@ public class Board {
 					} else {
 						//append to errorlog before throwing exception
 						try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-							errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad value in file");
+							errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad value in file");
 							errorLogWrite.write("\n");
 						} catch (Exception e) {
 							System.out.println("ERROR WRITING TO errorlog.txt");
@@ -113,7 +121,7 @@ public class Board {
 				} else {
 					//append to errorlog before throwing exception
 					try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-						errorLogWrite.write("BadConfigFormatException thrown for " + setupConfigFile + " ... Bad file format");
+						errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad file format");
 						errorLogWrite.write("\n");
 					} catch (Exception e) {
 						System.out.println("ERROR WRITING TO errorlog.txt");
@@ -127,14 +135,13 @@ public class Board {
 		} catch (BadConfigFormatException e) {
 			System.out.println(e.getMessage());
 		}
-		printRoomMap();
+		//printRoomMap(); -----------------------------------------------------------------
 	}
 
 	//load the layoutconfig file (csv file)
-
 	public void loadLayoutConfig() throws BadConfigFormatException{ 	
 		this.updateDimensions();
-		try (Scanner scanner = new Scanner(Files.newInputStream(layoutConfigPath))) {
+		try (Scanner scanner = new Scanner(Files.newInputStream(csvFilePath))) {
 			int row = 0;
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine().trim();
@@ -203,7 +210,7 @@ public class Board {
 		}
 		//print out the map in character format
 		try {
-			printGrid();
+			//printGrid(); ----------------------------------------
 		}catch(Exception e) {
 			throw new BadConfigFormatException();
 		}
@@ -384,30 +391,30 @@ public class Board {
     
     //BFD search, calculating targets for where player can move
     public void calcTargets(BoardCell boardCell, int pathLength) {
-//        targets.clear();
-//        Set<TestBoardCell> visited = new HashSet<>();
-//        visited.add(startCell);
-//        findAllTargets(startCell, pathLength, visited);
+        targets = new HashSet<>();
+        Set<BoardCell> visited = new HashSet<>();
+        visited.add(boardCell);
+        findAllTargets(boardCell, pathLength, visited);
     }
     
-    //part of BFD search for finding movement targets 3 steps away
+    //part of BFD search for finding movement targets
     private void findAllTargets(BoardCell cell, int steps, Set<BoardCell> visited) {
     	
-//    	//for all adjacent spots to each cell, starting at desired first cell
-//        for (TestBoardCell adj : cell.getAdjList()) {
-//        	//if cell is occupied skip this iteration
-//            if (visited.contains(adj) || adj.getOccupied()) continue;
-//            //add cell's adjacencies to visited
-//            visited.add(adj);
-//            //if at last step, add to targets list
-//            if (steps == 1 || adj.isRoom()) {
-//                targets.add(adj);
-//            //continue until at step 3
-//            } else {
-//                findAllTargets(adj, steps - 1, visited);
-//            }
-//            visited.remove(adj);
-//        }
+//    	for all adjacent spots to each cell, starting at desired first cell
+        for (BoardCell currCell : cell.getAdjList()) {
+//        	if cell is occupied and isnt a room center, or has already been visited, skip this iteration
+            if (visited.contains(currCell) || (!currCell.isRoomCenter() && currCell.getOccupied())) continue;
+//            add current cell to list of visited cells
+            visited.add(currCell);
+//            if at last step, add to targets list
+            if (steps == 1 ) {
+                targets.add(currCell);
+            //continue until at step number passed into method
+            } else {
+                findAllTargets(currCell, steps - 1, visited);
+            }
+            visited.remove(currCell);
+        }
     }
 
 	public Room getRoom(char initial) {
@@ -432,10 +439,10 @@ public class Board {
     
 	//set config files and the paths to them
     public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
-        this.layoutConfigFile = layoutConfigFile;
-        this.setupConfigFile = setupConfigFile;
-        this.layoutConfigPath = Paths.get("ClueInitFiles", "data", this.layoutConfigFile);
-    	this.setupConfigPath = Paths.get("ClueInitFiles", "data", this.setupConfigFile);
+        this.configFileCSV = layoutConfigFile;
+        this.configFileTXT = setupConfigFile;
+        this.csvFilePath = Paths.get("ClueInitFiles", "data", this.configFileCSV);
+    	this.txtFilePath = Paths.get("ClueInitFiles", "data", this.configFileTXT);
     }
 
 	public Set<BoardCell> getAdjList(int i, int j) {
@@ -443,13 +450,7 @@ public class Board {
 	}
 
 	public Set<BoardCell> getTargets() { 
-		targets = new HashSet<>();
 		return targets;
 	}
     
-    
-
-
-
-
 }

@@ -4,13 +4,14 @@ package clueGame;
  * @author Colin Myers
  * @author Ethan Eshbaugh
  * 
- * Room class to keep track of room names and functionality
+ * Room class to keep track of room names and functionality 
+ * info in class -> [door status, center or label, and secret passage status]
  */
 
 public class Room {
-    private String name;
-    private boolean roomLabel;
-    private boolean roomCenter;
+    private String roomName;
+    private boolean isRoomLabel;
+    private boolean isRoomCenter;
     private char secretPassage;
     private DoorDirection doorDirection = DoorDirection.NONE; 
     private BoardCell labelCell;
@@ -18,33 +19,33 @@ public class Room {
 
     // Getters and setters for the attributes
     public Room(String roomName) {
-        this.name = roomName;
-        roomLabel = false;
+        this.roomName = roomName;
+        isRoomLabel = false;
     }
 
     public String getName() {
-        return name;
+        return roomName;
         
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.roomName = name;
     }
 
     public boolean isLabel() {
-        return roomLabel;
+        return isRoomLabel;
     }
 
     public void setLabel(boolean roomLabel) {
-        this.roomLabel = roomLabel;
+        this.isRoomLabel = roomLabel;
     }
 
     public boolean isRoomCenter() {
-        return roomCenter;
+        return isRoomCenter;
     }
 
     public void setRoomCenter(boolean roomCenter) {
-        this.roomCenter = roomCenter;
+        this.isRoomCenter = roomCenter;
     }
 
     public char getSecretPassage() {

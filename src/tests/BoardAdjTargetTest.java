@@ -132,7 +132,7 @@ public class BoardAdjTargetTest {
 	@Test
 	public void testTargetsAtDoor() {
 		// test a roll of 1, at door
-		board.calcTargets(board.getCell(15, 7), 1);
+		board.calcTargets(board.getCell(14, 7), 1);
 		Set<BoardCell> targets= board.getTargets();
 		assertEquals(4, targets.size());
 		assertTrue(targets.contains(board.getCell(15, 3)));
@@ -165,9 +165,9 @@ public class BoardAdjTargetTest {
 	// test to make sure occupied locations do not cause problems
 	public void testTargetsOccupied() {
 		// test a roll of 3 blocked 1 down
-		board.getCell(21, 6).setOccupied(true);
-		board.calcTargets(board.getCell(7, 21), 4);
-		board.getCell(21, 6).setOccupied(false);
+		board.getCell(6, 21).setOccupied(true);
+		board.calcTargets(board.getCell(7, 21), 3);
+		board.getCell(6, 21).setOccupied(false);
 		Set<BoardCell> targets = board.getTargets();
 		assertEquals(14, targets.size());
 		assertTrue(targets.contains(board.getCell(5, 22)));
