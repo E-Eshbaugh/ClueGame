@@ -135,7 +135,7 @@ public class Board {
 		} catch (BadConfigFormatException e) {
 			System.out.println(e.getMessage());
 		}
-		//printRoomMap(); -----------------------------------------------------------------
+		//printRoomMap();
 	}
 
 	//load the layoutconfig file (csv file)
@@ -215,8 +215,12 @@ public class Board {
 			throw new BadConfigFormatException();
 		}
 		setRoomCenters();
+		setRoomsCenterSpot();
 		printCenterRoomMap();
-		System.out.println(grid[3][20] + "is" +grid[3][20].getRoom().isRoomCenter());
+		printRoomMap();
+//		System.out.println(grid[3][20] + " " + grid[3][20].getRoom().getName() + "is" +grid[3][20].getRoom().isRoomCenter());
+//		System.out.println(grid[14][2] + "is" +grid[3][20].getRoom().isRoomCenter());
+		
 	}
 	
 	// Fill the roomCenterMap
@@ -228,13 +232,29 @@ public class Board {
                     Room room = cell.getRoom();
                     if (room != null) {
                         room.setCenterCell(cell);
-						roomCenterMap.put(Character.valueOf(room.getName().charAt(0)), cell.getRoom()); 
+						roomCenterMap.put(Character.valueOf(cell.getInitial().charAt(0)), cell.getRoom()); 
 						
                     }
                 }
             }
         }
     }
+	private void setRoomsCenterSpot() {
+	    for (int row = 0; row < numRows; row++) {
+	        for (int col = 0; col < numColumns; col++) {
+	            BoardCell cell = grid[row][col];
+	            char initial = cell.getInitial().charAt(0);
+	            if (roomCenterMap.containsKey(initial)) {
+	                Room room = roomMap.get(initial);
+	                if (room != null) {
+	                    BoardCell centerCell = roomCenterMap.get(initial).getCenterCell();
+	                    cell.getRoom().setCenterCell(centerCell);
+	                }
+	            }
+	        }
+	    }
+	}
+	
 
 	//DONT DELTE LATER WIHTOUT REWORKING THE TRY CATCH BLOCK ABOVE ^
 	public void printGrid() {
@@ -250,6 +270,8 @@ public class Board {
 	        System.out.println();
 	    }
 	}
+	
+	
 	public void printRoomMap() {
 		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
 			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName());
