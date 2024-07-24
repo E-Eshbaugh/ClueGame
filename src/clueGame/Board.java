@@ -132,7 +132,7 @@ public class Board {
 		} catch (BadConfigFormatException e) {
 			System.out.println(e.getMessage());
 		}
-		printRoomMap();
+		//printRoomMap(); -----------------------------------------------------------------
 	}
 
 	//load the layoutconfig file (csv file)
@@ -206,7 +206,7 @@ public class Board {
 		}
 		//print out the map in character format
 		try {
-			printGrid();
+			//printGrid(); ----------------------------------------
 		}catch(Exception e) {
 			throw new BadConfigFormatException();
 		}
@@ -313,7 +313,6 @@ public class Board {
         Set<BoardCell> visited = new HashSet<>();
         visited.add(boardCell);
         findAllTargets(boardCell, pathLength, visited);
-        targets = visited;
     }
     
     //part of BFD search for finding movement targets
@@ -321,14 +320,14 @@ public class Board {
     	
 //    	for all adjacent spots to each cell, starting at desired first cell
         for (BoardCell currCell : cell.getAdjList()) {
-//        	if cell is occupied or has already been visited, skip this iteration
-            if (visited.contains(currCell) || currCell.getOccupied()) continue;
+//        	if cell is occupied and isnt a room center, or has already been visited, skip this iteration
+            if (visited.contains(currCell) || (!currCell.isRoomCenter() && currCell.getOccupied())) continue;
 //            add current cell to list of visited cells
             visited.add(currCell);
 //            if at last step, add to targets list
             if (steps == 1 ) {
                 targets.add(currCell);
-            //continue until at step 3
+            //continue until at step number passed into method
             } else {
                 findAllTargets(currCell, steps - 1, visited);
             }
@@ -369,7 +368,6 @@ public class Board {
 	}
 
 	public Set<BoardCell> getTargets() { 
-		targets = new HashSet<>();
 		return targets;
 	}
     
