@@ -136,7 +136,7 @@ public class Board {
 			System.out.println(e.getMessage());
 		}
 
-		printRoomMap();
+		//printRoomMap();
 	}
 
 	//load the layoutconfig file (csv file)
@@ -217,12 +217,12 @@ public class Board {
 		}
 		setRoomCenters();
 		setRoomsCenterSpot();
-		printCenterRoomMap();
-		printRoomMap();
+//		printCenterRoomMap();
+//		printRoomMap();
 //		System.out.println(grid[3][20] + " " + grid[3][20].getRoom().getName() + "is" +grid[3][20].getRoom().isRoomCenter());
 //		System.out.println(grid[14][2] + "is" +grid[3][20].getRoom().isRoomCenter());
-		System.out.println(grid[3][0].getRoom().getName() + " center cell is" +grid[3][0].getRoom().getCenterCell());
-		System.out.println(grid[2][2].getRoom().getName() + " center cell is" +grid[2][2].getRoom().getCenterCell());
+//		System.out.println(grid[3][0].getRoom().getName() + " center cell is" +grid[3][0].getRoom().getCenterCell());
+//		System.out.println(grid[2][2].getRoom().getName() + " center cell is" +grid[2][2].getRoom().getCenterCell());
 		
 	}
 	
@@ -384,6 +384,7 @@ public class Board {
 	                for (int r = 0; r < numRows; r++) {
 	                    for (int c = 0; c < numColumns; c++) {
 	                        BoardCell potentialDoor = grid[r][c];
+	                     // 
 	                        if (potentialDoor.isDoorway()) {
 	                            BoardCell adj = null;
 	                            switch (potentialDoor.getDoorDirection()) {
@@ -414,6 +415,7 @@ public class Board {
 	                                cell.addAdj(potentialDoor);
 	                            }
 	                        }
+	                     // Secret passage check even though var name is potentialDoor, if the statement is true then potentialDoor is a secret passage
 	                        if (potentialDoor.getSecretPassage() != '\0') {
 	                        	BoardCell adj = null;
 	                        	if(potentialDoor.getRoom().getName().equals(cell.getRoom().getName()) ) {
