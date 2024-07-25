@@ -132,25 +132,25 @@ public class BoardAdjTargetTest {
 	@Test
 	public void testTargetsAtDoor() {
 		// test a roll of 1, at door
-		board.calcTargets(board.getCell(14, 7), 1);
+		board.calcTargets(board.getCell(7, 14), 1);
 		Set<BoardCell> targets= board.getTargets();
 		assertEquals(4, targets.size());
-		assertTrue(targets.contains(board.getCell(15, 3)));
-		assertTrue(targets.contains(board.getCell(14, 7)));	
-		assertTrue(targets.contains(board.getCell(15, 8)));	
+		assertTrue(targets.contains(board.getCell(3, 14)));
+		assertTrue(targets.contains(board.getCell(7, 13)));	
+		assertTrue(targets.contains(board.getCell(7, 15)));	
 		
 		// test a roll of 3
-		board.calcTargets(board.getCell(15, 7), 3);
+		board.calcTargets(board.getCell(7, 14), 3);
 		targets= board.getTargets();
-		assertEquals(12, targets.size());
-		assertTrue(targets.contains(board.getCell(3, 15)));
-		assertTrue(targets.contains(board.getCell(3, 20)));
+		assertEquals(16, targets.size());
+		assertTrue(targets.contains(board.getCell(3, 14)));
+		assertTrue(targets.contains(board.getCell(7, 13)));
 		assertTrue(targets.contains(board.getCell(10, 15)));	
 		assertTrue(targets.contains(board.getCell(7, 11)));
 		assertTrue(targets.contains(board.getCell(4, 19)));	
 		
 		// test a roll of 4
-		board.calcTargets(board.getCell(15, 7), 4);
+		board.calcTargets(board.getCell(7, 14), 4);
 		targets= board.getTargets();
 		//might not actually be 17 - hard to keep track (double check later when testing)
 		assertEquals(17, targets.size());

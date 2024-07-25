@@ -135,7 +135,8 @@ public class Board {
 		} catch (BadConfigFormatException e) {
 			System.out.println(e.getMessage());
 		}
-		//printRoomMap();
+
+		printRoomMap();
 	}
 
 	//load the layoutconfig file (csv file)
@@ -210,7 +211,7 @@ public class Board {
 		}
 		//print out the map in character format
 		try {
-			//printGrid(); ----------------------------------------
+			printGrid(); 
 		}catch(Exception e) {
 			throw new BadConfigFormatException();
 		}
