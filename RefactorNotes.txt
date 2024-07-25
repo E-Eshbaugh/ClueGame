@@ -30,16 +30,16 @@
 -more comprehensive method comments [include exceptions thrown and where they are going, what methods use it or what methods it uses, etc]
 ===========================================================================================
 
--- TODO --
-[] More comprehensive method comments
-[] Rework some try-catch blocks
-[] Remove commented out code blocks
-[] Rework setAdjacency to be easier to follow/slim it down (switch statement?)
-[] Look at moving setting up grid into getDimensions
-[] Comment out map print methods but keep the methods for testing and visualization
-[] Look at what room and cell actually do and rework to avoid extra getters setters
-[] Look into adding a getAll function 
-[] Implementing an AUTO function
-[] Add folders to hold logs and extra files
-
+-- TODO -----------------------------------------------------------------------------------
+[] More comprehensive method comments                                                     |
+[] Rework some try-catch blocks                                                           |
+[] Remove commented out code blocks                                                       | 
+[] Rework setAdjacency to be easier to follow/slim it down (switch statement?)            |
+[] Look at moving setting up grid into getDimensions                                      |
+[] Comment out map print methods but keep the methods for testing and visualization       |
+[] Look at what room and cell actually do and rework to avoid extra getters setters       |
+[] Look into adding a getAll function                                                     |
+[] Implementing an AUTO function                                                          |
+[] Add folders to hold logs and extra files                                               |
+-------------------------------------------------------------------------------------------
 
