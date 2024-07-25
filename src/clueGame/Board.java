@@ -459,7 +459,7 @@ public class Board {
 //            add current cell to list of visited cells
             visited.add(currCell);
 //            if at last step, add to targets list
-            if (steps == 1 ) {
+            if (steps == 1 || currCell.isRoomCenter()) {
                 targets.add(currCell);
             //continue until at step number passed into method
             } else {
