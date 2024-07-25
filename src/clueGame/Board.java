@@ -220,7 +220,8 @@ public class Board {
 		printRoomMap();
 //		System.out.println(grid[3][20] + " " + grid[3][20].getRoom().getName() + "is" +grid[3][20].getRoom().isRoomCenter());
 //		System.out.println(grid[14][2] + "is" +grid[3][20].getRoom().isRoomCenter());
-		System.out.println(grid[3][3] + " center cell is" +grid[3][3].getRoom().getCenterCell());
+		System.out.println(grid[3][0].getRoom().getName() + " center cell is" +grid[3][0].getRoom().getCenterCell());
+		System.out.println(grid[2][2].getRoom().getName() + " center cell is" +grid[2][2].getRoom().getCenterCell());
 		
 	}
 	
@@ -240,11 +241,29 @@ public class Board {
             }
         }
     }
+//	private void setRoomSecretPassage() {
+//        for (int row = 0; row < numRows; row++) {
+//            for (int col = 0; col < numColumns; col++) {
+//                BoardCell cell = grid[row][col];
+//                if (cell.is()) {
+//                    Room room = cell.getRoom();
+//                    if (room != null) {
+//                        room.setCenterCell(cell);
+//						roomCenterMap.put(Character.valueOf(cell.getInitial().charAt(0)), cell.getRoom()); 
+//						
+//                    }
+//                }
+//            }
+//        }
+//    }
 	private void setRoomsCenterSpot() {
 	    for (int row = 0; row < numRows; row++) {
 	        for (int col = 0; col < numColumns; col++) {
 	            BoardCell cell = grid[row][col];
 	            char initial = cell.getInitial().charAt(0);
+	            if(cell.getInitial().length() == 2 ) {
+	            	initial = cell.getInitial().charAt(1);
+	            } 
 	            if (roomCenterMap.containsKey(initial)) {
 	                Room room = roomMap.get(initial);
 	                if (room != null) {
@@ -393,6 +412,15 @@ public class Board {
 	                            if (adj != null && adj.getRoom().getCenterCell().equals(cell) ) {
 	                                cell.addAdj(potentialDoor);
 	                            }
+	                        }
+	                        if (potentialDoor.getSecretPassage() != '\0') {
+	                        	BoardCell adj = null;
+	                        	if(potentialDoor.getRoom().getName().equals(cell.getRoom().getName()) ) {
+	                        		adj = potentialDoor.getRoom().getCenterCell();
+	                        		cell.addAdj(adj); 
+	                        	}
+	                        	
+	    	                	   	               
 	                        }
 	                    }
 	                }

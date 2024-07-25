@@ -12,6 +12,7 @@ public class Room {
     private String roomName;
     private boolean isRoomLabel;
     private boolean isRoomCenter;
+    private boolean isRoomSecret;
     private char secretPassage;
     private DoorDirection doorDirection = DoorDirection.NONE; 
     private BoardCell labelCell;
@@ -21,6 +22,7 @@ public class Room {
     public Room(String roomName) {
         this.roomName = roomName;
         isRoomLabel = false;
+        isRoomSecret = false;
     }
 
     public String getName() {
@@ -79,4 +81,12 @@ public class Room {
     public void setCenterCell(BoardCell centerCell) {
         this.centerCell = centerCell;
     }
+
+	public boolean isRoomSecret() {
+		return isRoomSecret;
+	}
+
+	public void setRoomSecret(boolean isRoomSecret) {
+		this.isRoomSecret = isRoomSecret;
+	}
 }
