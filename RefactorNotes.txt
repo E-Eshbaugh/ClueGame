@@ -1,0 +1,45 @@
+-- Some Focus Areas --
+
+++++++++++++++++++++++++++++++++++++++++++
+- Organization and Cleanliness
+- Efficiency of approach
+- Consistency of code
+- Potential issues & exceptions
+- Simplicity
+++++++++++++++++++++++++++++++++++++++++++
+
+-- NOTES from Haleema and Mimi --
+
+-rename more specifically, setRoomCenters & setRoomCenterSpot
+-split by commas, into an array and array length for col num
+-remove commented out code sections
+-setAdjacency -> break up into more methods/make more readable and easier to follow
+ 
+
+-- NOTES for Haleema and Mimi --
+
+-Good method comments 
+-Maybe break up setupGrid a little bit more
+-rework so you can just use your one map instead of a map and a hashset
+-could possibly rework huge clusters of if else statements to switches (like in doorAdj)
+
+===========================================================================================
+[in reflection of reviewing Haleema & Mimi code for us]
+-maybe look at moving some of the cell/room set up from board into those classes
+-look at setting grid into setDimensions
+-more comprehensive method comments [include exceptions thrown and where they are going, what methods use it or what methods it uses, etc]
+===========================================================================================
+
+-- TODO --
+[] More comprehensive method comments
+[] Rework some try-catch blocks
+[] Remove commented out code blocks
+[] Rework setAdjacency to be easier to follow/slim it down (switch statement?)
+[] Look at moving setting up grid into getDimensions
+[] Comment out map print methods but keep the methods for testing and visualization
+[] Look at what room and cell actually do and rework to avoid extra getters setters
+[] Look into adding a getAll function 
+[] Implementing an AUTO function
+[] Add folders to hold logs and extra files
+
+
