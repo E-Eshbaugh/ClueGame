@@ -120,7 +120,7 @@ public class Board {
 					//bad file format overall
 				} else {
 					//append to errorlog before throwing exception
-					try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
+					try (FileWriter errorLogWrite = new FileWriter("logs/errorlog.txt", true)) {
 						errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad file format");
 						errorLogWrite.write("\n");
 					} catch (Exception e) {

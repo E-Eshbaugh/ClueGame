@@ -41,6 +41,6 @@
 [] Look at what room and cell actually do and rework to avoid extra getters setters       |
 [] Look into adding a getAll function                                                     |
 [] Implementing an AUTO function                                                          |
-[] Add folders to hold logs and extra files                                               |
+[X] Add folders to hold logs and extra files                                               |
 -------------------------------------------------------------------------------------------
 
