@@ -187,7 +187,7 @@ public class Board {
 	
 	/*===================================================================
 	 * load the layoutconfig file (CSV file)
-	 * Calls updateDimensions, setRoomCenters, and setRoomsCenterSpots
+	 * Calls updateDimensions, setRoomCenterInitials, and setRoomsCenterCells
 	 * Uses File Scanner, exceptions handled in method
 	 =====================================================================*/
 	public void loadLayoutConfig() throws BadConfigFormatException{ 	
@@ -265,8 +265,8 @@ public class Board {
 		}catch(Exception e) {
 			throw new BadConfigFormatException();
 		}
-		setRoomCenters();
-		setRoomsCenterSpot();
+		setRoomCenterInitials();
+		setRoomsCenterCell();
 		
 //		printCenterRoomMap();
 //		printRoomMap();
@@ -278,7 +278,7 @@ public class Board {
 	 * Fill the roomCenterMap
 	 * Maps all room center cells to their appropriate room symbols
 	 ==================================================================*/
-	private void setRoomCenters() {
+	private void setRoomCenterInitials() {
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numColumns; col++) {
                 BoardCell cell = grid[row][col];
@@ -300,7 +300,7 @@ public class Board {
 	 * Searches whole board and maps all room cells to their 
 	 * correct room center tile
 	 ================================================================*/
-	private void setRoomsCenterSpot() {
+	private void setRoomsCenterCell() {
 	    for (int row = 0; row < numRows; row++) {
 	        for (int col = 0; col < numColumns; col++) {
 	            BoardCell cell = grid[row][col];
