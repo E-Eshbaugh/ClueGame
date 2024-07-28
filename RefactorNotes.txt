@@ -34,7 +34,7 @@
 [] More comprehensive method comments                                                     |
 [] New names for setRoomCenters & setRoomCenterSpot                                       |    
 [] Rework some try-catch blocks                                                           |
-[] Remove commented out code blocks                                                       | 
+[X] Remove commented out code blocks                                                       | 
 [] Rework setAdjacency to be easier to follow/slim it down (switch statement?)            |
 [] Look at moving setting up grid into getDimensions                                      |
 [] Comment out map print methods but keep the methods for testing and visualization       |

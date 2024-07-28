@@ -18,52 +18,35 @@ public class Room {
     private BoardCell labelCell;
     private BoardCell centerCell;
 
-    // Getters and setters for the attributes
+    /*=======================================
+     * Constructor
+     =======================================*/
     public Room(String roomName) {
         this.roomName = roomName;
         isRoomLabel = false;
         isRoomSecret = false;
     }
 
+    
+    /*=======================================
+     * Getters and setters for the attributes
+     =======================================*/
+    //[Name]
     public String getName() {
-        return roomName;
-        
+        return roomName;   
     }
 
     public void setName(String name) {
         this.roomName = name;
     }
-
+    
+    //[Label
     public boolean isLabel() {
         return isRoomLabel;
     }
 
     public void setLabel(boolean roomLabel) {
         this.isRoomLabel = roomLabel;
-    }
-
-    public boolean isRoomCenter() {
-        return isRoomCenter;
-    }
-
-    public void setRoomCenter(boolean roomCenter) {
-        this.isRoomCenter = roomCenter;
-    }
-
-    public char getSecretPassage() {
-        return secretPassage;
-    }
-
-    public void setSecretPassage(char secretPassage) {
-        this.secretPassage = secretPassage;
-    }
-
-    public DoorDirection getDoorDirection() {
-        return doorDirection;
-    }
-
-    public void setDoorDirection(DoorDirection doorDirection) {
-        this.doorDirection = doorDirection;
     }
 
     public BoardCell getLabelCell() {
@@ -73,7 +56,15 @@ public class Room {
     public void setLabelCell(BoardCell labelCell) {
         this.labelCell = labelCell;
     }
+    //[Center]
+    public boolean isRoomCenter() {
+        return isRoomCenter;
+    }
 
+    public void setRoomCenter(boolean roomCenter) {
+        this.isRoomCenter = roomCenter;
+    }
+    
     public BoardCell getCenterCell() {
         return centerCell;
     }
@@ -82,11 +73,29 @@ public class Room {
         this.centerCell = centerCell;
     }
 
-	public boolean isRoomSecret() {
+    //[Secret Passage]
+    public char getSecretPassage() {
+        return secretPassage;
+    }
+
+    public void setSecretPassage(char secretPassage) {
+        this.secretPassage = secretPassage;
+    }
+    
+    public boolean isRoomSecret() {
 		return isRoomSecret;
 	}
-
+    
 	public void setRoomSecret(boolean isRoomSecret) {
 		this.isRoomSecret = isRoomSecret;
 	}
+
+    //[Doors]
+    public DoorDirection getDoorDirection() {
+        return doorDirection;
+    }
+
+    public void setDoorDirection(DoorDirection doorDirection) {
+        this.doorDirection = doorDirection;
+    }
 }

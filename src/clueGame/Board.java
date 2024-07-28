@@ -36,7 +36,9 @@ public class Board {
 	
 
 
-    // Private constructor for singleton pattern
+    /*=============================================
+     *  Private constructor for singleton pattern
+     =============================================*/
     private Board() {
     	roomMap = new HashMap<>();
     	roomCenterMap = new HashMap<>();
@@ -46,12 +48,67 @@ public class Board {
     	txtFilePath = Paths.get("ClueInitFiles", "data", configFileTXT);
     }
 
-	// Static method to get the single instance of the Board
+    
+    
+    /*==================================
+     * Getters & Setters
+     ===================================*/
+	public Room getRoom(char initial) {
+		return roomMap.get(initial);
+	}
+
+	public Room getRoom(BoardCell cell) {
+		return cell.getRoom();
+	}
+
+	public int getNumRows() {
+		return numRows;
+	}
+
+	public int getNumColumns() {
+		return numColumns;
+	}
+
+	public BoardCell getCell(int row, int col) {
+		return grid[row][col];
+	}
+	
+	public Set<BoardCell> getAdjList(int i, int j) {
+		return getCell(i,j).getAdjList();
+	}
+
+	public Set<BoardCell> getTargets() { 
+		return targets;
+	}
+    
+	
+    
+	/*========================================================
+	 * Static method to get the single instance of the Board
+	 ========================================================*/
 	public static Board getInstance() {
 		return theInstance;
 	}
 	
-	//Updates row and col nums based on the file
+	
+	
+	/*============================================
+	 * sets the config files and the 
+	 * relative paths to them
+	 ==============================================*/
+    public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
+        this.configFileCSV = layoutConfigFile;
+        this.configFileTXT = setupConfigFile;
+        this.csvFilePath = Paths.get("ClueInitFiles", "data", this.configFileCSV);
+    	this.txtFilePath = Paths.get("ClueInitFiles", "data", this.configFileTXT);
+    }
+	
+	
+	
+	/* ============================================================
+	 * Updates row and col nums based on the file
+	 * Uses File Scanner -> exceptions thrown handled in method
+	 ==============================================================*/
 	public void updateDimensions() {
 		try (Scanner scanner = new Scanner(Files.newInputStream(csvFilePath))){
 			while (scanner.hasNextLine()) {
@@ -67,25 +124,31 @@ public class Board {
 	}
 
 	
+	
+	/* ==============================================================
+	 * Initializes grid base on the files
+	 * Calls loadSetupConfig, loadLayoutConfig, and setAdjacencies
+	 * 
+	 * Runs once per board generation
+	 ================================================================*/
     public void initialize() {
 	    try {
 	    	loadSetupConfig();
 			loadLayoutConfig();
 			setAdjacencies();
 	    } catch (Exception e) {
-	    	//write to error log
-	    	try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-				errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad value in file");
-				errorLogWrite.write("\n");
-			} catch (Exception e2) {
-				System.out.println("ERROR WRITING TO errorlog.txt");
-				e.printStackTrace();
-			}
+	    	e.printStackTrace();
 	    }
     }
    
     
-	//read and interpret the key for the rooms (txt file)
+    
+	/*============================================================
+	 * read and interpret the key for the rooms (TXT file)
+	 * splits the file at commas and puts room type, name, and character into an string Array[3]
+	 * 
+	 * Uses File Scanner, IOExceptions and BadConfigFormatExceptions handled in method
+	 =============================================================*/
 	public void loadSetupConfig(){
 		try (Scanner scanner = new Scanner(Files.newInputStream(txtFilePath))) {
 			while (scanner.hasNextLine()) {
@@ -104,26 +167,10 @@ public class Board {
 						roomMap.put(initial, room);
 						//a line isnt formatted properly
 					} else {
-						//append to errorlog before throwing exception
-						try (FileWriter errorLogWrite = new FileWriter("errorlog.txt", true)) {
-							errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad value in file");
-							errorLogWrite.write("\n");
-						} catch (Exception e) {
-							System.out.println("ERROR WRITING TO errorlog.txt");
-							e.printStackTrace();
-						}
 						throw new BadConfigFormatException("Invalid type in setup configuration file: " + type);
 					}
 					//bad file format overall
 				} else {
-					//append to errorlog before throwing exception
-					try (FileWriter errorLogWrite = new FileWriter("logs/errorlog.txt", true)) {
-						errorLogWrite.write("BadConfigFormatException thrown for " + configFileTXT + " ... Bad file format");
-						errorLogWrite.write("\n");
-					} catch (Exception e) {
-						System.out.println("ERROR WRITING TO errorlog.txt");
-						e.printStackTrace();
-					}
 					throw new BadConfigFormatException("Invalid format in setup configuration file");
 				}
 			}
@@ -136,7 +183,13 @@ public class Board {
 		//printRoomMap();
 	}
 
-	//load the layoutconfig file (csv file)
+	
+	
+	/*===================================================================
+	 * load the layoutconfig file (CSV file)
+	 * Calls updateDimensions, setRoomCenters, and setRoomsCenterSpots
+	 * Uses File Scanner, exceptions handled in method
+	 =====================================================================*/
 	public void loadLayoutConfig() throws BadConfigFormatException{ 	
 		this.updateDimensions();
 		try (Scanner scanner = new Scanner(Files.newInputStream(csvFilePath))) {
@@ -214,16 +267,17 @@ public class Board {
 		}
 		setRoomCenters();
 		setRoomsCenterSpot();
+		
 //		printCenterRoomMap();
 //		printRoomMap();
-//		System.out.println(grid[3][20] + " " + grid[3][20].getRoom().getName() + "is" +grid[3][20].getRoom().isRoomCenter());
-//		System.out.println(grid[14][2] + "is" +grid[3][20].getRoom().isRoomCenter());
-//		System.out.println(grid[3][0].getRoom().getName() + " center cell is" +grid[3][0].getRoom().getCenterCell());
-//		System.out.println(grid[2][2].getRoom().getName() + " center cell is" +grid[2][2].getRoom().getCenterCell());
-		
 	}
 	
-	// Fill the roomCenterMap
+	
+	
+	/* =================================================================
+	 * Fill the roomCenterMap
+	 * Maps all room center cells to their appropriate room symbols
+	 ==================================================================*/
 	private void setRoomCenters() {
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numColumns; col++) {
@@ -239,8 +293,13 @@ public class Board {
             }
         }
     }
+	
+	
 
-	//Add comments here
+	/*================================================================
+	 * Searches whole board and maps all room cells to their 
+	 * correct room center tile
+	 ================================================================*/
 	private void setRoomsCenterSpot() {
 	    for (int row = 0; row < numRows; row++) {
 	        for (int col = 0; col < numColumns; col++) {
@@ -261,7 +320,11 @@ public class Board {
 	}
 	
 
-	//Add comments here
+	
+	/*==================================================
+	 * Provides a visual representation of the game map
+	 * for easier grid spot location
+	=================================================*/
 	public void printGrid() {
 		for (int row = 0; row < numRows; row++) {
 	        for (int col = 0; col < numColumns; col++) {
@@ -277,17 +340,35 @@ public class Board {
 	}
 	
 	
+	
+	/*=================================
+	 * Prints out the Room map with the 
+	 * room initial and name
+	 ====================================*/
 	public void printRoomMap() {
 		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
 			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName());
 		}
 	}
+	
+	
+	
+	/*====================================
+	 * Prints out the CenterRoomMap with the 
+	 * room initial and room center cell
+	 ======================================*/
 	public void printCenterRoomMap() {
 		for (Map.Entry<Character, Room> entry : roomCenterMap.entrySet()) {
 			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName()+  entry.getValue().getCenterCell());
 		}
 	}
-	//initializes cell adjacency lists for board, only runs once for whole game
+	
+	
+	
+	/*=============================================================================
+	 * initializes cell adjacency lists for each cell on the board
+	 * only runs once for whole game
+	 ==========================================================================*/
 	private void setAdjacencies() {
 	    for (int row = 0; row < numRows; row++) {
 	        for (int col = 0; col < numColumns; col++) {
@@ -360,7 +441,6 @@ public class Board {
 	                    }
 	                }
 	            }
-	            //setCenterCell
 	            
 	            // Set the center cell of a room to have its adjacencies as all doors leading to the room
 	            if (cell.isRoomCenter()) {
@@ -426,8 +506,15 @@ public class Board {
 	        }
 	    }
 	}
-    
-    //BFD search, calculating targets for where player can move
+	
+	
+	
+    /*===============================================================
+     * Begins a BFD search, calculating targets for 
+     * where player can move using adjacency list
+     * 
+     * Calls findAllTargets
+     ================================================================*/
     public void calcTargets(BoardCell boardCell, int pathLength) {
         targets = new HashSet<>();
         Set<BoardCell> visited = new HashSet<>();
@@ -435,7 +522,11 @@ public class Board {
         findAllTargets(boardCell, pathLength, visited);
     }
     
-    //part of BFD search for finding movement targets
+    /*============================================================
+     * Meat of the BFD search for finding movement targets
+     * 
+     * Calls itself recursively on each item in adjList
+     =============================================================*/
     private void findAllTargets(BoardCell cell, int steps, Set<BoardCell> visited) {
     	
 //    	for all adjacent spots to each cell, starting at desired first cell
@@ -453,42 +544,5 @@ public class Board {
             }
             visited.remove(currCell);
         }
-    }
-
-	public Room getRoom(char initial) {
-		return roomMap.get(initial);
-	}
-
-	public Room getRoom(BoardCell cell) {
-		return cell.getRoom();
-	}
-
-	public int getNumRows() {
-		return numRows;
-	}
-
-	public int getNumColumns() {
-		return numColumns;
-	}
-
-	public BoardCell getCell(int row, int col) {
-		return grid[row][col];
-	}
-    
-	//set config files and the paths to them
-    public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
-        this.configFileCSV = layoutConfigFile;
-        this.configFileTXT = setupConfigFile;
-        this.csvFilePath = Paths.get("ClueInitFiles", "data", this.configFileCSV);
-    	this.txtFilePath = Paths.get("ClueInitFiles", "data", this.configFileTXT);
-    }
-
-	public Set<BoardCell> getAdjList(int i, int j) {
-		return getCell(i,j).getAdjList();
-	}
-
-	public Set<BoardCell> getTargets() { 
-		return targets;
-	}
-    
+    }    
 }

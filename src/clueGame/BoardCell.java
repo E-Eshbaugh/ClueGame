@@ -24,6 +24,10 @@ public class BoardCell {
 	 private Set<BoardCell> adjList;
 	 public boolean isOccupied;
 
+	 
+	 /*=====================
+	  * BoardCell constructor
+	  =======================*/
 	 public BoardCell(int row, int col, String symbol) {
 	        this.row = row;
 	        this.col = col;
@@ -32,7 +36,11 @@ public class BoardCell {
 	        isOccupied = false;
 	    }
 
-	    // Getters and setters for the attributes
+	 
+	    /*======================================
+	     * Getters and setters for the attributes
+	     =======================================*/
+	 	//[Rows]
 	    public int getRow() {
 	        return row;
 	    }
@@ -40,7 +48,8 @@ public class BoardCell {
 	    public void setRow(int row) {
 	        this.row = row;
 	    }
-
+	    
+	    //[Columns]
 	    public int getCol() {
 	        return col;
 	    }
@@ -49,6 +58,7 @@ public class BoardCell {
 	        this.col = col;
 	    }
 
+	    //[Initial] 
 	    public String getInitial() {
 	        return roomSymbol;
 	    }
@@ -56,7 +66,8 @@ public class BoardCell {
 	    public void setInitial(String symbol) {
 	        this.roomSymbol = symbol;
 	    }
-
+	    
+	    //[Rooms]
 	    public Room getRoom() {
 	        return room;
 	    }
@@ -65,7 +76,7 @@ public class BoardCell {
 	        this.room = room;
 	    }
 	    
-	    //if direction == none, isnt a door
+	    //[Doorways]
 	    public boolean isDoorway() {
 	        return (room != null && room.getDoorDirection() != DoorDirection.NONE);
 	    }
@@ -79,7 +90,8 @@ public class BoardCell {
 	            room.setDoorDirection(doorDirection);
 	        }
 	    }
-
+	    
+	    //[Label]
 	    public boolean isLabel() {
 	        return room != null && room.isLabel();
 	    }
@@ -87,7 +99,8 @@ public class BoardCell {
 	    public void setLabel(boolean roomLabel) {
 	            room.setLabel(roomLabel);
 	    }
-
+	    
+	    //[Room Center]
 	    public boolean isRoomCenter() {
 	        return room != null && room.isRoomCenter();
 	    }
@@ -97,7 +110,8 @@ public class BoardCell {
 	            room.setRoomCenter(roomCenter);
 	        }
 	    }
-
+	    
+	    //[Secret Passage]
 	    public char getSecretPassage() {
 	        return room != null ? room.getSecretPassage() : '\0';
 	    }
@@ -107,7 +121,8 @@ public class BoardCell {
 	            room.setSecretPassage(secretPassage);
 	        }
 	    }
-
+	    
+	    //[Adjacency]
 	    public Set<BoardCell> getAdjList() {
 	        return adjList;
 	    }
@@ -116,7 +131,20 @@ public class BoardCell {
 	        adjList.add(adj);
 	    }
 	    
-	    //equality override for comparison
+	    //[Occupation]
+	    public void setOccupied(boolean b) {
+			isOccupied = b;
+			
+		}
+	
+		public boolean getOccupied() {
+			return isOccupied;
+		}
+	    
+	    
+	    /*=============================================
+	     * equality override for boardCell comparison
+	     ==============================================*/
 	    @Override
 	    public boolean equals(Object o) {
 	        if (this == o) return true;
@@ -125,24 +153,21 @@ public class BoardCell {
 	        return row == that.row && col == that.col;
 	    }
 	    
-	    //hash
+	    
+	    /*==================
+	     * hash functions
+	     ====================*/
 	    @Override
 	    public int hashCode() {
 	        return Objects.hash(row, col);
 	    }
 
+	    
+	    /*=================
+	     * toString
+	     ==================*/
 	    @Override
 	    public String toString() {
 	        return "Cell (" + row + "," + col + ")";
 	    }
-
-		public void setOccupied(boolean b) {
-			isOccupied = b;
-			
-		}
-		
-		//occupation getter
-		public boolean getOccupied() {
-			return isOccupied;
-		}
 	}
