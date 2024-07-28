@@ -14,8 +14,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-//import clueGame.Board;
-
 public class BoardCell {
 	 public int row;
 	 public int col;

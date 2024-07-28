@@ -14,9 +14,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import experiment.TestBoardCell;
-
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -242,21 +239,8 @@ public class Board {
             }
         }
     }
-//	private void setRoomSecretPassage() {
-//        for (int row = 0; row < numRows; row++) {
-//            for (int col = 0; col < numColumns; col++) {
-//                BoardCell cell = grid[row][col];
-//                if (cell.is()) {
-//                    Room room = cell.getRoom();
-//                    if (room != null) {
-//                        room.setCenterCell(cell);
-//						roomCenterMap.put(Character.valueOf(cell.getInitial().charAt(0)), cell.getRoom()); 
-//						
-//                    }
-//                }
-//            }
-//        }
-//    }
+
+	//Add comments here
 	private void setRoomsCenterSpot() {
 	    for (int row = 0; row < numRows; row++) {
 	        for (int col = 0; col < numColumns; col++) {
@@ -277,7 +261,7 @@ public class Board {
 	}
 	
 
-	//DONT DELTE LATER WIHTOUT REWORKING THE TRY CATCH BLOCK ABOVE ^
+	//Add comments here
 	public void printGrid() {
 		for (int row = 0; row < numRows; row++) {
 	        for (int col = 0; col < numColumns; col++) {
