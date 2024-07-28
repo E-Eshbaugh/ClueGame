@@ -33,11 +33,11 @@
 -- TODO -----------------------------------------------------------------------------------
 [X] More comprehensive method comments                                                     |
 [X] New names for setRoomCenters & setRoomCenterSpot                                       |    
-[] Rework some try-catch blocks                                                           |
+[X] Clean up some try-catch blocks                                                         |
 [X] Remove commented out code blocks                                                       | 
 [] Rework setAdjacency to be easier to follow/slim it down (switch statement?)            |
-[] Look at moving setting up grid into getDimensions                                      |
-[] Comment out map print methods but keep the methods for testing and visualization       |
+[X] Look at moving setting up grid into getDimensions                                      |
+[X] Comment out map print methods but keep the methods for testing and visualization       |
 [] Look at what room and cell actually do and rework to avoid extra getters setters       |
 [] Look into adding a getAll function                                                     |
 [] Implementing an AUTO function                                                          |

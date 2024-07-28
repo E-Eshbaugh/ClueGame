@@ -15,8 +15,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -106,7 +104,7 @@ public class Board {
 	
 	
 	/* ============================================================
-	 * Updates row and col nums based on the file
+	 * Updates row and col nums based on the file and initializes grid
 	 * Uses File Scanner -> exceptions thrown handled in method
 	 ==============================================================*/
 	public void updateDimensions() {
@@ -121,6 +119,9 @@ public class Board {
 		}
 		//get correct length (minus the ,'s)
 		this.numColumns = (this.numColumns+1)/2;
+		
+		//initialize grid
+		grid = new BoardCell[numRows][numColumns];
 	}
 	
 	
@@ -137,12 +138,14 @@ public class Board {
 
 	
 	
-	/* ==============================================================
+	/* ==================================================================================
 	 * Initializes grid base on the files
 	 * Calls loadSetupConfig, loadLayoutConfig, and setAdjacencies
+	 * Calls visualizeMap if not commented out - prints map to console
+	 * Catches BadConfigFormatExceptions from loadLayoutConfig & loadSetupConfig
 	 * 
 	 * Runs once per board generation
-	 ================================================================*/
+	 ===============================================================================*/
     public void initialize() {
 	    try {
 	    	loadSetupConfig();
@@ -152,7 +155,7 @@ public class Board {
 	    	e.printStackTrace();
 	    }
 	    
-	    //comment out to stop map from printing in console
+	    //====comment out to stop map from printing in console====
 	    visualizeMap();
     }
    
@@ -164,7 +167,7 @@ public class Board {
 	 * 
 	 * Uses File Scanner, IOExceptions and BadConfigFormatExceptions handled in method
 	 =============================================================*/
-	public void loadSetupConfig(){
+	public void loadSetupConfig() throws BadConfigFormatException{
 		try (Scanner scanner = new Scanner(Files.newInputStream(txtFilePath))) {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine().trim();
@@ -189,12 +192,9 @@ public class Board {
 					throw new BadConfigFormatException("Invalid format in setup configuration file");
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (BadConfigFormatException e) {
-			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			throw new BadConfigFormatException();
 		}
-
 	}
 
 	
@@ -214,13 +214,8 @@ public class Board {
 				if (row == 0) {
 					numColumns = values.length;
 				}
-				if (grid == null) {
-					//numRows = 25; // You can dynamically adjust this if needed
-					grid = new BoardCell[numRows][numColumns];
-				}
-				for (int col = 0; col < values.length; col++) {
+				for (int col = 0; col < numColumns; col++) {
 					String cellValue = values[col].trim();
-//					System.out.println( cellValue);
 					char initial = cellValue.charAt(0);
 					BoardCell cell = new BoardCell(row, col, cellValue);
 
@@ -228,7 +223,6 @@ public class Board {
 					Room originalRoom = roomMap.get(initial);
 					if (originalRoom != null) {
 						Room roomCopy = new Room(originalRoom.getName());
-						//roomCopy.setCenterCell(cell);
 						cell.setRoom(roomCopy);
 					}
 
@@ -270,12 +264,14 @@ public class Board {
 				}
 				row++;
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+			
+			//set up centers mapping
+			setRoomCenterInitials();
+			setRoomsCenterCell();
+			
+		} catch (Exception e) {
+			throw new BadConfigFormatException();
 		}
-		
-		setRoomCenterInitials();
-		setRoomsCenterCell();
 	}
 	
 	
