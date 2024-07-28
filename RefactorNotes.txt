@@ -32,7 +32,7 @@
 
 -- TODO -----------------------------------------------------------------------------------
 [X] More comprehensive method comments                                                     |
-[] New names for setRoomCenters & setRoomCenterSpot                                       |    
+[X] New names for setRoomCenters & setRoomCenterSpot                                       |    
 [] Rework some try-catch blocks                                                           |
 [X] Remove commented out code blocks                                                       | 
 [] Rework setAdjacency to be easier to follow/slim it down (switch statement?)            |

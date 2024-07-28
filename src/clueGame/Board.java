@@ -122,6 +122,18 @@ public class Board {
 		//get correct length (minus the ,'s)
 		this.numColumns = (this.numColumns+1)/2;
 	}
+	
+	
+	
+	/*==========================================
+	 * Visualizes map to console
+	 * Calls printCenterRoomMap & printRoomMap
+	 ============================================*/
+	public void visualizeMap() {
+		printGrid();
+		printCenterRoomMap();
+		printRoomMap();
+	}
 
 	
 	
@@ -139,6 +151,9 @@ public class Board {
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	    }
+	    
+	    //comment out to stop map from printing in console
+	    visualizeMap();
     }
    
     
@@ -180,7 +195,6 @@ public class Board {
 			System.out.println(e.getMessage());
 		}
 
-		//printRoomMap();
 	}
 
 	
@@ -259,17 +273,9 @@ public class Board {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//print out the map in character format
-		try {
-			printGrid(); 
-		}catch(Exception e) {
-			throw new BadConfigFormatException();
-		}
+		
 		setRoomCenterInitials();
 		setRoomsCenterCell();
-		
-//		printCenterRoomMap();
-//		printRoomMap();
 	}
 	
 	
