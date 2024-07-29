@@ -38,8 +38,8 @@
 [X] Rework setAdjacency to be easier to follow/slim it down (switch statement?)            |
 [X] Look at moving setting up grid into getDimensions                                      |
 [X] Comment out map print methods but keep the methods for testing and visualization       |
-[-] Look into adding a getAll function  // after refactorization was not needed                                                 |
-[-] Implementing an AUTO function       // after refactorization was not needed                                                     |
+[-] Look into adding a getAll function  // after refactorization was not needed            |
+[-] Implementing an AUTO function       // after refactorization was not needed            |
 [X] Add folders to hold logs and extra files                                               |
 -------------------------------------------------------------------------------------------
 
