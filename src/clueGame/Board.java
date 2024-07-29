@@ -174,7 +174,7 @@ public class Board {
 				if (line.startsWith("//") || line.isEmpty()) {
 					continue; // Skip comments and empty lines
 				}
-				//split the legend into the 3 seperate parts
+				//split the legend into the 3 separate parts
 				String[] parts = line.split(", ");
 				if (parts.length == 3) {
 					String type = parts[0];
@@ -183,7 +183,7 @@ public class Board {
 					if (type.equals("Room") || type.equals("Space")) {
 						Room room = new Room(name);
 						roomMap.put(initial, room);
-						//a line isnt formatted properly
+						//a line isn't formatted properly
 					} else {
 						throw new BadConfigFormatException("Invalid type in setup configuration file: " + type);
 					}
@@ -376,139 +376,120 @@ public class Board {
 	        for (int col = 0; col < numColumns; col++) {
 	            BoardCell cell = grid[row][col];
 
-	            // Only set adjacencies if the cell is a walkway or a doorway
 	            if (cell.getInitial().equals("W") || cell.isDoorway()) {
-	                // Check adjacent cells
-	                // Up
-	                if (row > 0) {
-	                    BoardCell adj = grid[row - 1][col];
-	                    if (adj.getInitial().equals("W") || adj.isDoorway()) {
-	                        cell.addAdj(adj);
-	                    }
-	                }
-	                // Down
-	                if (row < numRows - 1) {
-	                    BoardCell adj = grid[row + 1][col];
-	                    if (adj.getInitial().equals("W") || adj.isDoorway()) {
-	                        cell.addAdj(adj);
-	                    }
-	                }
-	                // Left
-	                if (col > 0) {
-	                    BoardCell adj = grid[row][col - 1];
-	                    if (adj.getInitial().equals("W") || adj.isDoorway()) {
-	                        cell.addAdj(adj);
-	                    }
-	                }
-	                // Right
-	                if (col < numColumns - 1) {
-	                    BoardCell adj = grid[row][col + 1];
-	                    if (adj.getInitial().equals("W") || adj.isDoorway()) {
-	                        cell.addAdj(adj);
-	                    }
-	                }
-
-	                // If the cell is a doorway, add the center cell of the room it leads to
-	                if (cell.isDoorway()) {
-	                    BoardCell adj = null;
-	                    switch (cell.getDoorDirection()) {
-	                        case UP:
-	                            if (row > 0) {
-	                                adj = grid[row - 1][col];
-	                            }
-	                            break;
-	                        case DOWN:
-	                            if (row < numRows - 1) {
-	                                adj = grid[row + 1][col];
-	                            }
-	                            break;
-	                        case LEFT:
-	                            if (col > 0) {
-	                                adj = grid[row][col - 1];
-	                            }
-	                            break;
-	                        case RIGHT:
-	                            if (col < numColumns - 1) {
-	                                adj = grid[row][col + 1];
-	                            }
-	                            break;
-	                        default:
-	                            break;
-	                    }
-	                    if (adj != null && adj.getRoom() != null) {
-	                        BoardCell centerCell = adj.getRoom().getCenterCell();
-	                        if (centerCell != null) {
-	                            cell.addAdj(centerCell);
-	                        }
-	                    }
-	                }
+	                addWalkwayOrDoorAdjacencies(row, col, cell);
+	                addDoorwayCenterAdjacency(row, col, cell);
 	            }
-	            
-	            // Set the center cell of a room to have its adjacencies as all doors leading to the room
+
 	            if (cell.isRoomCenter()) {
-	                Room room = cell.getRoom();
-	                for (int r = 0; r < numRows; r++) {
-	                    for (int c = 0; c < numColumns; c++) {
-	                        BoardCell potentialDoor = grid[r][c];
-	                     // 
-	                        if (potentialDoor.isDoorway()) {
-	                            BoardCell adj = null;
-	                            switch (potentialDoor.getDoorDirection()) {
-	                                case UP:
-	                                    if (r > 0) {
-	                                        adj = grid[r - 1][c];
-	                                    }
-	                                    break;
-	                                case DOWN:
-	                                    if (r < numRows - 1) {
-	                                        adj = grid[r + 1][c];
-	                                    }
-	                                    break;
-	                                case LEFT:
-	                                    if (c > 0) {
-	                                        adj = grid[r][c - 1];
-	                                    }
-	                                    break;
-	                                case RIGHT:
-	                                    if (c < numColumns - 1) {
-	                                        adj = grid[r][c + 1];
-	                                    }
-	                                    break;
-	                                default:
-	                                    break;
-	                            }
-	                            if (adj != null && adj.getRoom().getCenterCell().equals(cell) ) {
-	                                cell.addAdj(potentialDoor);
-	                            }
-	                        }
-	                     // Secret passage check even though var name is potentialDoor, if the statement is true then potentialDoor is a secret passage
-	                        if (potentialDoor.getSecretPassage() != '\0') {
-	                        	BoardCell adj = null;
-	                        	if(potentialDoor.getRoom().getName().equals(cell.getRoom().getName()) ) {
-	                        		adj = potentialDoor.getRoom().getCenterCell();
-	                        		cell.addAdj(adj); 
-	                        	}
-	                        	
-	    	                	   	               
-	                        }
-	                    }
-	                }
+	                addRoomCenterAdjacencies(cell);
 	            }
 
-	            // Set the center cell that the secret passage leads to
 	            if (cell.getSecretPassage() != '\0') {
-	                Room secretRoom = getRoom(cell.getSecretPassage());
-	                if (secretRoom != null) {
-	                    BoardCell centerCell = secretRoom.getCenterCell();
-	                    if (centerCell != null) {
-	                        cell.addAdj(centerCell);
-	                    }
+	                addSecretPassageAdjacency(cell);
+	            }
+	        }
+	    }
+	}
+	/*=============================================================================
+	 * Used by setAdjacencies to add all possible walkways
+	 ==========================================================================*/
+	private void addWalkwayOrDoorAdjacencies(int row, int col, BoardCell cell) {
+	    addAdjacency(cell, row - 1, col); // Up
+	    addAdjacency(cell, row + 1, col); // Down
+	    addAdjacency(cell, row, col - 1); // Left
+	    addAdjacency(cell, row, col + 1); // Right
+	}
+	/*=============================================================================
+	 * Used by addWalkwayOrDoorAdjacencies performs logic to ensure cell should 
+	 * be added and if so adds it.
+	 ==========================================================================*/
+	private void addAdjacency(BoardCell cell, int adjRow, int adjCol) {
+	    if (adjRow >= 0 && adjRow < numRows && adjCol >= 0 && adjCol < numColumns) {
+	        BoardCell adj = grid[adjRow][adjCol];
+	        if (adj.getInitial().equals("W") || adj.isDoorway()) {
+	            cell.addAdj(adj);
+	        }
+	    }
+	}
+	/*=============================================================================
+	 * Used by SetAdjacencies, adds the center room cell to adjacencies list
+	 * for Doorways
+	 ==========================================================================*/
+	private void addDoorwayCenterAdjacency(int row, int col, BoardCell cell) {
+	    if (cell.isDoorway()) {
+	        BoardCell adj = null;
+	        switch (cell.getDoorDirection()) {
+	            case UP:
+	                adj = row > 0 ? grid[row - 1][col] : null;
+	                break;
+	            case DOWN:
+	                adj = row < numRows - 1 ? grid[row + 1][col] : null;
+	                break;
+	            case LEFT:
+	                adj = col > 0 ? grid[row][col - 1] : null;
+	                break;
+	            case RIGHT:
+	                adj = col < numColumns - 1 ? grid[row][col + 1] : null;
+	                break;
+	        }
+	        if (adj != null && adj.getRoom() != null) {
+	            BoardCell centerCell = adj.getRoom().getCenterCell();
+	            if (centerCell != null) {
+	                cell.addAdj(centerCell);
+	            }
+	        }
+	    }
+	}
+	/*=============================================================================
+	 * Used by SetAdjacencies, adds doorways and secret passages to
+	 * the adj list for center room cells
+	 ==========================================================================*/
+	private void addRoomCenterAdjacencies(BoardCell cell) {
+	    Room room = cell.getRoom();
+	    for (int r = 0; r < numRows; r++) {
+	        for (int c = 0; c < numColumns; c++) {
+	            BoardCell potentialDoor = grid[r][c];
+	            if (potentialDoor.isDoorway()) {
+	                BoardCell adj = null;
+	                switch (potentialDoor.getDoorDirection()) {
+	                    case UP:
+	                        adj = r > 0 ? grid[r - 1][c] : null;
+	                        break;
+	                    case DOWN:
+	                        adj = r < numRows - 1 ? grid[r + 1][c] : null;
+	                        break;
+	                    case LEFT:
+	                        adj = c > 0 ? grid[r][c - 1] : null;
+	                        break;
+	                    case RIGHT:
+	                        adj = c < numColumns - 1 ? grid[r][c + 1] : null;
+	                        break;
 	                }
+	                if (adj != null && adj.getRoom().getCenterCell().equals(cell)) {
+	                    cell.addAdj(potentialDoor);
+	                }
+	            }
+	            if (potentialDoor.getSecretPassage() != '\0' && potentialDoor.getRoom().getName().equals(cell.getRoom().getName())) {
+	                cell.addAdj(potentialDoor.getRoom().getCenterCell());
 	            }
 	        }
 	    }
 	}
 	
+	/*=============================================================================
+	 * Used by SetAdjacencies, adds center cell
+	 * the adj list for secret passages
+	 ==========================================================================*/
+	private void addSecretPassageAdjacency(BoardCell cell) {
+	    Room secretRoom = getRoom(cell.getSecretPassage());
+	    if (secretRoom != null) {
+	        BoardCell centerCell = secretRoom.getCenterCell();
+	        if (centerCell != null) {
+	            cell.addAdj(centerCell);
+	        }
+	    }
+	}
 	
 	
     /*===============================================================
