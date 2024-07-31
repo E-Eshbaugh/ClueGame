@@ -44,6 +44,7 @@ class GameSetupTests {
 		assertEquals(seenCardTypes.size(), 3);
 	}
 	
+<<<<<<< HEAD
 	@Test
 	//Test composition of HumanPlayer
 	
@@ -56,4 +57,6 @@ class GameSetupTests {
 	@Test
 	//test the deal
 
+=======
+>>>>>>> 1fb78b0b978746be0670920d7bf108c31c2829b9
 }

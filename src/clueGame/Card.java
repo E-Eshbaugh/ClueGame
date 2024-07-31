@@ -3,6 +3,8 @@ package clueGame;
 public class Card {
     private String name;
     private CardType type;
+    private boolean isAnswer;
+    private boolean hasBeenDealt;
 
     // Enum for card types
     public enum CardType {
@@ -13,6 +15,8 @@ public class Card {
     public Card(String name, CardType type) {
         this.name = name;
         this.type = type;
+        this.hasBeenDealt = false;
+        this.isAnswer = false;
     }
 
     // Getter for name
@@ -41,4 +45,20 @@ public class Card {
     public String toString() {
         return "Card " + "name= " + name  + ", type= " + type;
     }
+
+	public boolean getAnswer() {
+		return isAnswer;
+	}
+
+	public void isAnswer(boolean isAnswer) {
+		this.isAnswer = isAnswer;
+	}
+
+	public boolean isHasBeenDealt() {
+		return hasBeenDealt;
+	}
+
+	public void setHasBeenDealt(boolean hasBeenDealt) {
+		this.hasBeenDealt = hasBeenDealt;
+	}
 }
