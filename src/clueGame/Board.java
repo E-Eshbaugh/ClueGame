@@ -10,6 +10,7 @@
 
 package clueGame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -31,6 +32,8 @@ public class Board {
 	public Map<Character, Room> roomCenterMap;
 	private static Board theInstance = new Board();
 	private Set<BoardCell> targets;
+	private ArrayList<Card> Deck;
+	private Solution theAnswer;
 	
 
 
@@ -78,6 +81,12 @@ public class Board {
 	public Set<BoardCell> getTargets() { 
 		return targets;
 	}
+    public void addCard(Card card) {
+    	Deck.add(card);
+    }
+    public ArrayList<Card> getCards() {
+        return Deck;
+    }
     
 	
     
@@ -365,6 +374,12 @@ public class Board {
 		}
 	}
 	
+	public void printDeck() {
+		for (Card card : Deck) {
+	        System.out.println(card);
+	    }
+	}
+	
 	
 	
 	/*=============================================================================
@@ -527,5 +542,10 @@ public class Board {
             }
             visited.remove(currCell);
         }
-    }    
+    }   
+    
+    public void deal() {
+    	//not yet implemented
+    }
 }
+
