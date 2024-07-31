@@ -1,0 +1,12 @@
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in fileBadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in fileBadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in fileBadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in fileBadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in fileBadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in fileBadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file
+BadConfigFormatException thrown for ClueSetupBadFormat306.txt ... Bad value in file

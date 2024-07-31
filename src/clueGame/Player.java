@@ -1,0 +1,73 @@
+/*Player Abstract Class
+ * 
+ * @author Ethan Eshbaugh
+ * @author Colin Meyers
+ * 
+ * Outlines the abstract behaviors and characteristics for a player object in Clue game
+ * Parent to HumanPlayer and ComputerPlayer
+ * 
+ * 7/31/2024
+ * 
+ */
+
+package clueGame;
+
+import java.awt.*;
+import java.util.*;
+
+public abstract class Player {
+	
+	private String name;
+	private Color pieceColor;
+	private int row, col;
+	private ArrayList<Card> hand;
+	
+	/*=======================
+	 * Player Constructor
+	 =========================*/
+	public Player(String name, Color color, int row, int col) {
+		this.name = name;
+		pieceColor = color;
+		this.row = row;
+		this.col = col;
+	}
+	
+	/*===================
+	 * Add card to hand
+	 ===================*/
+	public void updateHand(Card card) {
+		hand.add(card);
+	}
+	
+	/*==========================
+	 * Getters & setters
+	 =========================*/
+	public String getName() {
+		return name;
+	}
+	
+	public Color getColor() {
+		return pieceColor;
+	}
+	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getCol() {
+		return col;
+	}
+	
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	public void setCol(int col) {
+		this.col = col;
+	}
+	
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
+
+}
