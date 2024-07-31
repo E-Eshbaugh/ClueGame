@@ -10,11 +10,13 @@
 
 package clueGame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Scanner;
+import java.awt.Color;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,6 +33,8 @@ public class Board {
 	public Map<Character, Room> roomCenterMap;
 	private static Board theInstance = new Board();
 	private Set<BoardCell> targets;
+	private ArrayList<Player> players;
+	private ArrayList<Card> cards;
 	
 
 
@@ -78,7 +82,48 @@ public class Board {
 	public Set<BoardCell> getTargets() { 
 		return targets;
 	}
+	
+	public ArrayList<Card> getCards() {
+		return cards;
+	}
+	
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+	
+	
+	
+	/*===============================================
+	 * Generates a player and adds to player list
+	 * Used by loadSetupConfig
+	 ==============================================*/
+	public void generatePlayer(String name, Color color, int row, int col, boolean human) {
+		if (human) {
+			players.add(new HumanPlayer(name, color, row, col));
+		}
+		else players.add(new ComputerPlayer(name, color, row, col));
+	}
     
+	
+	
+	/*============================================
+	 * Randomly deal the cards out to the players
+	 * Calls shuffle
+	 ============================================*/
+	public void deal() {
+		
+	}
+	
+	
+	
+	/*=======================================================================
+	 * Creates and shuffles cards into a random order in cards ArrayList
+	 * Used by deal()
+	 ========================================================================*/
+	public void shuffle() {
+		
+	}
+	
 	
     
 	/*========================================================
@@ -151,6 +196,7 @@ public class Board {
 	    	loadSetupConfig();
 			loadLayoutConfig();
 			setAdjacencies();
+			deal();
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	    }
