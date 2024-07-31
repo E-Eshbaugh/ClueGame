@@ -12,4 +12,9 @@ Room, Courtyard, C
 Space, Unused, X
 Space, Walkway, W
 // Players
-Knight, grey, 
+Knight, LIGHT_GREY, 3, 8
+Mage, BLUE, 9, 3
+Queen, PINK, 37, 20
+Dragon, RED, 3, 20
+King, YELLOW, 37, 8
+Jester, GREEN, 11, 25
