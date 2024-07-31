@@ -75,7 +75,7 @@ public abstract class Player {
     // Override toString method (optional, for better readability)
     @Override
     public String toString() {
-        return "Player" + "name='" + name + '\'' + ", color=" + color + ", row=" + row + ", column=" + column + ", hand=" + hand;
+        return "Player" + "name='" + name + '\'' + ", color=" + pieceColor + ", row=" + row + ", column=" + col + ", hand=" + hand;
     }
     
     public abstract void makeMove();

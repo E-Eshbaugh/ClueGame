@@ -18,8 +18,8 @@ import java.awt.Color;
 public class ComputerPlayer extends Player {
 
 	// Constructor
-	public ComputerPlayer(String name, Color color, int row, int column) {
-		super(name, color, row, column);
+	public ComputerPlayer(String name, Color pieceColor, int row, int column) {
+		super(name, pieceColor, row, column);
 	}
 
 	@Override
