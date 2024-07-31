@@ -446,7 +446,7 @@ public class Board {
 	 * the adj list for center room cells
 	 ==========================================================================*/
 	private void addRoomCenterAdjacencies(BoardCell cell) {
-	    Room room = cell.getRoom();
+	    //Room room = cell.getRoom();
 	    for (int r = 0; r < numRows; r++) {
 	        for (int c = 0; c < numColumns; c++) {
 	            BoardCell potentialDoor = grid[r][c];
