@@ -6,6 +6,8 @@
  * Outlines the abstract behaviors and characteristics for a player object in Clue game
  * Parent to HumanPlayer and ComputerPlayer
  * 
+ * 1 human player and 5 bot players
+ * 
  * 7/31/2024
  * 
  */
