@@ -18,3 +18,10 @@ Queen, PINK, 37, 20
 Dragon, RED, 3, 20
 King, YELLOW, 37, 8
 Jester, GREEN, 11, 25
+//Weapons
+Weapon, Sword
+Weapon, Staff
+Weapon, Fire
+Weapon, Mace
+Weapon, Poison Bottle
+Weapon, Crossbow

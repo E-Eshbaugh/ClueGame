@@ -19,12 +19,15 @@ public class HumanPlayer extends Player {
 	/*==========================
 	 * HumanPlayer Constructor
 	 =======================*/
-	public HumanPlayer(String name, Color color, int row, int col) {
+	public HumanPlayer(String name, Color color, int row, int col, boolean human) {
 		// TODO Auto-generated constructor stub
-		super(name, color, row, col);
+		super(name, color, row, col, human);
 	}
 
     @Override
+    /*=====================================
+     * HumanPlayer override for movement
+     ====================================*/
     public void makeMove() {
         // Implementation for human player making a move
         System.out.println(getName() + " is making a move.");

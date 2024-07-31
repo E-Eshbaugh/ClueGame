@@ -25,6 +25,8 @@ public class Board {
 	private BoardCell[][] grid;
 	public int numRows;
 	public int numColumns;
+	private int numPlayers;
+	private int numCards;
 	private String configFileCSV;
 	private String configFileTXT;
 	private Path csvFilePath;
@@ -45,8 +47,8 @@ public class Board {
     private Board() {
     	roomMap = new HashMap<>();
     	roomCenterMap = new HashMap<>();
-    	configFileCSV =  "ClueLayout306.csv";
-    	configFileTXT = "ClueSetup306.txt";
+    	configFileCSV =  "ClueLayout.csv";
+    	configFileTXT = "ClueSetup.txt";
     	csvFilePath = Paths.get("ClueInitFiles", "data", configFileCSV);
     	txtFilePath = Paths.get("ClueInitFiles", "data", configFileTXT);
     }
@@ -56,6 +58,26 @@ public class Board {
     /*==================================
      * Getters & Setters
      ===================================*/
+    public void setNumPlayers(int num) {
+    	numPlayers = num;
+    }
+    
+    public int getNumPlayers() {
+    	return numPlayers;
+    }
+    
+    public void setNumCards(int num) {
+    	numCards = num;
+    }
+    
+    public int getNumCards() {
+    	return numCards;
+    }
+    
+    public Solution revealAnswer() {
+    	return theAnswer;
+    }
+    
 	public Room getRoom(char initial) {
 		return roomMap.get(initial);
 	}
@@ -103,9 +125,9 @@ public class Board {
 	 ==============================================*/
 	public void generatePlayer(String name, Color color, int row, int col, boolean human) {
 		if (human) {
-			players.add(new HumanPlayer(name, color, row, col));
+			players.add(new HumanPlayer(name, color, row, col, human));
 		}
-		else players.add(new ComputerPlayer(name, color, row, col));
+		else players.add(new ComputerPlayer(name, color, row, col, human));
 	}
     
 	
@@ -214,6 +236,7 @@ public class Board {
 	/*============================================================
 	 * read and interpret the key for the rooms (TXT file)
 	 * splits the file at commas and puts room type, name, and character into an string Array[3]
+	 * Also sets numPlayers and numCards after reading from file
 	 * 
 	 * Uses File Scanner, IOExceptions and BadConfigFormatExceptions handled in method
 	 =============================================================*/
@@ -255,7 +278,7 @@ public class Board {
 	 * Uses File Scanner, exceptions handled in method
 	 =====================================================================*/
 	public void loadLayoutConfig() throws BadConfigFormatException{ 	
-		this.updateDimensions();
+		updateDimensions();
 		try (Scanner scanner = new Scanner(Files.newInputStream(csvFilePath))) {
 			int row = 0;
 			while (scanner.hasNextLine()) {

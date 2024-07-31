@@ -21,18 +21,19 @@ class GameSetupTests {
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
 		// Initialize will load config files 
 		board.initialize();
+		
 	}
 
 	@Test
-	//test number of players for a standard game
+	//test number of players read in from txt
 	void numPlayers() {
-		assertEquals(board.getPlayers().size(), 6);
+		assertEquals(board.getPlayers().size(), board.getNumPlayers());
 	}
 	
 	@Test
 	//test number of cards in game and number for each type
 	void numCards() {
-		assertEquals(board.getCards().size(), 21);
+		assertEquals(board.getCards().size(), board.getNumCards());
 		ArrayList<Card.CardType> seenCardTypes = new ArrayList<Card.CardType>();
 		
 		//check the card types of each card and make sure there are 3 types
@@ -43,20 +44,69 @@ class GameSetupTests {
 		}
 		assertEquals(seenCardTypes.size(), 3);
 	}
-	
-<<<<<<< HEAD
+
 	@Test
 	//Test composition of HumanPlayer
+	void testHuman() {
+		//test number of humans
+		int numHumans =  0;
+		for (Player player : board.getPlayers()) {
+			if (player.isHuman()) numHumans++;
+		}
+		assertEquals(numHumans ,1);
+		
+		//test the characteristics
+		for (Player player : board.getPlayers()) {
+			if (player.isHuman()) {
+				assertNotNull(player.getName());
+				assertNotNull(player.getColor());
+				assertEquals(3, player.getHand().size());
+				assertTrue(player.isHuman());
+				
+			}
+		}
+	}
 	
 	@Test
 	//tests composition of ComputerPlayer
+	void testBots() {
+		//test number of humans
+		int numBot =  0;
+		for (Player player : board.getPlayers()) {
+			if (!player.isHuman()) numBot++;
+		}
+		assertEquals(numBot ,5);
+		
+		//test the characteristics
+		for (Player player : board.getPlayers()) {
+			if (!player.isHuman()) {
+				assertNotNull(player.getName());
+				assertNotNull(player.getColor());
+				assertEquals(3, player.getHand().size());
+				assertFalse(player.isHuman());
+				
+			}
+		}
+	}
 	
 	@Test
 	//test the solution
+	void testSolution() {
+		assertNotNull(board.revealAnswer().getWeapon());
+		assertNotNull(board.revealAnswer().getRoom());
+		assertNotNull(board.revealAnswer().getPerson());
+	}
 	
 	@Test
 	//test the deal
+	void testDeal() {
+		//make sure all dealt
+		for (Card card : board.getCards()) {
+			assertTrue(card.isHasBeenDealt());
+		}
+		//make sure all equalish dealt out
+		//make sure no duplicates of cards
+		
+	}
 
-=======
->>>>>>> 1fb78b0b978746be0670920d7bf108c31c2829b9
 }

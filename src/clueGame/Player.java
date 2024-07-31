@@ -24,15 +24,17 @@ public abstract class Player {
 	private Color pieceColor;
 	private int row, col;
 	private ArrayList<Card> hand;
+	private boolean isHuman;
 	
 	/*=======================
 	 * Player Constructor
 	 =========================*/
-	public Player(String name, Color color, int row, int col) {
+	public Player(String name, Color color, int row, int col, boolean human) {
 		this.name = name;
 		pieceColor = color;
 		this.row = row;
 		this.col = col;
+		isHuman = human;
 	}
 	
 	/*===================
@@ -45,6 +47,10 @@ public abstract class Player {
 	/*==========================
 	 * Getters & setters
 	 =========================*/
+	public boolean isHuman() {
+		return isHuman;
+	}
+	
 	public String getName() {
 		return name;
 	}
