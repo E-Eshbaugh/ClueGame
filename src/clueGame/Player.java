@@ -1,3 +1,4 @@
+
 /*Player Abstract Class
  * 
  * @author Ethan Eshbaugh
@@ -71,5 +72,11 @@ public abstract class Player {
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
-
+    // Override toString method (optional, for better readability)
+    @Override
+    public String toString() {
+        return "Player" + "name='" + name + '\'' + ", color=" + pieceColor + ", row=" + row + ", column=" + col + ", hand=" + hand;
+    }
+    
+    public abstract void makeMove();
 }

@@ -12,10 +12,20 @@ package clueGame;
  * 7/31/2024
  */
 
+
+import java.awt.Color;
+
 public class ComputerPlayer extends Player {
 
-	public ComputerPlayer() {
-		// TODO Auto-generated constructor stub
+	// Constructor
+	public ComputerPlayer(String name, Color pieceColor, int row, int column) {
+		super(name, pieceColor, row, column);
 	}
 
+	@Override
+	public void makeMove() {
+		// Implementation for computer player making a move
+		System.out.println(getName() + " (computer) is making a move.");
+	}
 }
+

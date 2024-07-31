@@ -14,6 +14,8 @@ package clueGame;
 
 import java.awt.Color;
 
+import java.awt.Color;
+
 public class HumanPlayer extends Player {
 
 	/*==========================
@@ -24,4 +26,9 @@ public class HumanPlayer extends Player {
 		super(name, color, row, col);
 	}
 
+    @Override
+    public void makeMove() {
+        // Implementation for human player making a move
+        System.out.println(getName() + " is making a move.");
+    }
 }

@@ -34,7 +34,8 @@ public class Board {
 	private static Board theInstance = new Board();
 	private Set<BoardCell> targets;
 	private ArrayList<Player> players;
-	private ArrayList<Card> cards;
+	private ArrayList<Card> Deck;
+	private Solution theAnswer;
 	
 
 
@@ -83,13 +84,16 @@ public class Board {
 		return targets;
 	}
 	
-	public ArrayList<Card> getCards() {
-		return cards;
-	}
-	
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
+	
+	public void addCard(Card card) {
+    	Deck.add(card);
+    }
+    public ArrayList<Card> getCards() {
+        return Deck;
+    }
 	
 	
 	
@@ -411,6 +415,12 @@ public class Board {
 		}
 	}
 	
+	public void printDeck() {
+		for (Card card : Deck) {
+	        System.out.println(card);
+	    }
+	}
+	
 	
 	
 	/*=============================================================================
@@ -573,5 +583,7 @@ public class Board {
             }
             visited.remove(currCell);
         }
-    }    
+    }   
+    
 }
+
