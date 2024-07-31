@@ -11,3 +11,5 @@ Room, Courtyard, C
 // Other spaces on board
 Space, Unused, X
 Space, Walkway, W
+// Players
+Knight, grey, 

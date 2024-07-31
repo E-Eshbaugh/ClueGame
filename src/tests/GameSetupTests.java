@@ -43,5 +43,17 @@ class GameSetupTests {
 		}
 		assertEquals(seenCardTypes.size(), 3);
 	}
+	
+	@Test
+	//Test composition of HumanPlayer
+	
+	@Test
+	//tests composition of ComputerPlayer
+	
+	@Test
+	//test the solution
+	
+	@Test
+	//test the deal
 
 }
