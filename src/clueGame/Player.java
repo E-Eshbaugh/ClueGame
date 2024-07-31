@@ -1,60 +1,80 @@
+
+/*Player Abstract Class
+ * 
+ * @author Ethan Eshbaugh
+ * @author Colin Meyers
+ * 
+ * Outlines the abstract behaviors and characteristics for a player object in Clue game
+ * Parent to HumanPlayer and ComputerPlayer
+ * 
+ * 7/31/2024
+ * 
+ */
+
 package clueGame;
 
-import java.awt.Color;
-import java.util.ArrayList;
+import java.awt.*;
+import java.util.*;
 
 public abstract class Player {
-    private String name;
-    private Color color;
-    private int row;
-    private int column;
-    private ArrayList<Card> hand;
-
-    // Constructor
-    public Player(String name, Color color, int row, int column) {
-        this.name = name;
-        this.color = color;
-        this.row = row;
-        this.column = column;
-        this.hand = new ArrayList<>();
-    }
-
-    // Getter for name
-    public String getName() {
-        return name;
-    }
-
-    // Getter for color
-    public Color getColor() {
-        return color;
-    }
-
-    // Getter for row
-    public int getRow() {
-        return row;
-    }
-
-    // Getter for column
-    public int getColumn() {
-        return column;
-    }
-
-    // Method to update the hand with a new card
-    public void updateHand(Card card) {
-        hand.add(card);
-    }
-
-    // Getter for hand
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
-
-    // Abstract method to be implemented by subclasses
-    public abstract void makeMove();
-
+	
+	private String name;
+	private Color pieceColor;
+	private int row, col;
+	private ArrayList<Card> hand;
+	
+	/*=======================
+	 * Player Constructor
+	 =========================*/
+	public Player(String name, Color color, int row, int col) {
+		this.name = name;
+		pieceColor = color;
+		this.row = row;
+		this.col = col;
+	}
+	
+	/*===================
+	 * Add card to hand
+	 ===================*/
+	public void updateHand(Card card) {
+		hand.add(card);
+	}
+	
+	/*==========================
+	 * Getters & setters
+	 =========================*/
+	public String getName() {
+		return name;
+	}
+	
+	public Color getColor() {
+		return pieceColor;
+	}
+	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getCol() {
+		return col;
+	}
+	
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	public void setCol(int col) {
+		this.col = col;
+	}
+	
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
     // Override toString method (optional, for better readability)
     @Override
     public String toString() {
         return "Player" + "name='" + name + '\'' + ", color=" + color + ", row=" + row + ", column=" + column + ", hand=" + hand;
     }
+    
+    public abstract void makeMove();
 }

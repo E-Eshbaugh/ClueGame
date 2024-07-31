@@ -1,0 +1,681 @@
+commit 22569dde77082eb5b0184a1453cd98aed9210098
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 24 20:53:32 2024 -0400
+
+    all coords fixed and all tests passing
+
+commit 6d3b69671cc9719e6238d26a272be72a4afcd0ff
+Merge: fbc27dd 1e00528
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 24 20:16:29 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit fbc27dd8e8772a5bdd624d11792fd878a963bcd1
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 24 20:16:26 2024 -0400
+
+    more coords fixed
+
+commit 1e00528eda3d947cb23fa91e99aecdde25fe86cc
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 24 19:14:42 2024 -0500
+
+    added comments
+
+commit 02bd7c0b3331bb84390e0434bc489a2369cefa5e
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 24 20:09:30 2024 -0400
+
+    add functionality to targets so that you can always stop in a room even if you have more moves left
+
+commit bd9834e60efb7998ea81f3e667a7b56067842e4f
+Merge: f49b3b2 2f9c458
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 24 19:02:56 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit f49b3b24f28666e2f15870a0d044bb3b928fbc98
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 24 19:02:44 2024 -0500
+
+    adj works
+
+commit 2f9c45853ad10f293a42d9608eac500ad4caf2ac
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 24 19:39:44 2024 -0400
+
+    fixing coordinates for our test, most were input incorrectly
+
+commit fbb27354654ac64d4dba321d157ea999ff08f66c
+Merge: b325c1c b9d90fa
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 24 19:22:20 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit b325c1c5993c1c2c70e6dff7b06a75316b40a2ab
+Merge: 1fad4c3 856b66c
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 24 19:22:16 2024 -0400
+
+    pre pull commit
+
+commit b9d90fa1524465f9cc61c254a5cc78d7818840bd
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 24 18:21:45 2024 -0500
+
+    pass 2 more test
+
+commit 856b66c51fec64b87899797201803b1e64a88d99
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 24 18:10:17 2024 -0500
+
+    pass 2 more test
+
+commit 1fad4c33edc65a574b3772241627a91c4f40ce55
+Merge: 12d6e19 7f0330a
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 24 18:46:18 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 12d6e1944656c420e68a6250843946d03151327f
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 24 18:46:14 2024 -0400
+
+    pre pull commit
+
+commit 7f0330a196d4d5fc1199d48bb1f7f61dc88f2d98
+Merge: 2350a00 f1d9b67
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 24 17:45:50 2024 -0500
+
+    attempt room center
+
+commit 2350a00ee636c961449a598c364e4fa0455aafc3
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 24 17:42:22 2024 -0500
+
+    attempt room center
+
+commit f1d9b673bb328942eccc539622b5848538dbbc19
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Tue Jul 23 21:12:57 2024 -0400
+
+    got target aquisition method running on plain walkway squares. Still experiencing issues with targeting adjacent spaces when working with a special space like a door or room
+
+commit 9dd181d4d0e8b80d6055db05dfef19935830118a
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Tue Jul 23 20:09:37 2024 -0400
+
+    Initial target finding code in
+
+commit db8d2338afc90ef4f9d590baa33001e4162dc6ef
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Tue Jul 23 19:51:20 2024 -0400
+
+    pre push commit
+
+commit 695c93550c033dec0f66f141b963f87b0cdf1b9d
+Merge: 764e65e ef5165d
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Tue Jul 23 19:50:40 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit ef5165de4c3bbbbace93faa038712bddef358366
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Tue Jul 23 18:50:23 2024 -0500
+
+    setAdjacencies
+
+commit 764e65ee0200f8662f91de2a465c7d77fd778dac
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Tue Jul 23 19:49:21 2024 -0400
+
+    some more refactoring with variable names
+
+commit d7574e77b38e6dcce16f5763002ea8802396c4c5
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Tue Jul 23 19:36:19 2024 -0400
+
+    light refactoring including variable renames, organizational changes, and commenting
+
+commit 2d4abf63271a8139e0b83b5b7ab37975b95c19f1
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 22:17:25 2024 -0500
+
+    swapped xy vals and updated colorLayout
+
+commit 87909d866ea60cdc59916ef3662700c5b928a444
+Merge: 37e750d 8e39efc
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 22:03:13 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 37e750d98661bfe1c0bbef4918a198fffadea3cb
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 22:03:01 2024 -0500
+
+    swapped xy vals
+
+commit 8e39efcf1e7a337afbaeeb1c34fa5ee55aee1b80
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 23:01:05 2024 -0400
+
+    BoardAdjTests written and ready
+
+commit 88e2ee94fc3e703b2952a49473462232dcef6d1c
+Merge: ae3253d 89113d4
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 19:37:47 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit ae3253d711522ec904a434351cad18ef9106fb8c
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 19:37:42 2024 -0400
+
+    adj tests need to be reworkde from combine of adj and target tests
+
+commit 89113d4b1f2c7eb613510d36c78fda0efdd5668c
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 18:37:09 2024 -0500
+
+    added color layout
+
+commit 274104ee8cfdab4a5eb60fe3f1811c1ffd1b200f
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 19:30:18 2024 -0400
+
+    adjaceny tests written
+
+commit 68e2ced7706c5eba82b3464bbb53ea434c00086a
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 19:23:09 2024 -0400
+
+    parts of tests written
+
+commit d43357f5d61a50dd6ea9f0f47e9dec5844604b46
+Merge: 58f99fa 33c83e5
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 17:57:36 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 58f99fa8f0611250db975345c1a96820a51f56e6
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 17:57:26 2024 -0500
+
+    added adj test files and shell methods
+
+commit 33c83e52d1900f42b54fc493c51980295c572c33
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 18:50:11 2024 -0400
+
+    folder structure refactor
+
+commit 7028d499c78393699645cbc41e0aa690a2eadf7d
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 18:45:34 2024 -0400
+
+    post refactor commit
+
+commit f2ee4a54b68d27558f170a5e50dc36b83c32ba92
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 18:34:20 2024 -0400
+
+    All tests in Exceptions, init, and init306
+
+commit a05748923348e07077ce31086e5491a4ef6fdd69
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 18:21:54 2024 -0400
+
+    revert to init tests pass
+
+commit a0348659ff1527f2b2e7ed65597c4964a2a1cf8f
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 18:14:37 2024 -0400
+
+    added default constructor to badConfigFormat
+
+commit e77626d7f52a543746ade6b4997ff8c6c989efdd
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 18:12:31 2024 -0400
+
+    throw catch and exceptions added to pass ExceptionTests306
+
+commit 7f0724b4026ceb4350a8b9a09ff33cfe54d64070
+Merge: c14fc94 48af90d
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 17:41:37 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit c14fc9464456aac2d73b5c122cb6091996f583c8
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 17:41:33 2024 -0400
+
+    added second non door test to door directions test
+
+commit 48af90d18bbe5d8a9f052c0da500323e40a9a761
+Merge: 46d709f a6063ff
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 16:40:42 2024 -0500
+
+    Curr
+
+commit 46d709fb9225d3b1266ee86fd2d6e860a0a3eb07
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 16:38:23 2024 -0500
+
+    Cur
+
+commit a6063ffbd758e6484ff0eb623902d31369f0040f
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 17:37:05 2024 -0400
+
+    all FileInitTests tests pass
+
+commit 649d77ab207661d9b07249da867fc80a652aee48
+Merge: 37ddc78 6a6e2eb
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 17:27:26 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 6a6e2eb6ced829d8d7973a539b3c7c5ef8806ef0
+Merge: 68165c4 1d2ac32
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 16:26:30 2024 -0500
+
+    CurrCode
+
+commit 68165c4a877b77eff98280549305bbab182fbeb6
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 16:25:15 2024 -0500
+
+    CurrCode
+
+commit 37ddc783c0f44fb306fcb94589d7641b3de98710
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 17:24:23 2024 -0400
+
+    pre pull commit
+
+commit 1d2ac322c200ffc9957be1fbbd865c4ba5134b8c
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 17:08:58 2024 -0400
+
+    Added an update dimensions method so that numRow and numCol can be readjusted to the right size when needed
+
+commit 37d468af2c0222f2706fab2976f1729c70d9502c
+Merge: ea4ce7c e376eae
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 16:56:34 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit ea4ce7c38e4d30262771014873da7d35edb2df2f
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 16:56:30 2024 -0400
+
+    pre pull commit
+
+commit e376eaeb7fda5d59d0086edb1214ab13469ccb1e
+Merge: 82ec184 7a8080d
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 15:55:33 2024 -0500
+
+    CurrCode
+
+commit 82ec18495d64da2b7c3dfd73596ec77433d9766c
+Merge: ebaec93 69f1f58
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 15:54:39 2024 -0500
+
+    CurrCode
+
+commit 7a8080d6064644bb4dec6579906f680641c033d9
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 16:47:31 2024 -0400
+
+    made some changes to tests reading coordinates to be from y,x to x,y
+
+commit ebaec93186f88677b8cfeb1f3df0a0b3b92d4ed6
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 15:46:33 2024 -0500
+
+    CurrCode
+
+commit 69f1f58483d26e6a94a232073bc317c57293e792
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 16:37:26 2024 -0400
+
+    got rid of printing out numRow and numCol
+
+commit bc67dbcb14358a7c37f74672d4c7edefff4508f5
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 16:35:42 2024 -0400
+
+    Fixed hardcoded board name issue in Board.java, can now read in and test any board files
+
+commit 4299e91d1566e898049b45494cec51db5cdf5295
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 16:30:16 2024 -0400
+
+    fixed major problems with our csv file and added new tile Null for unused spots due to our unique board shape. Will appear as just a backgroud color later on, unused will basically just become walls. Fixed the config code when reading in as well so cols and rows can be set based on the file and no longer hardcoded in
+
+commit fe1dea5611aea113a7be09960e3ad2f1d41cf141
+Merge: 2f30e84 a63dc19
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 14:45:04 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+    merged
+
+commit 2f30e84c523887dc5a75cec0fc370f3189e6861c
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 14:45:01 2024 -0500
+
+    CurrCode
+
+commit a63dc193313867c5075469ddde7d10fe9ef75227
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 15:43:30 2024 -0400
+
+    got relative path working for setup files
+
+commit d269d82d86ec9eb3faeac75892bf562b0fac816c
+Merge: 28fe440 8b8e8ca
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 15:34:35 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 8b8e8ca78bf189de1ee4301ee52546e72f6691e0
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 14:33:01 2024 -0500
+
+    map and grid working
+
+commit 28fe440cab03b3fe7a2d577cd11962f7277e845a
+Merge: 7c11661 3172b58
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 15:15:43 2024 -0400
+
+    merge resolution with path naming
+
+commit 7c11661cf5bd0247b6e0432dda596c2eddd77ea9
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 15:14:41 2024 -0400
+
+    pre merge commit
+
+commit 3172b58303b28afe939e9b40fba192a1a58fc1fc
+Merge: f9b4fd6 37d6eb0
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 14:13:16 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+    fixed error
+
+commit f9b4fd6c001f4adc2cfb9c1b05e38ab5433bd205
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 14:13:02 2024 -0500
+
+    direct path
+
+commit 37d6eb0d6a81abc9e3734eb7e49f8d04bfd16159
+Merge: 289893c 965f11a
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 15:01:31 2024 -0400
+
+    merge resolutions
+
+commit 289893ce8fbc2bf4aef1ddede79ed72443b9f758
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 14:58:53 2024 -0400
+
+    commit before merge
+
+commit 965f11aa39ad230ae16e3c45806045f7477e11df
+Merge: f6bedbe 66c7ab3
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 13:57:57 2024 -0500
+
+    setup files
+
+commit f6bedbea6ffcc7179d142657c292c80c1df37c17
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Mon Jul 22 13:55:37 2024 -0500
+
+    setup files
+
+commit 66c7ab335c86d3fc60c74ea398a86e328be37481
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 14:45:12 2024 -0400
+
+    Changed the functionality from writing over existing data in errorlog.txt to appending to the file
+
+commit 7add643109df1b93c43a6d020d4ee04f57a2459f
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Mon Jul 22 14:41:49 2024 -0400
+
+    Added functionality to write to errorlog.txt when BadConfigFormatException thrown
+
+commit 70c93d56aee76afe3214f0ec73fe6a3f1633dd85
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Jul 19 11:44:55 2024 -0400
+
+    Commented and streamlined
+
+commit e857c276c561f074089d35d24d31fc2528a2c926
+Merge: b8f9c72 abaf3ab
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Fri Jul 19 10:29:52 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+    fix exception class
+
+commit b8f9c7267547f447071fa19e2514003aacb1416f
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Fri Jul 19 10:29:43 2024 -0500
+
+    made classes shell
+
+commit abaf3ab5b0cd48bee7f9e85681fdc19e3c8d3a9d
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Jul 19 11:18:49 2024 -0400
+
+    file rename for test.txt to Tests.txt
+
+commit 6d4c389f0e39340521687118eb157924d059a9da
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Jul 19 11:16:47 2024 -0400
+
+    modified FileInitTests to match our specific code and filled in Test.txt (in src/tests folder)
+
+commit 2a75084c7b9d6e5f35912112a736f99704a64f89
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Fri Jul 19 10:12:50 2024 -0500
+
+    changed badConfigFormatException to extend exception and added constructor
+
+commit c15cabae6aca166b91dbd813549784a752d8d2d3
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Jul 19 10:45:28 2024 -0400
+
+    Created FileInitTests and ExceptionTests, modified ExceptionTests from ExceptionTests306 to fit our code
+
+commit d8dedfc02a97fea834a3d421778bc26633b6d3c9
+Merge: 8b3e713 6c01c3a
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Fri Jul 19 09:20:02 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+    Add files
+
+commit 8b3e713b8151dd6e9e03cb57889ea6969a378e17
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Fri Jul 19 09:19:40 2024 -0500
+
+    Added clueGame package
+
+commit 6c01c3a1852a7a22fcfc310c760c323f9fb96bd3
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Jul 19 10:14:43 2024 -0400
+
+    commiting to push final file structure changes
+
+commit 5facd56f0821e29c59b6884a939aa8e02ba2dc64
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Jul 19 10:13:54 2024 -0400
+
+    Moved txt and csv files into data folder
+
+commit 534fd35f42891a965542adb57b142531e97cf21c
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Jul 19 10:12:41 2024 -0400
+
+    adding ClueLayout.csv and ClueSetup.txt to ClueInitFiles
+
+commit 42e7a7fbc0ca6adf27e276c46f769883e2d36ff5
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Jul 19 10:10:16 2024 -0400
+
+    adding ClueInitFiles to repo
+
+commit 4f0225c32460416ed30f248422e282194dc8f826
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Thu Jul 18 18:06:52 2024 -0500
+
+    Added Comments to TestBoardCell
+
+commit afddea7e71d411fc3ed1302b01103c3b94ca8fda
+Merge: c4bfaa0 b04c033
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Thu Jul 18 19:04:02 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit c4bfaa090f5b638086299268364e72ba352599c9
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Thu Jul 18 19:02:31 2024 -0400
+
+    remove extra uneeded files
+
+commit 37ccfd9123d4dcced62a9339dafdf232259998a9
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Thu Jul 18 19:00:09 2024 -0400
+
+    comments and bad test resolutions for BoardTestExp
+
+commit b04c03321912f70291dc1ec6c94d0667aeecc373
+Merge: 76e19ef 2e6679c
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Thu Jul 18 17:57:44 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+    Adds comments to testBoardCell
+
+commit 76e19eff7715be1a33bb2d22f0490cb987bfcfe4
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Thu Jul 18 17:55:56 2024 -0500
+
+    comments for TestBoardCell
+
+commit 2e6679c76b720d8ff91c9bf3783e0869d5b9b48f
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Thu Jul 18 18:55:32 2024 -0400
+
+    comments, refactoring, and streamlining to TestBoard
+
+commit d952ac48bcdb22a86ca13f8ab75b6682d7e43c9d
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Thu Jul 18 17:42:49 2024 -0500
+
+    Other 2 fail test were bad fixed the test
+
+commit 59d946e28fbb133142bbd452c7d5846159056706
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Thu Jul 18 17:30:50 2024 -0500
+
+    2 test were bad those test have been fixed
+
+commit a11524a6439a25cc33b89e81fb5f65e7db35d14b
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Thu Jul 18 17:10:10 2024 -0500
+
+    Current code not passing 3 of 7 test
+
+commit b38fb6c9b1b9f709023a3b2fdd346fa1dcfa655a
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Thu Jul 18 17:00:25 2024 -0500
+
+    Added 4x4 board creation and shell setAdjacencies method
+
+commit 68e91c9c115c40553354d69318a14d0365a3e8f3
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 17 19:13:31 2024 -0500
+
+    Added BoardTestExp with JUnit integration
+
+commit bc45f0caecd14bca27f7432fe912b09983f314eb
+Merge: 0d24f56 6d14795
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 17 19:10:26 2024 -0500
+
+    Added BoardTestExp with JUnit integration
+
+commit 6d14795b4218ab5d39dc6d26911cda21ee9c199e
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 17 20:07:08 2024 -0400
+
+    add correct package to Filler to hold code for later
+
+commit 0d24f56794d44dccef7fd4fd652fceded4e82329
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 17 19:06:52 2024 -0500
+
+    Added BoardTestExp with JUnit integration
+
+commit 3edc87c09de8885159e368e21112809c3290be5e
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 17 19:53:24 2024 -0400
+
+    reorganized, putting Board data sheets into their own folder
+
+commit bf7f08bdad1379709e35cc01701df3799d8eda90
+Merge: 5aadc21 a5228bf
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 17 19:42:00 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 5aadc21d042b58275001a9188e8686e2b52f26eb
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 17 19:41:40 2024 -0400
+
+    Adding the layout csv file to repo
+
+commit a5228bf31eb0af0a85ee874b3adefe720ef8b7a7
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Jul 17 18:36:29 2024 -0500
+
+    Added TestBoard and TeastBoardCell classes and added two new packages for experiment and tests
+
+commit 7cb19d1911deea11e9867e25d27167fe4a6fb5fd
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 17 18:52:34 2024 -0400
+
+    add filler class to resolve not java project issue hopefully
+
+commit b97549ce487958901aa07328383be7cb0003a30e
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 17 18:46:33 2024 -0400
+
+    Initial Commit

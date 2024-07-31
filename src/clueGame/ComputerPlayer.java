@@ -1,5 +1,6 @@
 package clueGame;
 
+
 import java.awt.Color;
 
 public class ComputerPlayer extends Player {
@@ -15,3 +16,4 @@ public class ComputerPlayer extends Player {
 		System.out.println(getName() + " (computer) is making a move.");
 	}
 }
+
