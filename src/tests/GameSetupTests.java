@@ -43,5 +43,5 @@ class GameSetupTests {
 		}
 		assertEquals(seenCardTypes.size(), 3);
 	}
-
+	
 }
