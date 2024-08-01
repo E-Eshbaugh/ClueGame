@@ -297,7 +297,8 @@ public class Board {
     	//add room cards to deck
     	for (Entry<Character, Room> roomCard : roomMap.entrySet()) {
     		String rCardName = roomCard.getValue().getName();
-    		deck.add(new Card(rCardName, Card.CardType.ROOM));
+    		if (rCardName.equals("Unused") || rCardName.equals("Walkway")) continue;
+    		else deck.add(new Card(rCardName, Card.CardType.ROOM));
     	}
     	
     	//get num cards and num players
@@ -361,7 +362,7 @@ public class Board {
 	 * read and interpret the key for the rooms (TXT file)
 	 * splits the file at commas and using the type specified, puts proper information into proper spots (players, deck, roomMap) [via readData]
 	 * 
-	 * Uses File Scanner, BadConfigFormatException thrown to initialize
+	 * Uses File Scanner, BadConfigFormatExceptions thrown up to initialize
 	 ===============================================================================================================================================*/
 	public void loadSetupConfig() throws BadConfigFormatException{
 		try (Scanner scanner = new Scanner(Files.newInputStream(txtFilePath))) {
@@ -376,10 +377,11 @@ public class Board {
 				readData(parts);
 				
 			}
+		//readData failed - bad format in file
 		} catch (BadConfigFormatException e) {
-			throw new BadConfigFormatException();
-		} catch(IOException a) {
-			a.printStackTrace();
+			throw new BadConfigFormatException("ERROR IN TXT FILE");
+		} catch (IOException a) {
+			throw new BadConfigFormatException("ERROR WITH OPENING TXT FILE");
 		}
 	}
 

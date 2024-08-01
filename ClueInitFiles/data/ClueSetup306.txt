@@ -12,12 +12,12 @@ Room, Hall, H
 Space, Unused, X
 Space, Walkway, W
 // Players
-Knight, LIGHT_GREY, 3, 8
-Mage, BLUE, 9, 3
-Queen, PINK, 37, 20
-Dragon, RED, 3, 20
-King, YELLOW, 37, 8
-Jester, GREEN, 11, 25
+Knight, #d4cce4, 3, 8
+Mage, #4575f3, 9, 3
+Queen, #f391bb, 37, 20
+Dragon, #ec2d01, 3, 20
+King, #ffbf00, 37, 8
+Jester, #008282, 11, 25
 //Weapons
 Weapon, Sword
 Weapon, Staff
