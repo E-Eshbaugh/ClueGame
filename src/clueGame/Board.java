@@ -20,7 +20,6 @@ import java.util.Set;
 import java.util.Scanner;
 import java.awt.Color;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -144,10 +143,10 @@ public class Board {
     
 	
 	
-	/*============================================
-	 * Randomly deal the cards out to the players
+	/*========================================================
+	 * Deal the cards out to the players after random shuffle
 	 * Calls shuffle
-	 ============================================*/
+	 =======================================================*/
 	public void deal() {
 		
 		// Initialize theAnswer with the first card of each type
@@ -182,6 +181,9 @@ public class Board {
                 }
             }
         }
+        
+        //set dealt values to true now that all cards have been dealt
+        for (Card card : deck) card.setHasBeenDealt(true);
 	}
 	
 	
@@ -315,13 +317,13 @@ public class Board {
     public void readData(String[] parts) throws BadConfigFormatException{
     	switch (parts.length) {
     	
-	    	//Weapons - 2 info parts
+	    	//Weapons - should have 2 info parts
 			case 2 :
 				String weaponName = parts[1];
 				deck.add(new Card(weaponName, Card.CardType.WEAPON));
 			break;
 			
-			//rooms and spaces - 3 info parts
+			//rooms and spaces - should have 3 info parts
 			case 3 :
 				String type = parts[0];
 				String roomName = parts[1];
@@ -332,19 +334,12 @@ public class Board {
 				}
 				break;
 				
-			//Player pieces - 4 info parts
+			//Player pieces - should have 4 info parts
 			case 4 :
 				String playerName = parts[0];
 				
-				//turn string from file into java.awt.color
-				Color color;
-				try {
-					Field field = Class.forName("java.awt.Color").getField(parts[1]);
-					color = (Color)field.get(null);
-				}
-				catch (Exception e){
-					color = null;
-				}
+				//turn string from a hex codes in file into java.awt.color
+				Color color = Color.decode(parts[1]);
 				
 				int row = Integer.parseInt(parts[2]);
 				int col = Integer.parseInt(parts[3]);
@@ -628,6 +623,8 @@ public class Board {
 	            case RIGHT:
 	                adj = col < numColumns - 1 ? grid[row][col + 1] : null;
 	                break;
+	            case NONE:
+	            	break;
 	        }
 	        if (adj != null && adj.getRoom() != null) {
 	            BoardCell centerCell = adj.getRoom().getCenterCell();
@@ -661,6 +658,8 @@ public class Board {
 	                    case RIGHT:
 	                        adj = c < numColumns - 1 ? grid[r][c + 1] : null;
 	                        break;
+	                    case NONE:
+	                    	break;
 	                }
 	                if (adj != null && adj.getRoom().getCenterCell().equals(cell)) {
 	                    cell.addAdj(potentialDoor);
