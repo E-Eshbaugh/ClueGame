@@ -14,7 +14,7 @@ class GameSetupTests {
 	private static Board board;
 
 	@BeforeAll
-	public static void setUp() {
+	static void setUp() {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files

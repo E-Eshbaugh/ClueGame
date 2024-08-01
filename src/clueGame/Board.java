@@ -37,7 +37,7 @@ public class Board {
 	private Path txtFilePath;
 	public Map<Character, Room> roomMap;
 	public Map<Character, Room> roomCenterMap;
-	private static Board theInstance = new Board();
+	private static Board theInstance;
 	private Set<BoardCell> targets;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
@@ -202,6 +202,7 @@ public class Board {
 	 * Static method to get the single instance of the Board
 	 ========================================================*/
 	public static Board getInstance() {
+		theInstance = new Board();
 		return theInstance;
 	}
 	
@@ -377,9 +378,10 @@ public class Board {
 				readData(parts);
 				
 			}
-		//readData failed - bad format in file
+		//readData failed -- bad format in file
 		} catch (BadConfigFormatException e) {
 			throw new BadConfigFormatException("ERROR IN TXT FILE");
+		//file read failed -- look at scanner or file path
 		} catch (IOException a) {
 			throw new BadConfigFormatException("ERROR WITH OPENING TXT FILE");
 		}
@@ -406,7 +408,6 @@ public class Board {
 					String cellValue = values[col].trim();
 					char initial = cellValue.charAt(0);
 					BoardCell cell = new BoardCell(row, col, cellValue);
-
 
 					Room originalRoom = roomMap.get(initial);
 					if (originalRoom != null) {
