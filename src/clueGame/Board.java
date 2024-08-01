@@ -356,6 +356,7 @@ public class Board {
     }
     
     
+    
 	/*============================================================================================================================================
 	 * read and interpret the key for the rooms (TXT file)
 	 * splits the file at commas and using the type specified, puts proper information into proper spots (players, deck, roomMap) [via readData]
@@ -582,6 +583,9 @@ public class Board {
 	        }
 	    }
 	}
+	
+	
+	
 	/*=============================================================================
 	 * Used by setAdjacencies to add all possible walkways
 	 ==========================================================================*/
@@ -591,6 +595,9 @@ public class Board {
 	    addAdjacency(cell, row, col - 1); // Left
 	    addAdjacency(cell, row, col + 1); // Right
 	}
+	
+	
+	
 	/*=============================================================================
 	 * Used by addWalkwayOrDoorAdjacencies performs logic to ensure cell should 
 	 * be added and if so adds it.
@@ -603,6 +610,9 @@ public class Board {
 	        }
 	    }
 	}
+	
+	
+	
 	/*=============================================================================
 	 * Used by SetAdjacencies, adds the center room cell to adjacencies list
 	 * for Doorways
@@ -634,6 +644,9 @@ public class Board {
 	        }
 	    }
 	}
+	
+	
+	
 	/*=============================================================================
 	 * Used by SetAdjacencies, adds doorways and secret passages to
 	 * the adj list for center room cells
@@ -672,6 +685,8 @@ public class Board {
 	    }
 	}
 	
+	
+	
 	/*=============================================================================
 	 * Used by SetAdjacencies, adds center cell
 	 * the adj list for secret passages
@@ -700,6 +715,8 @@ public class Board {
         findAllTargets(boardCell, pathLength, visited);
     }
     
+    
+    
     /*============================================================
      * Meat of the BFD search for finding movement targets
      * 
@@ -722,7 +739,6 @@ public class Board {
             }
             visited.remove(currCell);
         }
-    }   
-    
+    }    
 }
 

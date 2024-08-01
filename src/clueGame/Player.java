@@ -36,12 +36,16 @@ public abstract class Player {
 		this.col = col;
 	}
 	
+	
+	
 	/*===================
 	 * Add card to hand
 	 ===================*/
 	public void updateHand(Card card) {
 		hand.add(card);
 	}
+	
+	
 	
 	/*==========================
 	 * Getters & setters

@@ -12,6 +12,7 @@ import clueGame.*;
 class GameSetupTests {
 	
 	private static Board board;
+	private int idealHand;
 
 	@BeforeAll
 	public static void setUp() {
@@ -21,7 +22,6 @@ class GameSetupTests {
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
 		// Initialize will load config files 
 		board.initialize();
-		
 	}
 
 	@Test
@@ -60,7 +60,7 @@ class GameSetupTests {
 			if (player.isHuman()) {
 				assertNotNull(player.getName());
 				assertNotNull(player.getColor());
-				assertEquals(3, player.getHand().size());
+				assertEquals(board.getNumCards()/board.getNumPlayers(), player.getHand().size());
 				assertTrue(player.isHuman());
 				
 			}
@@ -82,7 +82,7 @@ class GameSetupTests {
 			if (!player.isHuman()) {
 				assertNotNull(player.getName());
 				assertNotNull(player.getColor());
-				assertEquals(3, player.getHand().size());
+				assertEquals(board.getNumCards()/board.getNumPlayers(), player.getHand().size());
 				assertFalse(player.isHuman());
 				
 			}
@@ -105,7 +105,17 @@ class GameSetupTests {
 			assertTrue(card.isHasBeenDealt());
 		}
 		//make sure all equalish dealt out
+		for (Player player : board.getPlayers()) {
+			assertEquals(board.getNumCards()/board.getNumPlayers(), player.getHand().size());
+		}
+		
 		//make sure no duplicates of cards
+		ArrayList<Card> seenCard = new ArrayList<Card>();
+		for (Player player : board.getPlayers()) {
+			for (Card card : player.getHand()) {
+				assertFalse(seenCard.contains(card));
+			}
+		}
 		
 	}
 
