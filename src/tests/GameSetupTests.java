@@ -12,7 +12,6 @@ import clueGame.*;
 class GameSetupTests {
 	
 	private static Board board;
-	private int idealHand;
 
 	@BeforeAll
 	public static void setUp() {
