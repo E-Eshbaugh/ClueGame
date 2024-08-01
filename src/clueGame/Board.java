@@ -14,9 +14,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 import java.util.Scanner;
 import java.awt.Color;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,8 +40,8 @@ public class Board {
 	public Map<Character, Room> roomCenterMap;
 	private static Board theInstance = new Board();
 	private Set<BoardCell> targets;
-	private ArrayList<Player> players;
-	private ArrayList<Card> Deck;
+	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
 	
 
@@ -113,10 +116,10 @@ public class Board {
 	}
 	
 	public void addCard(Card card) {
-    	Deck.add(card);
+    	deck.add(card);
     }
     public ArrayList<Card> getCards() {
-        return Deck;
+        return deck;
     }
 	
 	
@@ -125,7 +128,18 @@ public class Board {
 	 * Random selects a player to make the human player
 	 ==============================================*/
 	public void turnToHuman() {
+		Random rand = new Random();
 		
+		int tobeHuman = rand.nextInt(players.size());
+		//get the attributes to clone computerPlayer into HumanPlayer
+		String name = players.get(tobeHuman).getName();
+		Color color = players.get(tobeHuman).getColor();
+		int row = players.get(tobeHuman).getRow();
+		int col = players.get(tobeHuman).getCol();
+		
+		//replace bot at location with humanplayer
+		players.set(tobeHuman, new HumanPlayer(name, color, row, col));
+		players.get(tobeHuman).makeHuman(true);
 	}
     
 	
@@ -143,7 +157,7 @@ public class Board {
 
         ArrayList<Card> remainingCards = new ArrayList<>();
 
-        for (Card card : Deck) {
+        for (Card card : deck) {
             if (card.getType() == Card.CardType.ROOM && roomCard == null) {
                 roomCard = card;
             } else if (card.getType() == Card.CardType.PERSON && personCard == null) {
@@ -177,7 +191,7 @@ public class Board {
 	 * Used by deal()
 	 ========================================================================*/
 	public void shuffle() {
-		Collections.shuffle(Deck);
+		Collections.shuffle(deck);
 	}
 	
 	
@@ -212,8 +226,8 @@ public class Board {
 		try (Scanner scanner = new Scanner(Files.newInputStream(csvFilePath))){
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
-				this.numRows++;
-				this.numColumns = line.length();
+				numRows++;
+				numColumns = line.length();
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -269,13 +283,31 @@ public class Board {
      * used by initialize
      ===============================================================*/
     public void setupCardsAndPlayers() {
+    	//make one player human player
+    	turnToHuman();
+    	
+    	//add player cards to deck 
+    	for (Player playerCard : players) {
+    		String pCardName = playerCard.getName();
+    		deck.add(new Card(pCardName, Card.CardType.PERSON));
+    	}
+    	
+    	//add room cards to deck
+    	for (Entry<Character, Room> roomCard : roomMap.entrySet()) {
+    		String rCardName = roomCard.getValue().getName();
+    		deck.add(new Card(rCardName, Card.CardType.ROOM));
+    	}
+    	
+    	//get num cards and num players
+    	numCards = deck.size();
+    	numPlayers = players.size();   	
     	
     }
 
     
     
     /*==============================================================================================================================
-     * Uses a switch to each lines info - room/space, player, or weapon- and assigns the information to the appropriate place
+     * Uses a switch to each lines info -room/space, player, or weapon- and assigns the information to the appropriate place
      * used by loadSetupConfig
      * 
      * Throws bad format exception to loadSetupConfig
@@ -286,7 +318,7 @@ public class Board {
 	    	//Weapons - 2 info parts
 			case 2 :
 				String weaponName = parts[1];
-				Deck.add(new Card(weaponName, Card.CardType.WEAPON));
+				deck.add(new Card(weaponName, Card.CardType.WEAPON));
 			break;
 			
 			//rooms and spaces - 3 info parts
@@ -322,8 +354,6 @@ public class Board {
 				
 				break;
 				
-				
-				
 			//no proper amount of info parts - BadConfigFormatException
 			default :
 				throw new BadConfigFormatException();
@@ -331,12 +361,12 @@ public class Board {
     }
     
     
-	/*============================================================================================================================
+	/*============================================================================================================================================
 	 * read and interpret the key for the rooms (TXT file)
-	 * splits the file at commas and using the type specified, puts proper information into proper spots (players, deck, roomMap)
+	 * splits the file at commas and using the type specified, puts proper information into proper spots (players, deck, roomMap) [via readData]
 	 * 
-	 * Uses File Scanner, IOExceptions and BadConfigFormatExceptions handled in method
-	 ==============================================================================================================================*/
+	 * Uses File Scanner, BadConfigFormatException thrown to initialize
+	 ===============================================================================================================================================*/
 	public void loadSetupConfig() throws BadConfigFormatException{
 		try (Scanner scanner = new Scanner(Files.newInputStream(txtFilePath))) {
 			while (scanner.hasNextLine()) {
@@ -350,8 +380,10 @@ public class Board {
 				readData(parts);
 				
 			}
-		} catch (Exception e) {
+		} catch (BadConfigFormatException e) {
 			throw new BadConfigFormatException();
+		} catch(IOException a) {
+			a.printStackTrace();
 		}
 	}
 
@@ -362,7 +394,7 @@ public class Board {
 	 * Calls updateDimensions, setRoomCenterInitials, and setRoomsCenterCells
 	 * Uses File Scanner, exceptions handled in method
 	 =====================================================================*/
-	public void loadLayoutConfig() throws BadConfigFormatException{ 	
+	public void loadLayoutConfig() throws BadConfigFormatException{ 
 		updateDimensions();
 		try (Scanner scanner = new Scanner(Files.newInputStream(csvFilePath))) {
 			int row = 0;
@@ -524,7 +556,7 @@ public class Board {
 	}
 	
 	public void printDeck() {
-		for (Card card : Deck) {
+		for (Card card : deck) {
 	        System.out.println(card);
 	    }
 	}

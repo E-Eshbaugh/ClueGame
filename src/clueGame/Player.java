@@ -23,7 +23,7 @@ public abstract class Player {
 	private String name;
 	private Color pieceColor;
 	private int row, col;
-	private ArrayList<Card> hand;
+	private ArrayList<Card> hand = new ArrayList<Card>();
 	private boolean isHuman;
 	
 	/*=======================
