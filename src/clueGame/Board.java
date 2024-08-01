@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 
 public class Board {
 	private BoardCell[][] grid;
@@ -135,6 +136,38 @@ public class Board {
 	 ============================================*/
 	public void deal() {
 		
+		// Initialize theAnswer with the first card of each type
+        Card roomCard = null;
+        Card personCard = null;
+        Card weaponCard = null;
+
+        ArrayList<Card> remainingCards = new ArrayList<>();
+
+        for (Card card : Deck) {
+            if (card.getType() == Card.CardType.ROOM && roomCard == null) {
+                roomCard = card;
+            } else if (card.getType() == Card.CardType.PERSON && personCard == null) {
+                personCard = card;
+            } else if (card.getType() == Card.CardType.WEAPON && weaponCard == null) {
+                weaponCard = card;
+            } else {
+                remainingCards.add(card);
+            }
+        }
+
+        theAnswer = new Solution(roomCard, personCard, weaponCard);
+
+        // Shuffle the remaining cards
+        Collections.shuffle(remainingCards);
+
+        // Deal the remaining cards to the players
+        for (Player player : players) {
+            for (int i = 0; i < 3; i++) {
+                if (!remainingCards.isEmpty()) {
+                    player.updateHand(remainingCards.remove(0));
+                }
+            }
+        }
 	}
 	
 	
@@ -144,7 +177,7 @@ public class Board {
 	 * Used by deal()
 	 ========================================================================*/
 	public void shuffle() {
-		
+		Collections.shuffle(Deck);
 	}
 	
 	
