@@ -19,9 +19,9 @@ public class HumanPlayer extends Player {
 	/*==========================
 	 * HumanPlayer Constructor
 	 =======================*/
-	public HumanPlayer(String name, Color color, int row, int col, boolean human) {
+	public HumanPlayer(String name, Color color, int row, int col) {
 		// TODO Auto-generated constructor stub
-		super(name, color, row, col, human);
+		super(name, color, row, col);
 	}
 
     @Override

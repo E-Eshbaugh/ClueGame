@@ -29,12 +29,11 @@ public abstract class Player {
 	/*=======================
 	 * Player Constructor
 	 =========================*/
-	public Player(String name, Color color, int row, int col, boolean human) {
+	public Player(String name, Color color, int row, int col) {
 		this.name = name;
 		pieceColor = color;
 		this.row = row;
 		this.col = col;
-		isHuman = human;
 	}
 	
 	/*===================
@@ -49,6 +48,10 @@ public abstract class Player {
 	 =========================*/
 	public boolean isHuman() {
 		return isHuman;
+	}
+	
+	public void makeHuman(boolean human) {
+		isHuman = human;
 	}
 	
 	public String getName() {

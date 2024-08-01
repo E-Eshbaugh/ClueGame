@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Scanner;
 import java.awt.Color;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -120,14 +121,10 @@ public class Board {
 	
 	
 	/*===============================================
-	 * Generates a player and adds to player list
-	 * Used by loadSetupConfig
+	 * Random selects a player to make the human player
 	 ==============================================*/
-	public void generatePlayer(String name, Color color, int row, int col, boolean human) {
-		if (human) {
-			players.add(new HumanPlayer(name, color, row, col, human));
-		}
-		else players.add(new ComputerPlayer(name, color, row, col, human));
+	public void turnToHuman() {
+		
 	}
     
 	
@@ -222,6 +219,7 @@ public class Board {
 	    	loadSetupConfig();
 			loadLayoutConfig();
 			setAdjacencies();
+			setupCardsAndPlayers();
 			deal();
 	    } catch (Exception e) {
 	    	e.printStackTrace();
@@ -230,16 +228,82 @@ public class Board {
 	    //====comment out to stop map from printing in console====
 	    visualizeMap();
     }
-   
     
     
-	/*============================================================
+    
+    /*===============================================================
+     * Sets up players and deck as well as numPlayers and numCards
+     * used by initialize
+     ===============================================================*/
+    public void setupCardsAndPlayers() {
+    	
+    }
+
+    
+    
+    /*==============================================================================================================================
+     * Uses a switch to each lines info - room/space, player, or weapon- and assigns the information to the appropriate place
+     * used by loadSetupConfig
+     * 
+     * Throws bad format exception to loadSetupConfig
+     =========================================================================================================================*/
+    public void readData(String[] parts) throws BadConfigFormatException{
+    	switch (parts.length) {
+    	
+	    	//Weapons - 2 info parts
+			case 2 :
+				String weaponName = parts[1];
+				Deck.add(new Card(weaponName, Card.CardType.WEAPON));
+			break;
+			
+			//rooms and spaces - 3 info parts
+			case 3 :
+				String type = parts[0];
+				String roomName = parts[1];
+				char initial = parts[2].charAt(0);
+				if (type.equals("Room") || type.equals("Space")) {
+					Room room = new Room(roomName);
+					roomMap.put(initial, room);
+				}
+				break;
+				
+			//Player pieces - 4 info parts
+			case 4 :
+				String playerName = parts[0];
+				
+				//turn string from file into java.awt.color
+				Color color;
+				try {
+					Field field = Class.forName("java.awt.Color").getField(parts[1]);
+					color = (Color)field.get(null);
+				}
+				catch (Exception e){
+					color = null;
+				}
+				
+				int row = Integer.parseInt(parts[2]);
+				int col = Integer.parseInt(parts[3]);
+				
+				//start by having all players as bots so that we can make a random player the human so each time you play you can be someone new			
+				players.add(new ComputerPlayer(playerName, color, row, col));
+				
+				break;
+				
+				
+				
+			//no proper amount of info parts - BadConfigFormatException
+			default :
+				throw new BadConfigFormatException();
+		}
+    }
+    
+    
+	/*============================================================================================================================
 	 * read and interpret the key for the rooms (TXT file)
-	 * splits the file at commas and puts room type, name, and character into an string Array[3]
-	 * Also sets numPlayers and numCards after reading from file
+	 * splits the file at commas and using the type specified, puts proper information into proper spots (players, deck, roomMap)
 	 * 
 	 * Uses File Scanner, IOExceptions and BadConfigFormatExceptions handled in method
-	 =============================================================*/
+	 ==============================================================================================================================*/
 	public void loadSetupConfig() throws BadConfigFormatException{
 		try (Scanner scanner = new Scanner(Files.newInputStream(txtFilePath))) {
 			while (scanner.hasNextLine()) {
@@ -247,23 +311,11 @@ public class Board {
 				if (line.startsWith("//") || line.isEmpty()) {
 					continue; // Skip comments and empty lines
 				}
-				//split the legend into the 3 separate parts
+				//split the legend at commas
 				String[] parts = line.split(", ");
-				if (parts.length == 3) {
-					String type = parts[0];
-					String name = parts[1];
-					char initial = parts[2].charAt(0);
-					if (type.equals("Room") || type.equals("Space")) {
-						Room room = new Room(name);
-						roomMap.put(initial, room);
-						//a line isn't formatted properly
-					} else {
-						throw new BadConfigFormatException("Invalid type in setup configuration file: " + type);
-					}
-					//bad file format overall
-				} else {
-					throw new BadConfigFormatException("Invalid format in setup configuration file");
-				}
+				
+				readData(parts);
+				
 			}
 		} catch (Exception e) {
 			throw new BadConfigFormatException();
