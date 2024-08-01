@@ -42,6 +42,7 @@ public class Board {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
+	private ArrayList<Character> legend = new ArrayList<Character>();
 	
 
 
@@ -333,6 +334,7 @@ public class Board {
 				if (type.equals("Room") || type.equals("Space")) {
 					Room room = new Room(roomName);
 					roomMap.put(initial, room);
+					legend.add(initial);
 				}
 				break;
 				
@@ -461,6 +463,7 @@ public class Board {
 		} catch (Exception e) {
 			throw new BadConfigFormatException();
 		}
+		
 	}
 	
 	
