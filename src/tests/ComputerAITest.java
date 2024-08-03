@@ -10,13 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import clueGame.*;
 
-class ComputerAITestTests {
+class ComputerAITest {
 	
 	private static Board board;
 
 	@BeforeAll
 	static void setUp() {
 		// Board is singleton, get the only instance
+		Board.createInstance();
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
@@ -34,8 +35,8 @@ class ComputerAITestTests {
 	@Test
 	/*Checks:
 	 * [X] Room matches current location
-	 * [] If only 1 of any card type not seen(weapon/person), that is the one chosen
-	 * [] if multiple not seen (weapon/person) random one chosen
+	 * [x] If only 1 of any card type not seen(weapon/person), that is the one chosen
+	 * [X] if multiple not seen (weapon/person) random one chosen
 	 */
 	public void botPlayerSuggestionTests() {
 		//create test subject
@@ -46,21 +47,34 @@ class ComputerAITestTests {
 		assertEquals(testSubjectSuggestion.getRoom().getName(), board.getCell(3, 3).getRoom().getName());
 		
 		//check if the only 1 not seen card for a type is chosen\\
-		//weapons - missing Sword, people - missing Knight
+		//weapons - missing Sword [index 0], people - missing Knight [index 6 - 5 after sword remove]
 		ArrayList<Card> feedToSubject = board.getCards();
-		int weaponRemove = feedToSubject.
-		int playerremove = 
+		feedToSubject.remove(0);
+		feedToSubject.remove(5);
+		testSubject.overrideSeen(feedToSubject);
+		Solution NewTestSubjectSuggestion = testSubject.createSuggestion();
+		assertEquals(NewTestSubjectSuggestion.getWeapon(), board.getCards().get(0));
+		assertEquals(NewTestSubjectSuggestion.getPerson(), board.getCards().get(6));
 		
+		//check random selection when multiple unseen
+		testSubject.overrideSeen(new ArrayList<Card>());
+		for (int i = 0; i < 10000; i++) {
+			Solution loopSuggestion = testSubject.createSuggestion();
+			testSubject.updateSeen(loopSuggestion.getWeapon());
+			testSubject.updateSeen(loopSuggestion.getPerson());
+		}
+		assertEquals(testSubject.getSeen().size(), 12);
 		
 	}
 	
-	@Test
+	//@Test
 	/*Checks:
 	 * [] if no rooms in list, random selection
 	 * [] if room in list has not been seen, select it
 	 * [] if room in list that has been seen, each target (including room) is random choice
 	 */
-	public void botPlayerSelectTargetTests() {
+	//public void botPlayerSelectTargetTests() {
 		
-	}
+		
+	//}
 }

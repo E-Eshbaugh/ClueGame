@@ -233,12 +233,19 @@ public class Board {
 	}
 	
 	
+	
+	/*=============================
+	 * board refresher for testing
+	 ===============================*/
+	public static void createInstance() {
+		theInstance = new Board();
+	}
+	
     
 	/*========================================================
 	 * Static method to get the single instance of the Board
 	 ========================================================*/
 	public static Board getInstance() {
-		theInstance = new Board();
 		return theInstance;
 	}
 	

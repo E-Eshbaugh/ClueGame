@@ -16,6 +16,7 @@ class GameSetupTests {
 	@BeforeAll
 	static void setUp() {
 		// Board is singleton, get the only instance
+		Board.createInstance();
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
