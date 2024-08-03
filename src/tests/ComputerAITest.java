@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -32,11 +33,24 @@ class ComputerAITestTests {
 	
 	@Test
 	/*Checks:
-	 * [] Room matches current location
+	 * [X] Room matches current location
 	 * [] If only 1 of any card type not seen(weapon/person), that is the one chosen
 	 * [] if multiple not seen (weapon/person) random one chosen
 	 */
 	public void botPlayerSuggestionTests() {
+		//create test subject
+		ComputerPlayer testSubject = new ComputerPlayer("Test Subject", Color.BLUE, 3, 3);
+		Solution testSubjectSuggestion = testSubject.createSuggestion();
+		
+		//check room - checks room string names\\
+		assertEquals(testSubjectSuggestion.getRoom().getName(), board.getCell(3, 3).getRoom().getName());
+		
+		//check if the only 1 not seen card for a type is chosen\\
+		//weapons - missing Sword, people - missing Knight
+		ArrayList<Card> feedToSubject = board.getCards();
+		int weaponRemove = feedToSubject.
+		int playerremove = 
+		
 		
 	}
 	
