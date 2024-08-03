@@ -56,7 +56,7 @@ public abstract class Player {
 	public Card disproveSuggestion(Solution suggestion) {
 		ArrayList<Card> possibleSol = new ArrayList<Card>();
 		for (Card card : hand) {
-			if (card == suggestion.getPerson() || card == suggestion.getWeapon() || card == suggestion.getRoom()) {
+			if (card == suggestion.getPerson() || card == suggestion.getWeapon() || card == suggestion.getRoom()) { //.equals()
 				possibleSol.add(card);
 			}
 		}

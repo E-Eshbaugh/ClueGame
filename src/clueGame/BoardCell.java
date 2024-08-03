@@ -168,6 +168,6 @@ public class BoardCell {
 	     ==================*/
 	    @Override
 	    public String toString() {
-	        return "Cell (" + row + "," + col + ")";
+	        return "(" + row + "," + col + ")";
 	    }
 	}

@@ -143,6 +143,23 @@ public class Board {
 	}
     
 	
+	public void getCardForRoom() {
+	 
+	}
+	
+	
+	
+	/*===============================================
+	 * Handle a suggestion made [suggested class Board]– Process 
+	 * all the players in turn, each to see if they can dispute the suggestion. If return null
+	 * no player can dispute the suggestion. Otherwise return the first card that disputed the suggestion.
+	 ==============================================*/
+//	public Card handleSuggestion() {
+//		for
+//	}
+	
+	
+	
 	
 	/*================================================
 	 * Accusation checking, returns true if accusation
@@ -263,7 +280,8 @@ public class Board {
 	public void visualizeMap() {
 		printGrid();
 		printCenterRoomMap();
-		printRoomMap();
+		//printRoomMap();
+		printDeck();
 	}
 
 	
@@ -564,7 +582,7 @@ public class Board {
 	 ======================================*/
 	public void printCenterRoomMap() {
 		for (Map.Entry<Character, Room> entry : roomCenterMap.entrySet()) {
-			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName()+  entry.getValue().getCenterCell());
+			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName() +  entry.getValue().getCenterCell());
 		}
 	}
 	
