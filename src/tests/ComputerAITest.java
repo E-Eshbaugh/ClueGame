@@ -10,13 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import clueGame.*;
 
-class ComputerAITestTests {
+class ComputerAITest {
 	
 	private static Board board;
 
 	@BeforeAll
 	static void setUp() {
 		// Board is singleton, get the only instance
+		Board.createInstance();
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
@@ -66,14 +67,14 @@ class ComputerAITestTests {
 		
 	}
 	
-	@Test
+	//@Test
 	/*Checks:
 	 * [] if no rooms in list, random selection
 	 * [] if room in list has not been seen, select it
 	 * [] if room in list that has been seen, each target (including room) is random choice
 	 */
-	public void botPlayerSelectTargetTests() {
+	//public void botPlayerSelectTargetTests() {
 		
 		
-	}
+	//}
 }
