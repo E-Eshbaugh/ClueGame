@@ -150,7 +150,7 @@ public class Board {
 	 * Uses the equals overload in Solution class
 	 ================================================*/
 	public boolean accusationCheck(Solution accusation) {
-		if (accusation == theAnswer) return true;
+		if (accusation.equals(theAnswer)) return true;
 		else return false;
 	}
 	

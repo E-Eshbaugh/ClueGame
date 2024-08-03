@@ -117,6 +117,16 @@ public abstract class Player {
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
+	public ArrayList<Card> getSeen() {
+		return seen;
+	}
+	
+	public void overrideSeen(ArrayList<Card> replacement) {
+		this.seen = replacement;
+	}
+	
+	
+	
     // Override toString method (optional, for better readability)
     @Override
     public String toString() {

@@ -29,7 +29,7 @@ public class ComputerPlayer extends Player {
 	}
 	
 	/*================================================
-	 * createSuggestion: used my bots to create suggestions
+	 * createSuggestion: used by bots to create suggestions
 	 * uses current room the bot is in, and completes the 
 	 * suggestions with weapon and player the bot hasn't seen 
 	 * yet
