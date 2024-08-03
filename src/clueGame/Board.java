@@ -143,10 +143,6 @@ public class Board {
 	}
     
 	
-	public void getCardForRoom() {
-	 
-	}
-	
 	
 	
 	/*===============================================
@@ -154,9 +150,9 @@ public class Board {
 	 * all the players in turn, each to see if they can dispute the suggestion. If return null
 	 * no player can dispute the suggestion. Otherwise return the first card that disputed the suggestion.
 	 ==============================================*/
-//	public Card handleSuggestion() {
-//		for
-//	}
+	public Card handleSuggestion(Solution suggestion, Player accuser) {
+		
+	}
 	
 	
 	
