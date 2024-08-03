@@ -24,6 +24,7 @@ public abstract class Player {
 	private Color pieceColor;
 	private int row, col;
 	private ArrayList<Card> hand = new ArrayList<Card>();
+	private ArrayList<Card> seen = new ArrayList<Card>();
 	private boolean isHuman;
 	
 	/*=======================
@@ -43,7 +44,38 @@ public abstract class Player {
 	 ===================*/
 	public void updateHand(Card card) {
 		hand.add(card);
+		seen.add(card);
 	}
+	
+	
+	
+	/*==========================
+	 * Disprove another players 
+	 * suggestion
+	 ============================*/
+	public Card disproveSuggestion(Solution suggestion) {
+		ArrayList<Card> possibleSol = new ArrayList<Card>();
+		for (Card card : hand) {
+			if (card == suggestion.getPerson() || card == suggestion.getWeapon() || card == suggestion.getRoom()) {
+				possibleSol.add(card);
+			}
+		}
+		
+		if (possibleSol.size() == 0) return null;
+		else {
+			Random rand = new Random();
+			int solutionIndex = rand.nextInt(possibleSol.size());
+			return possibleSol.get(solutionIndex);
+		}
+	}
+	
+	
+	/*===========================================
+     * update the list of cards seen by a player
+     ===========================================*/
+    public void updateSeen(Card seenCard) {
+    	seen.add(seenCard);
+    }
 	
 	
 	
@@ -91,5 +123,8 @@ public abstract class Player {
         return "Player" + "name='" + name + '\'' + ", color=" + pieceColor + ", row=" + row + ", column=" + col + ", hand=" + hand;
     }
     
+    
+    //================-- Abstract Methods --===============\\
     public abstract void makeMove();
+    
 }

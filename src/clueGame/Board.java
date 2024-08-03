@@ -144,6 +144,17 @@ public class Board {
     
 	
 	
+	/*================================================
+	 * Accusation checking, returns true if accusation
+	 * matches the Answer
+	 * Uses the equals overload in Solution class
+	 ================================================*/
+	public boolean accusationCheck(Solution accusation) {
+		if (accusation == theAnswer) return true;
+		else return false;
+	}
+	
+	
 	/*========================================================
 	 * Deal the cards out to the players after random shuffle
 	 * Calls shuffle

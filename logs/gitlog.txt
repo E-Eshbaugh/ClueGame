@@ -1,3 +1,237 @@
+commit 8886d4aeadc13546840539c87ef63678c6b0bd73
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 22:36:07 2024 -0400
+
+    final commit before zip and submit
+
+commit 82f62c9d9d93655b2eae7494e5d408c2b606f031
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 22:14:22 2024 -0400
+
+    working on fixing the way our singleton constructor is set up so all tests pass whne run together
+
+commit 46c893c998737e796782eadb0aa7d34aece2ba8c
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 21:48:39 2024 -0400
+
+    refactored a little, tests failed, fixed errors, tests passing again
+
+commit 2cf142e2a540e94b63ba0b2b8e5f3f91b91727db
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 21:24:17 2024 -0400
+
+    a little bit of refactoring too
+
+commit 810bd75cf7d914e4d1651ac378f454bb69990705
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 21:23:53 2024 -0400
+
+    added a few more tests for testing dealing, all tests still pass
+
+commit 569f6c89fe53e40dbf9858cd5ead17c4ae4f40a2
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 21:13:02 2024 -0400
+
+    changed ClueSetup.txt so that the colors are hex codes, all tests pass now
+
+commit 197388f18662bde9f09409f7240c617b5e808f98
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 20:50:30 2024 -0400
+
+    Major errors resolved; forgot to initialize bascially every single ArrayList in project... whoops
+
+commit 33e12d09b78778bcea6f0fb0ac66a6d8be0ac19b
+Merge: 8af05bf 8ea390b
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 20:08:35 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 8af05bf9b822ada2cf8670e9c79a09bcb3d5a379
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 20:08:32 2024 -0400
+
+    pre pull merge
+
+commit 289ac73de9aa6179d1a6dd3b31b1206914c25811
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 19:44:29 2024 -0400
+
+    all tests written, proper txt file format set up too
+
+commit 8ea390b3f31131a88b5f8de72930ab51dba4bc3e
+Merge: c956c18 a22ff80
+Author: ClinMers <64391810+ClinMers@users.noreply.github.com>
+Date:   Wed Jul 31 16:42:16 2024 -0600
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit c956c18008b62a5872ab2a4f74876078c58162b5
+Author: ClinMers <64391810+ClinMers@users.noreply.github.com>
+Date:   Wed Jul 31 16:41:50 2024 -0600
+
+    added shuffle and deal
+
+commit a22ff80322cdab23d323313ca20ae8ffd5d04dbe
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 18:31:19 2024 -0400
+
+    added player info to ClueSetup.txt
+
+commit 634d6618981e0383c6e34e6916c26a636eb0b56e
+Merge: 92bac37 1fb78b0
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 18:23:57 2024 -0400
+
+    merge
+
+commit 92bac375bfd044784c26b2715c9e5b92b52f23f4
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 18:23:06 2024 -0400
+
+    pre pull commit
+
+commit 1fb78b0b978746be0670920d7bf108c31c2829b9
+Author: ClinMers <64391810+ClinMers@users.noreply.github.com>
+Date:   Wed Jul 31 16:22:22 2024 -0600
+
+    add two boolean values to card
+
+commit 99189aea5ce37d283b97a07b21d2969b834dca44
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 18:08:49 2024 -0400
+
+    forgot to add tests to the repo
+
+commit f6273a49e858efed705dcf4ae97cec731041a0f9
+Merge: 93b3960 a2e28cc
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 18:06:21 2024 -0400
+
+    post merge commit
+
+commit 93b39603eb0f6feeb94f29440c618d142b7ee506
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 18:01:51 2024 -0400
+
+    Player and card tests written
+
+commit a2e28ccb744b192c9e8011a43fd6b0a9241d6b77
+Author: ClinMers <64391810+ClinMers@users.noreply.github.com>
+Date:   Wed Jul 31 16:00:41 2024 -0600
+
+    added classes and merge
+
+commit 80282e2cc18e11f1e48422c89f6db905e29e209e
+Merge: 4658e23 f9dc291
+Author: ClinMers <64391810+ClinMers@users.noreply.github.com>
+Date:   Wed Jul 31 15:58:35 2024 -0600
+
+    Merge bdadwad\ranch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 4658e236967dab3b23bba09110956955a679c093
+Merge: 023c5a9 7865f49
+Author: ClinMers <64391810+ClinMers@users.noreply.github.com>
+Date:   Wed Jul 31 15:58:31 2024 -0600
+
+    added Player and children classes, added solution class
+
+commit f9dc291759986e310351e3d75aea71d95f2d2d84
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 17:55:37 2024 -0400
+
+    initial test writting
+
+commit 023c5a93fcedf040030b401b5704d88ef160f867
+Author: ClinMers <64391810+ClinMers@users.noreply.github.com>
+Date:   Wed Jul 31 15:53:42 2024 -0600
+
+    added Player and children classes, added solution class
+
+commit 7865f494b3c92cb3e6e6b63925f78d6905adf1be
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Jul 31 17:26:21 2024 -0400
+
+    added Player and children to repo
+
+commit ac3af104afc7dc12b196cb5007c38b0aad084007
+Author: ClinMers <64391810+ClinMers@users.noreply.github.com>
+Date:   Wed Jul 31 14:58:14 2024 -0600
+
+    added Card and Test
+
+commit ea4b1f334e4f2faa508125a1f095d5d1df3f38cd
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Jul 28 20:25:56 2024 -0400
+
+    final commit before zip and submit
+
+commit f31f0a282ac53207bd763a11f7b6f592d7571e25
+Author: ClinMers <64391810+ClinMers@users.noreply.github.com>
+Date:   Sun Jul 28 18:01:41 2024 -0600
+
+    simplified setAdj
+
+commit 9aba5991283d786cb3c35316c138cc8965ba64cb
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Jul 28 17:35:22 2024 -0400
+
+    final commit after some light cleanup of little commented out lines I missed earlier
+
+commit 0e29f4d820883c9310a8cd4506905bad7ce084dd
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Jul 28 17:33:52 2024 -0400
+
+    cleaned up some messy try catch blocks
+
+commit dd98b9905ce0df3ebe76c3e3ddc3d04008187574
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Jul 28 17:06:02 2024 -0400
+
+    redesigned method for printing map to console for visualization -- grouped into a single method with only 1 line preset in other methods for easy removal later
+
+commit c6511cdb7e6ef0465971aaab988941bcc18f9f52
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Jul 28 16:58:09 2024 -0400
+
+    More concise Method renames
+
+commit f270a61e3ed5820ab60783562faf4391e2425918
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Jul 28 16:55:10 2024 -0400
+
+    Better formatting and more comprehensive comments added
+
+commit f3b43d8e60772b95cdf7e156b5ac3f9e2c3e5f50
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Jul 28 16:13:26 2024 -0400
+
+    Remove large commented out blocks of code
+
+commit b638492cb9326c4ec945e512c20f485fec7c3b45
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Jul 28 16:08:37 2024 -0400
+
+    added new folder to hold log files
+
+commit d1a943729c9c4607e6e5a9ca16b01ad77f957582
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Thu Jul 25 12:45:21 2024 -0400
+
+    final TODO list for refactoring
+
+commit f2a73a5009326fbba1e917420d3c1e8534a9c9f4
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Thu Jul 25 12:38:44 2024 -0400
+
+    Squaring everything away for refactor
+
+commit 66ccbe6264e0885ac13d45698b7a9a4c2303d445
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Thu Jul 25 12:36:18 2024 -0400
+
+    added RefacotrNotes in prep for major refactor
+
 commit 22569dde77082eb5b0184a1453cd98aed9210098
 Author: E-Eshbaugh <eeshbaugh@mines.edu>
 Date:   Wed Jul 24 20:53:32 2024 -0400

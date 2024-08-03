@@ -27,5 +27,17 @@ public class ComputerPlayer extends Player {
 		// Implementation for computer player making a move
 		System.out.println(getName() + " (computer) is making a move.");
 	}
+	
+	/*================================================
+	 * createSuggestion: used my bots to create suggestions
+	 * uses current room the bot is in, and completes the 
+	 * suggestions with weapon and player the bot hasn't seen 
+	 * yet
+	 * 
+	 * 
+	 ==================================================*/
+	public Solution createSuggestion() {
+		
+	}
 }
 

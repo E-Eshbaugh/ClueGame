@@ -32,7 +32,7 @@ class GameSetupTests {
 	@Test
 	//test number of cards in game and number for each type
 	void numCards() {
-		assertEquals(board.getCards().size(), board.getNumCards());
+		assertEquals(21, board.getNumCards());
 		ArrayList<Card.CardType> seenCardTypes = new ArrayList<Card.CardType>();
 		
 		//check the card types of each card and make sure there are 3 types
