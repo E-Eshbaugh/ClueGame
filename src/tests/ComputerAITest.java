@@ -67,14 +67,36 @@ class ComputerAITest {
 		
 	}
 	
-	//@Test
+	@Test
 	/*Checks:
-	 * [] if no rooms in list, random selection
-	 * [] if room in list has not been seen, select it
-	 * [] if room in list that has been seen, each target (including room) is random choice
+	 * [X] if no unseen rooms in list, random selection
+	 * [X] if room in list has not been seen, select it
+	 * [X] if room in list that has been seen, each target (including room) is random choice
 	 */
-	//public void botPlayerSelectTargetTests() {
+	public void botPlayerSelectTargetTests() {
+		//test 1 unseen room in list
+		ComputerPlayer testSubject = new ComputerPlayer("Test Subject", Color.BLUE, 7, 3);
+		testSubject.makeMove();
+		assertEquals(testSubject.getCol(), 3);
+		assertEquals(testSubject.getRow(), 3);
 		
-		
-	//}
+		//test random selections and rooms being seen 
+		testSubject.setCol(7);
+		testSubject.setRow(20);
+		ArrayList<Integer> uniqueRows = new ArrayList<Integer>();
+		ArrayList<Integer> uniqueCols = new ArrayList<Integer>();
+		for (int i = 0; i < 10000; i++) {
+			testSubject.makeMove();
+			if (!uniqueRows.contains(testSubject.getRow())) uniqueRows.add(testSubject.getRow());
+			if (!uniqueCols.contains(testSubject.getCol())) uniqueCols.add(testSubject.getCol());
+			testSubject.setCol(7);
+			testSubject.setRow(20);
+		}
+		assertTrue(uniqueRows.size() > 1);
+		assertTrue(uniqueCols.size() > 1);
+		assertTrue(uniqueRows.contains(15));
+		assertTrue(uniqueRows.contains(25));
+		assertTrue(uniqueCols.contains(3));
+		assertTrue(uniqueCols.contains(10));
+	}
 }
