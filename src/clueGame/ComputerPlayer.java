@@ -27,13 +27,17 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public void makeMove() {
+		
 		Board board = Board.getInstance();
-	    board.calcTargets(board.getCell(getRow(), getCol()), 3); 
+	    Random rand = new Random();
+	    int diceRoll = rand.nextInt(6) + 1; // Generate a random number between 1 and 6
+
+	    board.calcTargets(board.getCell(getRow(), getCol()), diceRoll);
 	    Set<BoardCell> possibleTargets = board.getTargets();
 
 	    ArrayList<BoardCell> unseenRoomTargets = new ArrayList<>();
 
-	    
+	    // Check for rooms in targets that the player hasn't seen
 	    for (BoardCell target : possibleTargets) {
 	        if (target.isRoomCenter() && !getSeen().contains(new Card(target.getRoom().getName(), Card.CardType.ROOM))) {
 	            unseenRoomTargets.add(target);
@@ -42,21 +46,19 @@ public class ComputerPlayer extends Player {
 
 	    BoardCell chosenTarget;
 	    if (!unseenRoomTargets.isEmpty()) {
-	        // Randomly select one of the unseen room targets
-	        Random rand = new Random();
+	        // Randomly select unseen targe
 	        chosenTarget = unseenRoomTargets.get(rand.nextInt(unseenRoomTargets.size()));
 	    } else {
-	        // Randomly select one of the available targets
-	        Random rand = new Random();
+	        // Randomly select availible target
 	        int targetIndex = rand.nextInt(possibleTargets.size());
 	        chosenTarget = (BoardCell) possibleTargets.toArray()[targetIndex];
 	    }
 
-	    // Move the player to the chosen target
+	    // Move the player 
 	    setRow(chosenTarget.getRow());
 	    setCol(chosenTarget.getCol());
 
-	    System.out.println(getName() + " (computer) moved to " + chosenTarget);
+	    System.out.println(getName() + " (computer) rolled a " + diceRoll + " and moved to " + chosenTarget);
 	}
 	
 	/*================================================
