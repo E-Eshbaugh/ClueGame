@@ -65,7 +65,7 @@ public class ComputerPlayer extends Player {
 	    setRow(chosenTarget.getRow());
 	    setCol(chosenTarget.getCol());
 
-	    System.out.println(getName() + " (computer) rolled a " + diceRoll + " and moved to " + chosenTarget);
+	    //System.out.println(getName() + " (computer) rolled a " + diceRoll + " and moved to " + chosenTarget);
 	}
 	
 	/*================================================

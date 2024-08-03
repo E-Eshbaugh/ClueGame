@@ -48,7 +48,7 @@ class ComputerAITest {
 		
 		//check if the only 1 not seen card for a type is chosen\\
 		//weapons - missing Sword [index 0], people - missing Knight [index 6 - 5 after sword remove]
-		ArrayList<Card> feedToSubject = board.getCards();
+		ArrayList<Card> feedToSubject = new ArrayList<Card>(board.getCards());
 		feedToSubject.remove(0);
 		feedToSubject.remove(5);
 		testSubject.overrideSeen(feedToSubject);
@@ -63,7 +63,7 @@ class ComputerAITest {
 			testSubject.updateSeen(loopSuggestion.getWeapon());
 			testSubject.updateSeen(loopSuggestion.getPerson());
 		}
-		assertEquals(testSubject.getSeen().size(), 12);
+		assertEquals(13, testSubject.getSeen().size());
 		
 	}
 	

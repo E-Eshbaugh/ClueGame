@@ -74,7 +74,7 @@ public abstract class Player {
      * update the list of cards seen by a player
      ===========================================*/
     public void updateSeen(Card seenCard) {
-    	seen.add(seenCard);
+    	if (!seen.contains(seenCard))seen.add(seenCard);
     }
 	
 	
