@@ -28,12 +28,12 @@ public class ComputerPlayer extends Player {
 	@Override
 	public void makeMove() {
 		Board board = Board.getInstance();
-	    board.calcTargets(board.getCell(getRow(), getCol()), 3); // Assuming the dice roll is 3 for simplicity
+	    board.calcTargets(board.getCell(getRow(), getCol()), 3); 
 	    Set<BoardCell> possibleTargets = board.getTargets();
 
 	    ArrayList<BoardCell> unseenRoomTargets = new ArrayList<>();
 
-	    // Check for rooms in targets that the player hasn't seen
+	    
 	    for (BoardCell target : possibleTargets) {
 	        if (target.isRoomCenter() && !getSeen().contains(new Card(target.getRoom().getName(), Card.CardType.ROOM))) {
 	            unseenRoomTargets.add(target);
