@@ -146,12 +146,23 @@ public class Board {
 	
 	
 	/*===============================================
-	 * Handle a suggestion made [suggested class Board]– Process 
-	 * all the players in turn, each to see if they can dispute the suggestion. If return null
-	 * no player can dispute the suggestion. Otherwise return the first card that disputed the suggestion.
+	 * Handle a suggestion made Process all the players in turn, 
+	 * each to see if they can dispute the suggestion. If return null
+	 * no player can dispute the suggestion. Otherwise return the 
+	 * first card that disputed the suggestion.
 	 ==============================================*/
 	public Card handleSuggestion(Solution suggestion, Player accuser) {
-		
+	    for (Player player : players) {
+	        if (player.equals(accuser)) {
+	            continue; 
+	        }
+	        
+	        Card disprovingCard = player.disproveSuggestion(suggestion);
+	        if (disprovingCard != null) {
+	            return disprovingCard; 
+	        }
+	    }
+	    return null;
 	}
 	
 	

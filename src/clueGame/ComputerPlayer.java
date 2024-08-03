@@ -24,7 +24,14 @@ public class ComputerPlayer extends Player {
 	public ComputerPlayer(String name, Color pieceColor, int row, int column) {
 		super(name, pieceColor, row, column);
 	}
-
+	
+	/*================================================
+	 * makeMove: Selects a move to make, 
+	 * If a target is in a room and the room is not in that player's seen list, 
+	 * select the room (or if multiple rooms select randomly).
+     * Otherwise, select a target randomly from the target list.
+	 ==================================================*/
+	
 	@Override
 	public void makeMove() {
 		
@@ -66,7 +73,6 @@ public class ComputerPlayer extends Player {
 	 * uses current room the bot is in, and completes the 
 	 * suggestions with weapon and player the bot hasn't seen 
 	 * yet
-	 * 
 	 * 
 	 ==================================================*/
 	public Solution createSuggestion() {
