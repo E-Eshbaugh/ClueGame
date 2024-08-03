@@ -16,6 +16,7 @@ package clueGame;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 
 public class ComputerPlayer extends Player {
 
@@ -26,8 +27,36 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public void makeMove() {
-		// Implementation for computer player making a move
-		System.out.println(getName() + " (computer) is making a move.");
+		Board board = Board.getInstance();
+	    board.calcTargets(board.getCell(getRow(), getCol()), 3); // Assuming the dice roll is 3 for simplicity
+	    Set<BoardCell> possibleTargets = board.getTargets();
+
+	    ArrayList<BoardCell> unseenRoomTargets = new ArrayList<>();
+
+	    // Check for rooms in targets that the player hasn't seen
+	    for (BoardCell target : possibleTargets) {
+	        if (target.isRoomCenter() && !getSeen().contains(new Card(target.getRoom().getName(), Card.CardType.ROOM))) {
+	            unseenRoomTargets.add(target);
+	        }
+	    }
+
+	    BoardCell chosenTarget;
+	    if (!unseenRoomTargets.isEmpty()) {
+	        // Randomly select one of the unseen room targets
+	        Random rand = new Random();
+	        chosenTarget = unseenRoomTargets.get(rand.nextInt(unseenRoomTargets.size()));
+	    } else {
+	        // Randomly select one of the available targets
+	        Random rand = new Random();
+	        int targetIndex = rand.nextInt(possibleTargets.size());
+	        chosenTarget = (BoardCell) possibleTargets.toArray()[targetIndex];
+	    }
+
+	    // Move the player to the chosen target
+	    setRow(chosenTarget.getRow());
+	    setCol(chosenTarget.getCol());
+
+	    System.out.println(getName() + " (computer) moved to " + chosenTarget);
 	}
 	
 	/*================================================
@@ -54,9 +83,9 @@ public class ComputerPlayer extends Player {
         ArrayList<Card> unseenWeapons = new ArrayList<>();
 
         for (Card card : Board.getInstance().getCards()) {
-            if (card.getType() == Card.CardType.PERSON && !seen().contains(card)) {
+            if (card.getType() == Card.CardType.PERSON && !getSeen().contains(card)) {
                 unseenPersons.add(card);
-            } else if (card.getType() == Card.CardType.WEAPON && !seen().contains(card)) {
+            } else if (card.getType() == Card.CardType.WEAPON && !getSeen().contains(card)) {
                 unseenWeapons.add(card);
             }
         }
