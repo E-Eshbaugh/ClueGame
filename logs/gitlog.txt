@@ -1,3 +1,115 @@
+commit cb05ef86a4e661e4cc96d0845386fa1a96cf19f8
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 22:06:01 2024 -0400
+
+    all tests running and finally figured out board instance issues so that every single test passes when run together
+
+commit 32dcfb6eb7e73b32eb247f9b22d7abbe010c62ed
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 21:29:03 2024 -0400
+
+    some fixes to gamesolutiontests, not all working still
+
+commit 6d619a7f1f36a90ef25666fba14021369fe4e597
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 20:17:05 2024 -0400
+
+    First couple GameSolutionTests working
+
+commit 10577d3bff725e61d4e10c32f7004ad9adf0ac78
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 19:57:02 2024 -0400
+
+    passing all computerAITest.java tests
+
+commit e155ddd133bce10f32d70a2d637c23499c9aa409
+Merge: 55a8159 0f42a24
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 19:47:30 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 55a81590fa540dd62be0fb55b068ca91223473e5
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 19:47:26 2024 -0400
+
+    movement tests for bots working
+
+commit 0f42a24b5b59e0d0886d34558ac74a43032ca3e4
+Merge: 69fa56d ff9a36b
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sat Aug 3 18:27:39 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 69fa56d63b54a0aeade278c776aa2285a525f636
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sat Aug 3 18:27:27 2024 -0500
+
+    handleSuggestion in board
+
+commit ff9a36bdaa52116c0df85a44fa9fa53e9c57b682
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 19:13:29 2024 -0400
+
+    bot player suggestions test running and nor erroring
+
+commit d2ee8191cc20cd3c2497c61928f4a64a12fd4736
+Merge: 0dc17e3 9b4cd8d
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 18:56:31 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 9b4cd8df06db57c2679d6bbc3ebea138966bf81f
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sat Aug 3 17:56:02 2024 -0500
+
+    handleSuggestion in board
+
+commit 0dc17e3b9d7706b0a698c0e5c21fb9e38a875db0
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 18:51:14 2024 -0400
+
+    botPlayerSuggestionTests done
+
+commit 5166d08fdd35a07cbd55885811c1f44da9139ba6
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sat Aug 3 17:34:12 2024 -0500
+
+    computer createSuggestion
+
+commit cd77890f6c04098f018acafa492fcfbdc5873aaf
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sat Aug 3 17:33:05 2024 -0500
+
+    computer createSuggestion
+
+commit a7070fac230efa505f28c01eac23ef7236a298e8
+Merge: 640febb 7973d95
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sat Aug 3 17:27:47 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 640febbad956bda47c7b184706a67c431e630532
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sat Aug 3 17:27:43 2024 -0500
+
+    createSuggestion() changes
+
+commit 7973d95e80b08543b2be7520035baf5c06cc1614
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 18:26:27 2024 -0400
+
+    suggestion tests almost done
+
+commit b06974fce475e6ce00b451a599c8c69ef51c3a42
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sat Aug 3 17:28:50 2024 -0400
+
+    Test outlines created
+
 commit 8886d4aeadc13546840539c87ef63678c6b0bd73
 Author: E-Eshbaugh <eeshbaugh@mines.edu>
 Date:   Wed Jul 31 22:36:07 2024 -0400
