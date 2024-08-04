@@ -47,6 +47,12 @@ public abstract class Player {
 		seen.add(card);
 	}
 	
+	/*==============================
+	 * override hand for testing
+	 ==========================*/
+	public void overrideHand(ArrayList<Card> hand) {
+		this.hand = hand;
+	}
 	
 	
 	/*==========================

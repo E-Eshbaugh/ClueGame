@@ -107,6 +107,8 @@ public class ComputerPlayer extends Player {
             Random rand = new Random();
             weaponCard = unseenWeapons.get(rand.nextInt(unseenWeapons.size()));
         }
+        
+        
 
         return new Solution(roomCard, personCard, weaponCard);
 	}

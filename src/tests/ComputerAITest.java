@@ -58,11 +58,14 @@ class ComputerAITest {
 		
 		//check random selection when multiple unseen
 		testSubject.overrideSeen(new ArrayList<Card>());
-		for (int i = 0; i < 10000; i++) {
+		//should only take 6 loops of adding 2 cards a loop to discover all 12 player/weapon cards if not adding already seen cards is working
+		for (int i = 0; i < 6; i++) {
 			Solution loopSuggestion = testSubject.createSuggestion();
 			testSubject.updateSeen(loopSuggestion.getWeapon());
 			testSubject.updateSeen(loopSuggestion.getPerson());
-		}
+			testSubject.updateSeen(loopSuggestion.getRoom());
+			}
+		
 		assertEquals(13, testSubject.getSeen().size());
 		
 	}

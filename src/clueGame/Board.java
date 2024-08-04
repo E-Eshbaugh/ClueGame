@@ -121,6 +121,10 @@ public class Board {
     public ArrayList<Card> getCards() {
         return deck;
     }
+    
+    public void setPlayers(ArrayList<Player> playerList) {
+    	this.players = new ArrayList<Player>(playerList);
+    }
 	
 	
 	
