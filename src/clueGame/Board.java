@@ -179,6 +179,16 @@ public class Board {
 	}
 	
 	
+	
+	/*================================================
+	 * Set the answer to the game
+	 * for testing purposes
+	 =================================================*/
+	public void setAnswer(Solution answer) {
+		theAnswer = answer;
+	}
+	
+	
 	/*========================================================
 	 * Deal the cards out to the players after random shuffle
 	 * Calls shuffle

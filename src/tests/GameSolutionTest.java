@@ -16,6 +16,7 @@ class GameSolutionTests {
 	@BeforeAll
 	static void setUp() {
 		// Board is singleton, get the only instance
+		Board.createInstance();
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");		
@@ -34,7 +35,23 @@ class GameSolutionTests {
 	 * [] solutions that that have wrong room, person, room 
 	 */
 	public void accusationTests() {
+		Solution correctSolution = board.revealAnswer();
+		assertTrue(board.accusationCheck(correctSolution));
 		
+		Card solutionPerson = new Card("person", Card.CardType.PERSON);
+		Card solutionWeapon = new Card("weapon", Card.CardType.WEAPON);
+		Card solutionRoom = new Card("room", Card.CardType.ROOM);
+		Solution newAnswer = new Solution(solutionRoom, solutionPerson, solutionWeapon);
+		board.setAnswer(newAnswer);
+		
+		Solution badRoom = new Solution(new Card("a different room", Card.CardType.ROOM), solutionPerson, solutionWeapon);
+		assertFalse(board.accusationCheck(badRoom));
+		
+		Solution badPerson = new Solution(solutionRoom, new Card("Mike Tyson", Card.CardType.PERSON), solutionWeapon);
+		assertFalse(board.accusationCheck(badPerson));
+		
+		Solution badWeapon = new Solution(solutionRoom, solutionPerson, new Card("a banana", Card.CardType.WEAPON));
+		assertFalse(board.accusationCheck(badWeapon));
 	}
 	
 	@Test
