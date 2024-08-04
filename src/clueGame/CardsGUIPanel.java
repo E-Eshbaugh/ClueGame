@@ -185,7 +185,7 @@ public class CardsGUIPanel extends JPanel {
 		//has starting hand in it (hardcoded in - only player hand)
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("GUI Example");
+		frame.setTitle("CardsGUIPanel");
 		frame.setSize(250, 500);
 		// Create the JPanel and add it to the JFrame
 		CardsGUIPanel gui = new CardsGUIPanel();
