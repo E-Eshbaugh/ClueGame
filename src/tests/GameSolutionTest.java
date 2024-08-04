@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import clueGame.*;
 
-class GameSolutionTests {
+class GameSolutionTest {
 	
 	private static Board board;
 
@@ -57,12 +57,33 @@ class GameSolutionTests {
 	
 	@Test
 	/*Checks:
-	 * [] only 1 matching card returned
-	 * [] if >1 matching card, random matching card returned
-	 * [] if no matching cards, null returned
+	 * [X] only 1 matching card returned
+	 * [X] if >1 matching card, random matching card returned
+	 * [X] if no matching cards, null returned
 	 */
 	public void disproveSuggestionTests() {
+		ComputerPlayer testSubject = new ComputerPlayer("TestSubject", Color.black, 3, 3);
+		testSubject.updateHand(new Card("room1", Card.CardType.ROOM));
+		testSubject.updateHand(new Card("person1", Card.CardType.PERSON));
+		testSubject.updateHand(new Card("weapon1", Card.CardType.WEAPON));
 		
+		//no match
+		Solution noMatch = new Solution(new Card("room2", Card.CardType.ROOM), new Card("person2", Card.CardType.PERSON), new Card("weapon2", Card.CardType.WEAPON));
+		assertNull(testSubject.disproveSuggestion(noMatch));
+		
+		//one match
+		Solution oneMatch = new Solution(new Card("room1", Card.CardType.ROOM), new Card("person2", Card.CardType.PERSON), new Card("weapon2", Card.CardType.WEAPON));
+		assertEquals("room1",testSubject.disproveSuggestion(oneMatch).getName());
+		
+		//>1 match
+		ArrayList<String> answers = new ArrayList<String>();
+		Solution twoMatch = new Solution(new Card("room1", Card.CardType.ROOM), new Card("person1", Card.CardType.PERSON), new Card("weapon1", Card.CardType.WEAPON));
+		for(int i = 0; i < 10; i++) {
+			answers.add(testSubject.disproveSuggestion(twoMatch).getName());
+		}
+		assertTrue(answers.contains("room1"));
+		assertTrue(answers.contains("person1"));
+		assertTrue(answers.contains("weapon1"));
 	}
 	
 	@Test
@@ -70,7 +91,7 @@ class GameSolutionTests {
 	 * [X] undisprovable suggestion returns null
 	 * [X] suggestion suggesting player can disprove returns null
 	 * [X] suggestion only human can disprove returns answer
-	 * [] suggestion 2 can disprove, correct player disproves (next in list)
+	 * [X] suggestion 2 can disprove, correct player disproves (next in list)
 	 */
 	public void handleSuggestionTests() {
 		ComputerPlayer bot1 = new ComputerPlayer("bot1", Color.black, 3, 3);
@@ -113,7 +134,7 @@ class GameSolutionTests {
 		assertEquals("room3", board.handleSuggestion(humanSolution, bot2).getName());
 		
 		Solution correctRotation = new Solution(new Card("room1", Card.CardType.ROOM), new Card("person2", Card.CardType.PERSON), new Card("weapon4", Card.CardType.WEAPON));
-		assertEquals("room1", board.handleSuggestion(humanSolution, human).getName());
+		assertEquals("room1", board.handleSuggestion(correctRotation, human).getName());
 	}
 
 	
