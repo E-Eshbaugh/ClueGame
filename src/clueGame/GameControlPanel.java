@@ -1,5 +1,15 @@
 package clueGame;
 
+/*GameControlPanel class
+ * 
+ * @author Ethan Eshbaugh
+ * @author Colin Meyers
+ * 
+ * Creats GameControlPanel GUI
+ * 
+ * 8/4/2024
+ */
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,16 +21,13 @@ public class GameControlPanel extends JPanel {
 	private JButton accusationButton;
 	private JButton nextButton;
 
-//	private void cardsInitiate() {
-//		
-//	}
 
 	public GameControlPanel() {
 
 
 		setLayout(new GridLayout(2, 0));
 
-		// Create the top panel
+		// top panel
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new GridLayout(1, 4));
 
@@ -53,7 +60,7 @@ public class GameControlPanel extends JPanel {
 		// Add the top panel to the main panel
 		add(topPanel);
 
-		// Create the bottom panel
+		// bottom panel
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new GridLayout(0, 2));
 
@@ -73,7 +80,6 @@ public class GameControlPanel extends JPanel {
 		guessResultPanel.add(guessResultField);
 		bottomPanel.add(guessResultPanel);
 
-		// Add the bottom panel to the main panel
 		add(bottomPanel);
 	}
 
