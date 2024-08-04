@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,22 +28,26 @@ public class CardsGUIPanel extends JPanel {
 	private ArrayList<Card> playerHand = new ArrayList<Card> ();
 	private ArrayList<Card> playerSeen = new ArrayList<Card> ();
 	
-	//Use later when game is more refined
-	//private static ArrayList<Card> playerHand = Board.getHuman().getHand();
-	//private ArrayList<Card> playerSeen = Board.getHuman().getSeen();
+	//Use later when game is more refined to access the players hand-----------
+	//private static ArrayList<Card> playerHand = Board.getHuman().getHand(); |
+	//private ArrayList<Card> playerSeen = Board.getHuman().getSeen();        |
+	//-------------------------------------------------------------------------
 	
+	//==================== TESTING METHODS ===============================\\
 	//Use for now to initiate lists to make sure methods work
 	private void cardsInitiate() {
-		//hand
+		//hand - random colors chosen
 		playerHand.add(new Card("Room1", Card.CardType.ROOM, Color.YELLOW));
 		playerHand.add(new Card("weapon1", Card.CardType.WEAPON, Color.RED));
 		playerHand.add(new Card("person1", Card.CardType.PERSON, Color.black));
-		
-		//seen
-		playerSeen.add(new Card("Room2", Card.CardType.ROOM, Color.blue));
-		playerSeen.add(new Card("weapon2", Card.CardType.WEAPON, Color.GREEN));
-		playerSeen.add(new Card("person2", Card.CardType.PERSON));
 	}
+	
+	//add to seen
+	private void addToSeen(Card card) {
+		playerSeen.add(card);
+	}
+	
+	//=============================END TESTING METHODS==================================\\
 	
 	/*===================================
 	 * Creates the GUI panel for cards
@@ -59,6 +64,17 @@ public class CardsGUIPanel extends JPanel {
 		add(panel);
 	}
 	
+	
+	
+	/*======================
+	 * a refresh function
+	 =========================*/
+	public void refresh() {
+		this.removeAll();
+		setLayout(new GridLayout(1,0));
+		JPanel panel = createCardsPanel();
+		add(panel);
+	}
 	
 	
 	/*==================================
@@ -85,35 +101,17 @@ public class CardsGUIPanel extends JPanel {
 	
 	
 	
-	/*===================================
+	/*======================================================
 	 * Creates a category panel which
 	 * has the seen and in hand cards
 	 * of each category
 	 * 
-	 * uses cardToPanel()
-	 ===================================*/
+	 * uses cardToPanel() and catagoryFrameInitialize()
+	 ====================================================*/
 	private JPanel createCatagoryFrame(String type) {
-		Card.CardType lookForType = null;
-		ArrayList<Card> toShowHand = new ArrayList<Card>();
-		ArrayList<Card> toShowSeen = new ArrayList<Card>();
-		
-		switch(type) {
-		case "People":
-			lookForType = Card.CardType.PERSON;
-			break;
-		case "Rooms":
-			lookForType = Card.CardType.ROOM;
-			break;
-		case "Weapons":
-			lookForType = Card.CardType.WEAPON;
-			break;
-		}
-		
-		for(Card card : playerHand) if (card.getType().equals(lookForType)) toShowHand.add(card);
-		for(Card card : playerSeen) if (card.getType().equals(lookForType)) toShowSeen.add(card);
-		
-		if(toShowHand.isEmpty()) toShowHand.add(new Card("None", lookForType));
-		if(toShowHand.isEmpty()) toShowSeen.add(new Card("None", lookForType));
+		//get the cards to display in panel
+		ArrayList<Card> toShowHand = catagoryFrameInitialize(type, playerHand);
+		ArrayList<Card> toShowSeen = catagoryFrameInitialize(type, playerSeen);
 		
 		int numRows = toShowHand.size() + toShowSeen.size()+2;
 		
@@ -136,6 +134,36 @@ public class CardsGUIPanel extends JPanel {
 	
 	
 	
+	/*========================================
+	 * Sets up all the cards and type information
+	 * needed to create the 3 type panels
+	 =========================================*/
+	private ArrayList<Card> catagoryFrameInitialize(String type, ArrayList<Card> hand){
+		Card.CardType lookForType = null;
+		ArrayList<Card> toShow = new ArrayList<Card>();
+		
+		switch(type) {
+		case "People":
+			lookForType = Card.CardType.PERSON;
+			break;
+		case "Rooms":
+			lookForType = Card.CardType.ROOM;
+			break;
+		case "Weapons":
+			lookForType = Card.CardType.WEAPON;
+			break;
+		}
+		
+		for(Card card : hand) if (card.getType().equals(lookForType)) toShow.add(card);
+		
+		if(toShow.isEmpty()) toShow.add(new Card("None", lookForType));
+		
+		return toShow;
+		
+	}
+	
+	
+	
 	/*==========================
 	 * takes a card and turns it
 	 * into a panel to be put into 
@@ -147,14 +175,14 @@ public class CardsGUIPanel extends JPanel {
 		field.setText(card.getName());
 		field.setBackground(card.getColor());
 		
-		
 		return field;
 	}
 	
 	
-	
+	//===================-------- Main ----------=================\\
 	public static void main(String[] args) {
 		// Create a JFrame with all the normal functionality
+		//has starting hand in it (hardcoded in - only player hand)
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("GUI Example");
@@ -164,5 +192,23 @@ public class CardsGUIPanel extends JPanel {
 		frame.add(gui, BorderLayout.CENTER);
 		// Now let's view it
 		frame.setVisible(true);
+		
+		//add cards to seen and refresh -- syso as a checkpoint
+		System.out.println("Press enter to continue with test");
+		Scanner scn = new Scanner(System.in);
+		String toContinue = scn.nextLine();
+		
+		if (toContinue.equals("")) {
+			System.out.println("New Changes: There should be a new card of each type in each seen catagory frame");
+			
+			gui.addToSeen(new Card("NEW_WEAPON", Card.CardType.WEAPON, Color.cyan));
+			gui.addToSeen(new Card("NEW_ROOM", Card.CardType.ROOM, Color.pink));
+			gui.addToSeen(new Card("NEW_PERSON", Card.CardType.PERSON, Color.yellow));
+			
+			gui.refresh();
+			gui.revalidate();
+			frame.setVisible(true);
+		}
+		
 	}
 }
