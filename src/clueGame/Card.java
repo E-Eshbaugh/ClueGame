@@ -1,10 +1,13 @@
 package clueGame;
 
+import java.awt.Color;
+
 public class Card {
     private String name;
     private CardType type;
     private boolean isAnswer;
     private boolean hasBeenDealt;
+    private Color color;
 
     // Enum for card types
     public enum CardType {
@@ -17,6 +20,16 @@ public class Card {
         this.type = type;
         this.hasBeenDealt = false;
         this.isAnswer = false;
+        this.color = null;
+    }
+    
+    //constructor for gui testing with colors
+    public Card(String name, CardType type, Color color) {
+        this.name = name;
+        this.type = type;
+        this.hasBeenDealt = false;
+        this.isAnswer = false;
+        this.color = color;
     }
 
     // Getter for name
@@ -27,6 +40,16 @@ public class Card {
     // Getter for type
     public CardType getType() {
         return type;
+    }
+    
+    //color setter
+    public void setColor(Color color) {
+    	this.color = color;
+    }
+    
+    //color getter
+    public Color getColor() {
+    	return color;
     }
 
     // Override equals method

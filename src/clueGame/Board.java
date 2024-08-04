@@ -39,7 +39,7 @@ public class Board {
 	public Map<Character, Room> roomCenterMap;
 	private static Board theInstance;
 	private Set<BoardCell> targets;
-	private ArrayList<Player> players = new ArrayList<Player>();
+	private static ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
 	private ArrayList<Character> legend = new ArrayList<Character>();
@@ -123,7 +123,12 @@ public class Board {
     }
     
     public void setPlayers(ArrayList<Player> playerList) {
-    	this.players = new ArrayList<Player>(playerList);
+    	Board.players = new ArrayList<Player>(playerList);
+    }
+    
+    public static Player getHuman() {
+    	for (Player player : players) if (player.isHuman()) return player;
+    	return null;
     }
 	
 	
@@ -227,6 +232,7 @@ public class Board {
         for (Player player : players) {
             for (int i = 0; i < 3; i++) {
                 if (!remainingCards.isEmpty()) {
+                	remainingCards.get(0).setColor(player.getColor());
                     player.updateHand(remainingCards.remove(0));
                 }
             }
