@@ -70,6 +70,8 @@ public class CardsGUIPanel extends JPanel {
 	 * a refresh function
 	 =========================*/
 	public void refresh() {
+		//refresh seen of the human player, not needed right now 
+		//playerSeen = Board.getHuman().getSeen();
 		this.removeAll();
 		setLayout(new GridLayout(1,0));
 		JPanel panel = createCardsPanel();
