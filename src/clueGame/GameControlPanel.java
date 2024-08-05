@@ -33,17 +33,18 @@ public class GameControlPanel extends JPanel {
 
 		// Whose turn panel
 		JPanel turnPanel = new JPanel();
-		turnPanel.setLayout(new GridLayout(2, 0));
 		turnPanel.add(new JLabel("Whose turn?"));
 		currentTurnField = new JTextField(10);
 		currentTurnField.setEditable(false);
+		currentTurnField.setSize(10, 10);
 		turnPanel.add(currentTurnField);
 		topPanel.add(turnPanel);
 
 		// Roll panel
 		JPanel rollPanel = new JPanel();
-		rollPanel.setLayout(new GridLayout(2, 1));
-		rollPanel.add(new JLabel("Roll"));
+
+		
+		rollPanel.add(new JLabel("Roll:"));
 		rollField = new JTextField(5);
 		rollField.setEditable(false);
 		rollPanel.add(rollField);
@@ -86,6 +87,7 @@ public class GameControlPanel extends JPanel {
 	public void setTurn(Player player, int roll) {
 		currentTurnField.setText(player.getName());
 		rollField.setText(String.valueOf(roll));
+		currentTurnField.setBackground(player.getColor());
 	}
 
 	public void setGuess(String guess) {
