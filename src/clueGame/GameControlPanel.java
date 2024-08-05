@@ -12,6 +12,7 @@ package clueGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
 
 public class GameControlPanel extends JPanel {
     private JTextField currentTurnField;
@@ -177,5 +178,19 @@ public class GameControlPanel extends JPanel {
         panel.setTurn(new ComputerPlayer("Col. Mustard", Color.ORANGE, 0, 0), 5);
         panel.setGuess("I have no guess!");
         panel.setGuessResult("So you have nothing?");
+        
+        
+        System.out.println("Press enter to continue with test");
+		Scanner scn = new Scanner(System.in);
+		String toContinue = scn.nextLine();
+		
+		if (toContinue.equals("")) {
+			System.out.println("New Changes: There should be a new card of each type in each seen catagory frame");
+			
+			panel.setTurn(new ComputerPlayer("Player 1", Color.GREEN, 0, 0), 3);
+			
+			panel.revalidate();
+			frame.setVisible(true);
+		}
     }
 }
