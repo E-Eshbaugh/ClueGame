@@ -181,6 +181,10 @@ public class Board extends JPanel{
                 JPanel cellPanel = cell.draw();
                 cellPanel.setPreferredSize(new Dimension(cellWidth, cellHeight));
                 basePanel.add(cellPanel);
+                
+                if (cell.isOccupied) {
+                	layeredPane.add(cell.playerToDraw(players), JLayeredPane.PALETTE_LAYER);
+                }
 
                 if (cell.getInitial().length() > 1 && cell.getInitial().charAt(1) == '#') {
                     JLabel label = new JLabel(cell.getRoom().getName(), SwingConstants.CENTER);
