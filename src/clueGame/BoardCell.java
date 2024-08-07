@@ -16,7 +16,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 public class BoardCell {
@@ -162,8 +164,7 @@ public class BoardCell {
 					
 				case 'X' :
 					return Color.darkGray;
-				
-				
+					
 				default :
 					return Color.lightGray;
 			}
@@ -196,8 +197,7 @@ public class BoardCell {
 			
 			if (this.getInitial().charAt(0) == 'W') {
 				cell.setBorder(new LineBorder(Color.black));
-			}
-			
+			}	
 			return cell;
 		}
 	    
