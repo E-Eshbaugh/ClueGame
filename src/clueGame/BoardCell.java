@@ -140,6 +140,16 @@ public class BoardCell {
 		public boolean getOccupied() {
 			return isOccupied;
 		}
+		
+		
+		
+		/*=======================
+		 * paint function so each 
+		 * cell can paint itself
+		 ========================*/
+		public void draw() {
+			
+		}
 	    
 	    
 	    /*=============================================

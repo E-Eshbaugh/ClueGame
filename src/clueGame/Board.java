@@ -28,7 +28,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 
-public class Board {
+public class Board extends JPanel{
 	private BoardCell[][] grid;
 	public int numRows;
 	public int numColumns;
@@ -134,7 +134,20 @@ public class Board {
     	return null;
     }
 	
-	
+    
+    
+    /*=============================================
+     * Paint component
+     =============================================*/
+	public void paintComponent() {
+		for (BoardCell[] row : grid) {
+			for (BoardCell cell : row) {
+				cell.draw();
+			}
+		}
+	}
+    
+    
 	
 	/*===============================================
 	 * Random selects a player to make the human player
