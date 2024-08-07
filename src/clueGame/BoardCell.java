@@ -151,7 +151,7 @@ public class BoardCell {
 		 * return a cells proper color
 		 ===========================*/
 		private Color getColor() {
-			switch (roomSymbol.charAt(0)) {
+			switch (Character.toUpperCase(roomSymbol.charAt(0))) {
 				case 'N' :
 					return Color.black;
 					
@@ -160,6 +160,7 @@ public class BoardCell {
 					
 				case 'X' :
 					return Color.darkGray;
+				
 				
 				default :
 					return Color.lightGray;
