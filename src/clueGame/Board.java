@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.util.Scanner;
@@ -137,7 +138,7 @@ public class Board extends JPanel{
     
     
     /*=============================================
-     * Paint component
+     * Draw Board
      =============================================*/
 	public JPanel drawBoard() {
 		JPanel panel = new JPanel();
@@ -147,14 +148,18 @@ public class Board extends JPanel{
 			JPanel row = new JPanel();
 			row.setLayout(new GridLayout(0, numColumns));
 			for (BoardCell cell : gridRow) {
-				row.add(cell.draw());
+				if (!cell.isOccupied) row.add(cell.draw());
+				else {
+					JPanel occupiedPanel = cell.draw();
+					occupiedPanel.add(cell.playerToDraw(players));
+					row.add(occupiedPanel);
+				}
 			}
 			panel.add(row);
 		}
 		
 		return panel;
 	}
-    
     
 	
 	/*===============================================
@@ -358,6 +363,7 @@ public class Board extends JPanel{
 			loadLayoutConfig();
 			setAdjacencies();
 			setupCardsAndPlayers();
+			updatePlayerMoves();
 			deal();
 	    } catch (Exception e) {
 	    	e.printStackTrace();
@@ -394,6 +400,16 @@ public class Board extends JPanel{
     	numCards = deck.size();
     	numPlayers = players.size();   	
     	
+    }
+    
+    /*====================================================
+     * Updates occupied spaces based on where players are
+     ======================================================*/
+    public void updatePlayerMoves() {
+    	for (Player player : players) {
+    		grid[player.getRow()][player.getCol()].isOccupied = true;
+    		System.out.println(grid[player.getRow()][player.getCol()]);
+    	}
     }
 
     

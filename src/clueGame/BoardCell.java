@@ -11,6 +11,7 @@ package clueGame;
 
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -166,6 +167,21 @@ public class BoardCell {
 				default :
 					return Color.lightGray;
 			}
+		}
+		
+		
+		
+		/*=======================
+		 * Gets the player on an 
+		 * occupied cell to draw
+		 ========================*/
+		public Player playerToDraw(ArrayList<Player> playerList) {
+			if (isOccupied) {
+				for (Player player : playerList) {
+					if (player.getRow() == row && player.getCol() == col) return player;
+				}
+			}
+			return null;
 		}
 		
 		

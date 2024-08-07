@@ -53,7 +53,7 @@ public class ComputerPlayer extends Player {
 
 	    BoardCell chosenTarget;
 	    if (!unseenRoomTargets.isEmpty()) {
-	        // Randomly select unseen targe
+	        // Randomly select unseen target
 	        chosenTarget = unseenRoomTargets.get(rand.nextInt(unseenRoomTargets.size()));
 	    } else {
 	        // Randomly select availible target

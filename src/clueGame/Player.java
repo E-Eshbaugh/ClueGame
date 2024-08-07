@@ -18,7 +18,9 @@ package clueGame;
 import java.awt.*;
 import java.util.*;
 
-public abstract class Player {
+import javax.swing.*;
+
+public abstract class Player extends JPanel {
 	
 	private String name;
 	private Color pieceColor;
@@ -132,6 +134,16 @@ public abstract class Player {
 	}
 	
 	
+	
+	/*=======================================
+	 * draw the player piece
+	 ====================================*/
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.setColor(pieceColor);
+		int diameter = Math.min(getWidth(),  getHeight());
+		g.fillOval(0, 0, diameter, diameter);
+	}
 	
     // Override toString method (optional, for better readability)
     @Override
