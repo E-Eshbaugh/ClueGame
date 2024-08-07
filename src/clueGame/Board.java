@@ -17,6 +17,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
+
+import javax.swing.JPanel;
+
 import java.util.Scanner;
 import java.awt.Color;
 import java.io.IOException;
