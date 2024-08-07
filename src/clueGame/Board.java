@@ -141,12 +141,15 @@ public class Board extends JPanel{
      =============================================*/
 	public JPanel drawBoard() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(numColumns, numRows));
+		panel.setLayout(new GridLayout(0, numRows));
 		
-		for (BoardCell[] row : grid) {
-			for (BoardCell cell : row) {
-				panel.add(cell.draw());
+		for (BoardCell[] gridRow : grid) {
+			JPanel row = new JPanel();
+			row.setLayout(new GridLayout(numColumns, 0));
+			for (BoardCell cell : gridRow) {
+				row.add(cell.draw());
 			}
+			panel.add(row);
 		}
 		
 		return panel;
