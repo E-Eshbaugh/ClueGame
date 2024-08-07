@@ -16,6 +16,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 public class BoardCell {
 	 public int row;
@@ -176,6 +177,10 @@ public class BoardCell {
 		public JPanel draw() {
 			JPanel cell = new JPanel();
 			cell.setBackground(this.getColor());
+			
+			if (this.getInitial().charAt(0) == 'W') {
+				cell.setBorder(new LineBorder(Color.black));
+			}
 			
 			return cell;
 		}
