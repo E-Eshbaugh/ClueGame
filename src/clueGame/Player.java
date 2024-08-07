@@ -138,6 +138,7 @@ public abstract class Player extends JPanel {
 	/*=======================================
 	 * draw the player piece
 	 ====================================*/
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(pieceColor);
