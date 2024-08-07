@@ -1,0 +1,25 @@
+-- Focus Areas -- 
+
+++++++++++++++++++++++++++++++++++++++++++++++
+- Organization and Cleanliness
+- Efficiency of approach
+- Simplicity
+- Code repeats
+- Color usage
++++++++++++++++++++++++++++++++++++++++++++++
+
+-- NOTES for Brandon and Baptiste --
+
+- Cut off the room cards in seen if you have seen all cards - maybe change panel size?
+- More comments in methods
+- More comprehensive initialize method
+
+
+
+-- TODO ----------------------------------------------------------------------
+[] Reorganize order of methods in board for easier finding                   |   
+[] Headers to sections of similar methods in board for easier finding        |
+[] Board GUI                                                                 |
+[] Remove/reworking printing board methods once GUI is working               |
+[] Computer player make move function change                                 |
+------------------------------------------------------------------------------

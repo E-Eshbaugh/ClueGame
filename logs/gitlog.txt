@@ -1,3 +1,63 @@
+commit 4b450a72c983eb0cbb3f6e020e09fc8285d4baa5
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 4 20:08:21 2024 -0500
+
+    GameControlPanel
+
+commit bf9294c4193c781d32c2ab32bd2ea9f54775fabe
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 4 20:01:09 2024 -0500
+
+    GameControlPanel
+
+commit 0b67d85066676da2bc8b5881dfba704b3993cfce
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 4 19:56:07 2024 -0500
+
+    GameControlPanel
+
+commit f5d1a024b4219fcbd92d36aadcc5085cb07fb8d3
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 4 16:53:30 2024 -0500
+
+    GameControlPanel
+
+commit bcc5ce5b7d494102af62c350c335198275a665ed
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 4 16:51:22 2024 -0500
+
+    GameControlPanel
+
+commit 2c2b124b7dc50f660a574cd748fe9ff6f7ab8ba2
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 4 15:13:51 2024 -0400
+
+    forgot to save file
+
+commit 9fbb58ae18316284d416b07ce0743d3df80f552a
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 4 15:13:29 2024 -0400
+
+    final commit before submit
+
+commit 9745373d2e6f61f4475e04ca7f1e364639a6350d
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 4 15:07:45 2024 -0400
+
+    added a custom refresh method, not sure if will use later, makes refreshing panel easier for now
+
+commit 80de32b02e43217e38223c2448c3c2ea45fe7c60
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 4 14:22:26 2024 -0400
+
+    gui cards panel mostly how I like it, needs a little more design touches, but functionality wise its good
+
+commit 0b940d657e414ff739b590ca51cbe11daacfc801
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 4 12:44:13 2024 -0400
+
+    created class for the Cards Panel
+
 commit cb05ef86a4e661e4cc96d0845386fa1a96cf19f8
 Author: E-Eshbaugh <eeshbaugh@mines.edu>
 Date:   Sat Aug 3 22:06:01 2024 -0400
