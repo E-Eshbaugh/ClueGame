@@ -181,14 +181,7 @@ public class BoardCell {
 			
 			if (this.getInitial().charAt(0) == 'W') {
 				cell.setBorder(new LineBorder(Color.black));
-			}
-//			if(this.getInitial().length()>1 && this.getInitial().charAt(1) == '#') {
-//				JLabel label = new JLabel("TESTT");
-//	            label.setHorizontalAlignment(SwingConstants.CENTER);
-//	            label.setVerticalAlignment(SwingConstants.CENTER);
-//	            cell.add(label);
-//			}
-			
+			}	
 			return cell;
 		}
 	    
