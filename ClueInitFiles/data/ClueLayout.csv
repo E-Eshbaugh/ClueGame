@@ -1,6 +1,6 @@
-X,X,D,D#,D,X,X,N,N,N,N,X,X,G,G#,G,X,X,N,N,N,N,X,X,S,S#,S,X,X
+X,X,D,D,D,X,X,N,N,N,N,X,X,G,G,G,X,X,N,N,N,N,X,X,S,S,S,X,X
 X,D,D,D,D,D,X,X,N,N,X,X,G,G,G,G,G,X,X,N,N,X,X,S,S,S,S,S,X
-DT,D,D,D,D,D,D,X,X,X,X,G,G,G,G,G,G,G,X,X,X,X,S,S,S,S,S,S,S
+DT,D,D,D#,D,D,D,X,X,X,X,G,G,G,G#,G,G,G,X,X,X,X,S,S,S,S#,S,S,S
 D,D,D,D*,D,D,D,W,W,W,W>,G,G,G,G*,G,G,G,W<,W,W,W,S,S,S,S*,S,S,S
 D,D,D,D,D,D,D,W,W,W,W,G,G,G,G,G,G,G,W,W,W,W,S,S,S,S,S,S,SB
 X,D,D,D,D,D,W,W,W,W,W,W,G,G,G,G,G,W,W,W,W,W,W,S,S,S,S,S,X

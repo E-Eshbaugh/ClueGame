@@ -18,7 +18,10 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import java.util.Scanner;
 import java.awt.*;
@@ -139,21 +142,37 @@ public class Board extends JPanel{
     /*=============================================
      * Paint component
      =============================================*/
-	public JPanel drawBoard() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(numRows, 0));
-		
-		for (BoardCell[] gridRow : grid) {
-			JPanel row = new JPanel();
-			row.setLayout(new GridLayout(0, numColumns));
-			for (BoardCell cell : gridRow) {
-				row.add(cell.draw());
-			}
-			panel.add(row);
-		}
-		
-		return panel;
-	}
+    public JPanel drawBoard() {
+        int cellWidth = 690 / numColumns;
+        int cellHeight = 790 / numRows;
+
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(690, 790));
+
+        JPanel basePanel = new JPanel(new GridLayout(numRows, numColumns));
+        basePanel.setBounds(0, 0, 690, 790);
+        layeredPane.add(basePanel, JLayeredPane.DEFAULT_LAYER);
+
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numColumns; col++) {
+                BoardCell cell = grid[row][col];
+                JPanel cellPanel = cell.draw();
+                cellPanel.setPreferredSize(new Dimension(cellWidth, cellHeight));
+                basePanel.add(cellPanel);
+
+                if (cell.getInitial().length() > 1 && cell.getInitial().charAt(1) == '#') {
+                    JLabel label = new JLabel(cell.getRoom().getName(), SwingConstants.CENTER);
+                    label.setForeground(Color.WHITE);
+                    label.setBounds((col-2) * cellWidth, row * cellHeight, cellWidth * 5, cellHeight); // Adjust as needed to ensure the label spans multiple cells
+                    layeredPane.add(label, JLayeredPane.PALETTE_LAYER);
+                }
+            }
+        }
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(layeredPane, BorderLayout.CENTER);
+        return panel;
+    }
     
     
 	
