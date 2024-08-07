@@ -21,7 +21,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 
 import java.util.Scanner;
-import java.awt.Color;
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -139,12 +139,17 @@ public class Board extends JPanel{
     /*=============================================
      * Paint component
      =============================================*/
-	public void paintComponent() {
+	public JPanel drawBoard() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(numColumns, numRows));
+		
 		for (BoardCell[] row : grid) {
 			for (BoardCell cell : row) {
-				cell.draw();
+				panel.add(cell.draw());
 			}
 		}
+		
+		return panel;
 	}
     
     

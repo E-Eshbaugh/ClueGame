@@ -20,10 +20,11 @@ public class ClueGame extends JPanel{
 		frame.setSize(900, 1000);
 		frame.setLayout(new BorderLayout());
 		
+		
+		
 		CardsGUIPanel cardsPanel = new CardsGUIPanel();
 		cardsPanel.setPreferredSize(new Dimension(200, 0));
 		frame.add(cardsPanel, BorderLayout.EAST);
-		
 		
 		GameControlPanel gameControl = new GameControlPanel();
 		gameControl.setPreferredSize(new Dimension(0,200));

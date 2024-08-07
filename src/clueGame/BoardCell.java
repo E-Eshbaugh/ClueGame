@@ -10,9 +10,12 @@
 package clueGame;
 
 
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import javax.swing.JPanel;
 
 public class BoardCell {
 	 public int row;
@@ -143,12 +146,37 @@ public class BoardCell {
 		
 		
 		
+		/*==========================
+		 * use switch to set and 
+		 * return a cells proper color
+		 ===========================*/
+		private Color getColor() {
+			switch (roomSymbol.charAt(0)) {
+				case 'N' :
+					return Color.black;
+					
+				case 'W' :
+					return Color.yellow;
+					
+				case 'X' :
+					return Color.darkGray;
+				
+				default :
+					return Color.lightGray;
+			}
+		}
+		
+		
+		
 		/*=======================
 		 * paint function so each 
 		 * cell can paint itself
 		 ========================*/
-		public void draw() {
+		public JPanel draw() {
+			JPanel cell = new JPanel();
+			cell.setBackground(this.getColor());
 			
+			return cell;
 		}
 	    
 	    
