@@ -18,9 +18,6 @@ public class ClueGame extends JPanel{
 		Board.createInstance();
         Board board = Board.getInstance();
         board.initialize();
-
-        
-        
         
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +25,9 @@ public class ClueGame extends JPanel{
 		frame.setSize(900, 1000);
 		frame.setLayout(new BorderLayout());
 		
-		
+		JPanel gamePanel = board.drawBoard();
+		gamePanel.setPreferredSize(new Dimension(700,800));
+		frame.add(gamePanel, BorderLayout.CENTER);
 		
 		CardsGUIPanel cardsPanel = new CardsGUIPanel();
 		cardsPanel.setPreferredSize(new Dimension(200, 0));
