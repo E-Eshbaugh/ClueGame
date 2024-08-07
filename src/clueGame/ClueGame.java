@@ -17,7 +17,7 @@ public class ClueGame extends JPanel{
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Medieval Clue");
-		frame.setSize(1500, 1000);
+		frame.setSize(900, 1000);
 		frame.setLayout(new BorderLayout());
 		
 		CardsGUIPanel cardsPanel = new CardsGUIPanel();
@@ -26,7 +26,7 @@ public class ClueGame extends JPanel{
 		
 		
 		GameControlPanel gameControl = new GameControlPanel();
-		gameControl.setPreferredSize(new Dimension(0,300));
+		gameControl.setPreferredSize(new Dimension(0,200));
 		frame.add(gameControl, BorderLayout.SOUTH);
 		
 		frame.setVisible(true);
