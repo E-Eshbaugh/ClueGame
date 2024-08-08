@@ -143,27 +143,6 @@ public class Board extends JPanel{
      * Draw Board
      =============================================*/
 
-	/*public JPanel drawBoard() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(numRows, 0));
-		
-		for (BoardCell[] gridRow : grid) {
-			JPanel row = new JPanel();
-			row.setLayout(new GridLayout(0, numColumns));
-			for (BoardCell cell : gridRow) {
-				if (!cell.isOccupied) row.add(cell.draw());
-				else {
-					JPanel occupiedPanel = cell.draw();
-					occupiedPanel.add(cell.playerToDraw(players));
-					row.add(occupiedPanel);
-				}
-			}
-			panel.add(row);
-		}
-		
-		return panel;
-	}*/
-
     public JPanel drawBoard() {
         int cellWidth = 690 / numColumns;
         int cellHeight = 770 / numRows;
