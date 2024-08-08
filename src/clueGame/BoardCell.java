@@ -16,9 +16,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class BoardCell {
@@ -195,9 +197,41 @@ public class BoardCell {
 			JPanel cell = new JPanel();
 			cell.setBackground(this.getColor());
 			
-			if (this.getInitial().charAt(0) == 'W') {
+			if (this.getInitial().charAt(0) == 'W' && !this.isDoorway()) {
 				cell.setBorder(new LineBorder(Color.black));
 			}	
+			if (this.isDoorway()) {
+		        Border border = null;
+		        int thickBorder = 3; //door thickness
+		        int thinBorder = 0; //should be 0 this is to ensure only 1 side is blue
+
+		        switch (this.getDoorDirection()) {
+		            case UP:
+		                border = BorderFactory.createMatteBorder(thickBorder, thinBorder, thinBorder, thinBorder, Color.BLUE);
+		                border = BorderFactory.createCompoundBorder(border, BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
+		                break;
+		            case DOWN:
+		                border = BorderFactory.createMatteBorder(thinBorder, thinBorder, thickBorder, thinBorder, Color.BLUE);
+		                border = BorderFactory.createCompoundBorder(border, BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
+		                break;
+		            case LEFT:
+		                border = BorderFactory.createMatteBorder(thinBorder, thickBorder, thinBorder, thinBorder, Color.BLUE);
+		                border = BorderFactory.createCompoundBorder(border, BorderFactory.createMatteBorder(1, 0, 1, 1, Color.BLACK));
+		                break;
+		            case RIGHT:
+		                border = BorderFactory.createMatteBorder(thinBorder, thinBorder, thinBorder, thickBorder, Color.BLUE);
+		                border = BorderFactory.createCompoundBorder(border, BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
+		                break;
+		            default:
+		                break;
+		        }
+		        if (border != null) {
+		            cell.setBorder(border);
+		        }
+	            if (border != null) {
+	                cell.setBorder(border);
+	            }
+	        }
 			return cell;
 		}
 	    

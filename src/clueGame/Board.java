@@ -169,6 +169,7 @@ public class Board extends JPanel{
                     label.setBounds((col-2) * cellWidth, row * cellHeight, cellWidth * 5, cellHeight); // Adjust as needed to ensure the label spans multiple cells
                     layeredPane.add(label, JLayeredPane.PALETTE_LAYER);
                 }
+
             }
         }
 
