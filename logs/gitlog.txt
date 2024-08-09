@@ -1,3 +1,166 @@
+commit 96c4b13dd50c03bb7993e8ac960f3bce336d1be7
+Merge: 3773350 54ebbd8
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 21:14:44 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 377335092f9bb0af0e414600b64ad7f159a930c7
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 21:14:41 2024 -0400
+
+    pre pull commit
+
+commit 54ebbd88e5ce17b28f1f4a4d152972cb6c3ad375
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 18:36:42 2024 -0500
+
+    display doors
+
+commit 6089d4ac2781cff5a79c3a2c244d4e981d79e153
+Merge: d0b3991 1c61c0b
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 18:20:49 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit d0b3991bf57c2b2534d7b57df9ff48f9186a68c9
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 18:20:45 2024 -0500
+
+    display
+
+commit 1c61c0b0cb9ec4fcfe26f475ada19875f8a0b0d0
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 19:19:47 2024 -0400
+
+    players showing up on layered pane
+
+commit 4a8043c2c20e1c78c50460dd95e56d8cb32fde9d
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 19:06:14 2024 -0400
+
+    working with layered pane and adding player
+
+commit 575c9f955c04192b7f7e2c4c38f0168fc59f0c39
+Merge: 491ca46 3989683
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 19:00:25 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 491ca469407167a51b536f120d007acd298a4370
+Merge: f7c0942 d0fc804
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 19:00:09 2024 -0400
+
+    post merge push
+
+commit 3989683219504e008a2efe0955e3b1e90eb24cfe
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 17:59:18 2024 -0500
+
+    Room Names
+
+commit f7c0942f65f67cc191d8d8015338d84310a4d7f8
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 18:58:36 2024 -0400
+
+    player pieces show up
+
+commit d0fc804426e4ee58d7926bf6810b17a3e5c3e358
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 17:58:07 2024 -0500
+
+    Room Names
+
+commit cdfe3f799e6459eaf0b5c6074631bd9be565a184
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 17:57:10 2024 -0500
+
+    Room Names
+
+commit 0c6edf0ca574e6dae5b0123535f678dbbdd0ccb4
+Merge: 40ea29f 1ce5d25
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 16:38:51 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 40ea29f6518bf0900c307f41003662ff6134222a
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 16:38:49 2024 -0500
+
+    pixel fix
+
+commit 1ce5d25af431c987d28bed36fdb93d74f2f68ced
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 17:38:19 2024 -0400
+
+    Everything is printing how it should look, jsut need to add room names and players
+
+commit 144f38be4efe038431f8d7acb10ab0a2cac1bacf
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 17:28:20 2024 -0400
+
+    got map to show up properly
+
+commit a9721cc6a8bcf34475bdb6f927b88a7d58b366b8
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 17:21:26 2024 -0400
+
+    got something thing to draw in board panel - big jumble of color
+
+commit 2f20636456ea4d65840370e4f89f47c2d0db3c5b
+Merge: 5bd47ed 5f732e1
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 17:18:32 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 5bd47ed916a9a02198a8b9d4329a461158fa7b8f
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 17:18:30 2024 -0400
+
+    pre pull commit
+
+commit 5f732e12a017534efe134a850ebf9ad439eb3682
+Merge: ecce38b 2e2119a
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 16:17:20 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit ecce38be849d5b65d08ad21cdc343fcef91beaa4
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Wed Aug 7 16:17:07 2024 -0500
+
+    ClueGame Splash screen
+
+commit 2e2119ac8f62b4e7d926e45b16e26b72cd0c8aee
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 16:50:02 2024 -0400
+
+    desired starting dimensions found
+
+commit 985a6cf793d1c7881042891d2647509ebe660864
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 16:41:25 2024 -0400
+
+    getting game to start popping up
+
+commit 2931df5f0cec73e7f9145073e06a9758dd61ab36
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 16:10:56 2024 -0400
+
+    ClueGame class created
+
+commit ba8476b4ff5ed53e0a80c7a9bb399370f446c8e4
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Wed Aug 7 12:19:51 2024 -0400
+
+    Adding refactorNotes2 into logs for refactoring
+
 commit 4b450a72c983eb0cbb3f6e020e09fc8285d4baa5
 Author: ClinMers <colin.myers013@gmail.com>
 Date:   Sun Aug 4 20:08:21 2024 -0500
