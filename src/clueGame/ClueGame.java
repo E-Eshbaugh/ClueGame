@@ -53,12 +53,25 @@ public class ClueGame extends JPanel{
 	 * Sets up the game frame
 	 ==============================*/
 	private void setupFrame() {
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Medieval Clue");
-		frame.setSize(800, 800);
-		frame.setLayout(new BorderLayout());
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setTitle("Medieval Clue");
+	    frame.setSize(800, 800);
+	    frame.setLayout(new BorderLayout());
+	    frame.setMinimumSize(new Dimension(400, 400)); // Optionally set a minimum size
+	    frame.setResizable(true); // Allow the frame to be resized
+
+	    // Add a component listener to detect window resizing
+	    frame.addComponentListener(new java.awt.event.ComponentAdapter() {
+	        @Override
+	        public void componentResized(java.awt.event.ComponentEvent evt) {
+	            updateBoardPanel(); // Update the board panel when the window is resized
+	        }
+	    });
 	}
-	
+	private void updateBoardPanel() {
+	    gamePanel.revalidate();
+	    gamePanel.repaint();
+	}
 	
 	
 	/*=========================
@@ -82,12 +95,11 @@ public class ClueGame extends JPanel{
 	 * calls board.drawBoard()
 	 =====================================*/
 	private void setupGamePanel() {
-		JPanel boardPanel = board.drawBoard();
-		gamePanel = new JPanel();
-		gamePanel.setPreferredSize(new Dimension(650,700));
-		gamePanel.setBackground(Color.black);
-		gamePanel.add(boardPanel, BorderLayout.CENTER);
-		frame.add(gamePanel, BorderLayout.CENTER);
+	    JPanel boardPanel = board.drawBoard();
+	    gamePanel = new JPanel(new BorderLayout()); // Use BorderLayout to allow resizing
+	    gamePanel.setPreferredSize(new Dimension(650, 700));
+	    gamePanel.add(boardPanel, BorderLayout.CENTER);
+	    frame.add(gamePanel, BorderLayout.CENTER);
 	}
 	
 	

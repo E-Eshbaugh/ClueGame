@@ -39,6 +39,7 @@ public class ComputerPlayer extends Player {
 	    Random rand = new Random();
 	    int diceRoll = rand.nextInt(6) + 1; // Generate a random number between 1 and 6
 	    
+	    
 	    //set current spot to unoccupied for drawing purposes
 	    board.getCell(this.getRow(), this.getCol()).setOccupied(false);
 

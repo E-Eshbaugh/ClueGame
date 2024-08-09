@@ -144,39 +144,32 @@ public class Board extends JPanel{
      =============================================*/
 
     public JPanel drawBoard() {
-        int cellWidth = 690 / numColumns;
-        int cellHeight = 790 / numRows;
+        JPanel basePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                int cellWidth = getWidth() / numColumns;
+                int cellHeight = getHeight() / numRows;
 
-        JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(200,200));
+                removeAll();
+                setLayout(new GridLayout(numRows, numColumns));
 
-        JPanel basePanel = new JPanel(new GridLayout(numRows, numColumns));
-        basePanel.setBounds(0, 0, 690, 790);
-        layeredPane.add(basePanel, JLayeredPane.DEFAULT_LAYER);
-
-        for (int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numColumns; col++) {
-                BoardCell cell = grid[row][col];
-                JPanel cellPanel = cell.draw();
-                if (cell.isOccupied) cellPanel.add(cell.playerToDraw(players), JLayeredPane.PALETTE_LAYER);
-                cellPanel.setPreferredSize(new Dimension(cellWidth, cellHeight));
-                basePanel.add(cellPanel);
-                
-
-                if (cell.getInitial().length() > 1 && cell.getInitial().charAt(1) == '#') {
-                    JLabel label = new JLabel(cell.getRoom().getName(), SwingConstants.CENTER);
-                    label.setForeground(Color.WHITE);
-                    label.setBounds((col-2) * cellWidth, row * cellHeight, cellWidth * 5, cellHeight); // Adjust as needed to ensure the label spans multiple cells
-                    layeredPane.add(label, JLayeredPane.PALETTE_LAYER);
+                for (int row = 0; row < numRows; row++) {
+                    for (int col = 0; col < numColumns; col++) {
+                        BoardCell cell = grid[row][col];
+                        JPanel cellPanel = cell.draw();
+                        if (cell.isOccupied) {
+                            cellPanel.add(cell.playerToDraw(players), JLayeredPane.PALETTE_LAYER);
+                        }
+                        cellPanel.setPreferredSize(new Dimension(cellWidth, cellHeight));
+                        add(cellPanel);
+                    }
                 }
-
+                revalidate();
             }
-        }
-
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(layeredPane, BorderLayout.CENTER);
+        };
         
-        return panel;
+        return basePanel;
     }
     
 	
