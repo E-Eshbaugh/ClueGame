@@ -12,6 +12,8 @@ package clueGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 public class GameControlPanel extends JPanel {
@@ -96,6 +98,12 @@ public class GameControlPanel extends JPanel {
      =================================*/
     private JButton createAccusationButton() {
         accusationButton = new JButton("Make Accusation");
+        accusationButton.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		ClueGame.accusationClick();
+        	}
+        });
         return accusationButton;
     }
 
@@ -106,6 +114,12 @@ public class GameControlPanel extends JPanel {
      =================================*/
     private JButton createNextButton() {
         nextButton = new JButton("NEXT!");
+        nextButton.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		ClueGame.nextTurn();
+        	}
+        });
         return nextButton;
     }
 

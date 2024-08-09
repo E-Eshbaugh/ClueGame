@@ -19,12 +19,14 @@ import javax.swing.*;
 public class ClueGame extends JPanel{
 	
 	Random rand = new Random();
-	private JFrame frame = new JFrame();
-	private CardsGUIPanel cardsPanel;
-	private GameControlPanel gameControlPanel;
-	private JPanel gamePanel;
+	private static JFrame frame = new JFrame();
+	private static boolean isHumanTurn = true;
+	private static CardsGUIPanel cardsPanel;
+	private static GameControlPanel gameControlPanel;
+	private static JPanel gamePanel;
 	private Board board;
 	protected static HumanPlayer humanPlayer;
+	private static Player currentPlayer;
 	private static ArrayList<Player> playerMoveOrder = new ArrayList<Player>();
 	
 	
@@ -42,6 +44,7 @@ public class ClueGame extends JPanel{
 		setupGamePanel();
 		setupCardsPanel();
 		setupControlPanel();
+		nextTurn();
 	}
 	
 	
@@ -130,6 +133,7 @@ public class ClueGame extends JPanel{
 	    for (Player player : board.getPlayers()) if (!player.isHuman()) playerMoveOrder.add(player);
 	    Collections.shuffle(playerMoveOrder);
 	    Collections.swap(playerMoveOrder, playerMoveOrder.indexOf(humanPlayer), 0);
+	    currentPlayer = playerMoveOrder.get(0);
 	}
 	
 	
@@ -154,6 +158,57 @@ public class ClueGame extends JPanel{
 		String message = "You are: The " + humanPlayer.getName() + "\nCan you find the solution\nbefore the Computer players?";
         JOptionPane.showMessageDialog(null, message, "Welcome To Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
+	
+	
+	
+	/*======================
+	 * updates current player
+	 * to next player in list
+	 * and turn on isHumanTurn
+	 * if next current player
+	 * is human player
+	 ========================*/
+	private static void currentPlayerUpdate() {
+		if (playerMoveOrder.indexOf(currentPlayer) == playerMoveOrder.size()-1) {
+			currentPlayer = playerMoveOrder.get(0);
+		}
+		else currentPlayer = playerMoveOrder.get(playerMoveOrder.indexOf(currentPlayer) + 1);
+		if (currentPlayer.isHuman()) isHumanTurn = true;
+	}
+	
+	
+	/*=============================
+	 * Next turn, called by next
+	 * button in GameControlPanel
+	 * when next button is clicked
+	 ===============================*/
+	public static void nextTurn() {
+		gameControlPanel.setTurn(currentPlayer, 0);
+		if (currentPlayer.isHuman() && isHumanTurn) humanPlayerTurn();
+		else currentPlayer.makeMove();
+		currentPlayerUpdate();
+	}
+	
+	
+	
+	/*==================================================
+	 * Called to handle more complex human player turn
+	 ==================================================*/
+	private static void humanPlayerTurn() {
+		System.out.println("Human turn");
+		isHumanTurn = false;
+	}
+	
+	
+	/*==================================
+	 * Accusation clicked - called by
+	 * accusation button in 
+	 * GameControlPanel when accusation
+	 * button is clicked
+	 ================================*/
+	public static void accusationClick() {
+		System.out.println("Accusation");
+	}
 		
 	
 	//=============================================================================================\\
@@ -165,9 +220,5 @@ public class ClueGame extends JPanel{
 		ClueGame clueGame = new ClueGame();
 		clueGame.displayGame();
 		showSplashFrame();
-		
-		for (Player player : playerMoveOrder) {
-			player.makeMove();
-		}
 	}
 }
