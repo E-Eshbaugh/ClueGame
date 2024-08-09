@@ -16,6 +16,7 @@ public class ClueGame extends JPanel{
 	
 	private JFrame frame = new JFrame();
 	private Board board;
+	protected static HumanPlayer humanPlayer;
 	
 	private ClueGame() {
 		initializeBoard();
@@ -54,8 +55,7 @@ public class ClueGame extends JPanel{
 		frame.add(gameControl, BorderLayout.SOUTH);
 	}
 	
-	private static void showSplashFrame() {
-		Player humanPlayer = Board.getHuman(); 
+	private static void showSplashFrame() { 
 		String message = "You are: The " + humanPlayer.getName() + "\nCan you find the solution\nbefore the Computer players?";
         JOptionPane.showMessageDialog(null, message, "Welcome To Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
@@ -64,6 +64,7 @@ public class ClueGame extends JPanel{
 		Board.createInstance();
         board = Board.getInstance();
         board.initialize();
+        humanPlayer = Board.getHuman();
 	}
 	
 

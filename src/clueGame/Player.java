@@ -46,7 +46,6 @@ public abstract class Player extends JPanel {
 	 ===================*/
 	public void updateHand(Card card) {
 		hand.add(card);
-		seen.add(card);
 	}
 	
 	/*==============================

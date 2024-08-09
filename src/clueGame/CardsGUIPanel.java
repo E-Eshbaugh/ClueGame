@@ -25,12 +25,9 @@ import javax.swing.border.TitledBorder;
 @SuppressWarnings("serial")
 public class CardsGUIPanel extends JPanel {
 	
-	private ArrayList<Card> playerHand = new ArrayList<Card> ();
-	private ArrayList<Card> playerSeen = new ArrayList<Card> ();
-	
 	//Use later when game is more refined to access the players hand-----------
-	//private static ArrayList<Card> playerHand = Board.getHuman().getHand(); |
-	//private ArrayList<Card> playerSeen = Board.getHuman().getSeen();        |
+	private static ArrayList<Card> playerHand = ClueGame.humanPlayer.getHand(); 
+	private static ArrayList<Card> playerSeen = ClueGame.humanPlayer.getSeen();        
 	//-------------------------------------------------------------------------
 	
 	//==================== TESTING METHODS ===============================\\
@@ -56,7 +53,7 @@ public class CardsGUIPanel extends JPanel {
 	 ====================================*/
 	public CardsGUIPanel() {
 		// comment out later when using real player hands
-		cardsInitiate();
+		//cardsInitiate();
 		//=================================================
 		
 		setLayout(new GridLayout(1,0));

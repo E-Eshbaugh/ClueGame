@@ -132,8 +132,8 @@ public class Board extends JPanel{
     	Board.players = new ArrayList<Player>(playerList);
     }
     
-    public static Player getHuman() {
-    	for (Player player : players) if (player.isHuman()) return player;
+    public static HumanPlayer getHuman() {
+    	for (Player player : players) if (player.isHuman()) return (HumanPlayer) player;
     	return null;
     }
 	
@@ -387,7 +387,7 @@ public class Board extends JPanel{
 	    }
 	    
 	    //====comment out to stop map from printing in console====
-	    visualizeMap();
+	    //visualizeMap();
     }
     
     
@@ -425,7 +425,6 @@ public class Board extends JPanel{
     public void updatePlayerMoves() {
     	for (Player player : players) {
     		grid[player.getRow()][player.getCol()].isOccupied = true;
-    		System.out.println(grid[player.getRow()][player.getCol()]);
     	}
     }
 
