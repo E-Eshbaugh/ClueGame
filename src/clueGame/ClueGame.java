@@ -8,15 +8,24 @@ package clueGame;
  */
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
 import javax.swing.*;
 
 //auto generated suppress to hide warning about no UID long return (?) 
 @SuppressWarnings("serial")
 public class ClueGame extends JPanel{
 	
+	Random rand = new Random();
 	private JFrame frame = new JFrame();
+	private CardsGUIPanel cardsPanel;
+	private GameControlPanel gameControlPanel;
+	private JPanel gamePanel;
 	private Board board;
 	protected static HumanPlayer humanPlayer;
+	private static ArrayList<Player> playerMoveOrder = new ArrayList<Player>();
 	
 	
 	//=============================================================================================\\
@@ -28,6 +37,7 @@ public class ClueGame extends JPanel{
 	 ========================*/
 	private ClueGame() {
 		initializeBoard();
+		setupMoveOrder();
 		setupFrame();
 		setupGamePanel();
 		setupCardsPanel();
@@ -55,7 +65,7 @@ public class ClueGame extends JPanel{
 	 * calls CardsGUIPanel()
 	 =============================*/
 	private void setupCardsPanel() {
-		CardsGUIPanel cardsPanel = new CardsGUIPanel();
+		cardsPanel = new CardsGUIPanel();
 		cardsPanel.setPreferredSize(new Dimension(200, 0));
 		frame.add(cardsPanel, BorderLayout.EAST);
 	}
@@ -70,7 +80,7 @@ public class ClueGame extends JPanel{
 	 =====================================*/
 	private void setupGamePanel() {
 		JPanel boardPanel = board.drawBoard();
-		JPanel gamePanel = new JPanel();
+		gamePanel = new JPanel();
 		gamePanel.setPreferredSize(new Dimension(700,800));
 		gamePanel.setBackground(Color.black);
 		gamePanel.add(boardPanel, BorderLayout.CENTER);
@@ -87,9 +97,10 @@ public class ClueGame extends JPanel{
 	 * calls GameControlPanel()
 	 ====================================*/
 	private void setupControlPanel() {
-		GameControlPanel gameControl = new GameControlPanel();
-		gameControl.setPreferredSize(new Dimension(0,200));
-		frame.add(gameControl, BorderLayout.SOUTH);
+		gameControlPanel = new GameControlPanel();
+		gameControlPanel.setPreferredSize(new Dimension(0,175));
+		gameControlPanel.setTurn(playerMoveOrder.get(0), 0);
+		frame.add(gameControlPanel, BorderLayout.SOUTH);
 	}
 	
 	
@@ -104,6 +115,24 @@ public class ClueGame extends JPanel{
         board.initialize();
         humanPlayer = Board.getHuman();
 	}
+	
+	
+	
+	/*==================================
+	 * adds human player and all bot 
+	 * players to the move list, then 
+	 * shuffles into a random order 
+	 * and pulls humanPlayer to the top
+	 * to get the order players make moves
+	 =====================================*/
+	private void setupMoveOrder() {
+		playerMoveOrder.add(humanPlayer);
+	    for (Player player : board.getPlayers()) if (!player.isHuman()) playerMoveOrder.add(player);
+	    Collections.shuffle(playerMoveOrder);
+	    Collections.swap(playerMoveOrder, playerMoveOrder.indexOf(humanPlayer), 0);
+	}
+	
+	
 	
 	//=============================================================================================\\
 	//=======================--------------- GAME CONTROL METHODS ---------========================\\
@@ -125,6 +154,7 @@ public class ClueGame extends JPanel{
 		String message = "You are: The " + humanPlayer.getName() + "\nCan you find the solution\nbefore the Computer players?";
         JOptionPane.showMessageDialog(null, message, "Welcome To Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
+		
 	
 	//=============================================================================================\\
 	//==============================------------- MAIN --------------==============================\\
@@ -135,5 +165,9 @@ public class ClueGame extends JPanel{
 		ClueGame clueGame = new ClueGame();
 		clueGame.displayGame();
 		showSplashFrame();
+		
+		for (Player player : playerMoveOrder) {
+			player.makeMove();
+		}
 	}
 }

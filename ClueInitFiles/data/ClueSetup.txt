@@ -12,7 +12,7 @@ Room, Courtyard, C
 Space, Unused, X
 Space, Walkway, W
 // Players
-Knight, #d4cce4, 3, 8
+Knight, #36454F, 3, 8
 Mage, #4575f3, 9, 3
 Queen, #f391bb, 37, 20
 Dragon, #ec2d01, 3, 20
