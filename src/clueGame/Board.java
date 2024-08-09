@@ -148,7 +148,7 @@ public class Board extends JPanel{
         int cellHeight = 790 / numRows;
 
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(690, 790));
+        layeredPane.setPreferredSize(new Dimension(200,200));
 
         JPanel basePanel = new JPanel(new GridLayout(numRows, numColumns));
         basePanel.setBounds(0, 0, 690, 790);
@@ -175,6 +175,7 @@ public class Board extends JPanel{
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(layeredPane, BorderLayout.CENTER);
+        
         return panel;
     }
     

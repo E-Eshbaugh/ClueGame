@@ -19,7 +19,7 @@ import javax.swing.*;
 public class ClueGame extends JPanel{
 	
 	Random rand = new Random();
-	private static JFrame frame = new JFrame();
+	private JFrame frame = new JFrame();
 	private static boolean isHumanTurn = true;
 	private static CardsGUIPanel cardsPanel;
 	private static GameControlPanel gameControlPanel;
@@ -55,7 +55,7 @@ public class ClueGame extends JPanel{
 	private void setupFrame() {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Medieval Clue");
-		frame.setSize(900, 1000);
+		frame.setSize(800, 800);
 		frame.setLayout(new BorderLayout());
 	}
 	
@@ -69,7 +69,7 @@ public class ClueGame extends JPanel{
 	 =============================*/
 	private void setupCardsPanel() {
 		cardsPanel = new CardsGUIPanel();
-		cardsPanel.setPreferredSize(new Dimension(200, 0));
+		cardsPanel.setPreferredSize(new Dimension(150, 0));
 		frame.add(cardsPanel, BorderLayout.EAST);
 	}
 	
@@ -84,7 +84,7 @@ public class ClueGame extends JPanel{
 	private void setupGamePanel() {
 		JPanel boardPanel = board.drawBoard();
 		gamePanel = new JPanel();
-		gamePanel.setPreferredSize(new Dimension(700,800));
+		gamePanel.setPreferredSize(new Dimension(650,700));
 		gamePanel.setBackground(Color.black);
 		gamePanel.add(boardPanel, BorderLayout.CENTER);
 		frame.add(gamePanel, BorderLayout.CENTER);
@@ -101,7 +101,7 @@ public class ClueGame extends JPanel{
 	 ====================================*/
 	private void setupControlPanel() {
 		gameControlPanel = new GameControlPanel();
-		gameControlPanel.setPreferredSize(new Dimension(0,175));
+		gameControlPanel.setPreferredSize(new Dimension(0,100));
 		gameControlPanel.setTurn(playerMoveOrder.get(0), 0);
 		frame.add(gameControlPanel, BorderLayout.SOUTH);
 	}

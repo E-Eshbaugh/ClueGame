@@ -38,6 +38,9 @@ public class ComputerPlayer extends Player {
 		Board board = Board.getInstance();
 	    Random rand = new Random();
 	    int diceRoll = rand.nextInt(6) + 1; // Generate a random number between 1 and 6
+	    
+	    //set current spot to unoccupied for drawing purposes
+	    board.getCell(this.getRow(), this.getCol()).setOccupied(false);
 
 	    board.calcTargets(board.getCell(getRow(), getCol()), diceRoll);
 	    Set<BoardCell> possibleTargets = board.getTargets();
@@ -64,8 +67,11 @@ public class ComputerPlayer extends Player {
 	    // Move the player 
 	    setRow(chosenTarget.getRow());
 	    setCol(chosenTarget.getCol());
+	    
+	    //set new cell to occupied
+	    board.getCell(this.getRow(), this.getCol()).setOccupied(true);
 
-	    //System.out.println(getName() + " (computer) rolled a " + diceRoll + " and moved to " + chosenTarget);
+	    System.out.println(getName() + " (computer) rolled a " + diceRoll + " and moved to " + chosenTarget);
 	}
 	
 	/*================================================
