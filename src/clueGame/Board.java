@@ -145,13 +145,13 @@ public class Board extends JPanel{
 
     public JPanel drawBoard() {
         int cellWidth = 690 / numColumns;
-        int cellHeight = 770 / numRows;
+        int cellHeight = 790 / numRows;
 
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(700, 800));
+        layeredPane.setPreferredSize(new Dimension(690, 790));
 
         JPanel basePanel = new JPanel(new GridLayout(numRows, numColumns));
-        basePanel.setBounds(0, 0, 700, 800);
+        basePanel.setBounds(0, 0, 690, 790);
         layeredPane.add(basePanel, JLayeredPane.DEFAULT_LAYER);
 
         for (int row = 0; row < numRows; row++) {
