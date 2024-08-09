@@ -163,6 +163,12 @@ public class Board extends JPanel{
                         }
                         cellPanel.setPreferredSize(new Dimension(cellWidth, cellHeight));
                         add(cellPanel);
+                        if (cell.getInitial().length() > 1 && cell.getInitial().charAt(1) == '#') {
+                            JLabel label = new JLabel(cell.getRoom().getName(), SwingConstants.CENTER);
+                            label.setForeground(Color.WHITE);
+                            label.setBounds((col-2) * cellWidth, row * cellHeight, cellWidth * 5, cellHeight); // Adjust as needed to ensure the label spans multiple cells
+                            cellPanel.add(label, JLayeredPane.PALETTE_LAYER);
+                        }
                     }
                 }
                 revalidate();

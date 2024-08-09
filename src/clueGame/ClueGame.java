@@ -57,14 +57,13 @@ public class ClueGame extends JPanel{
 	    frame.setTitle("Medieval Clue");
 	    frame.setSize(800, 800);
 	    frame.setLayout(new BorderLayout());
-	    frame.setMinimumSize(new Dimension(400, 400)); // Optionally set a minimum size
-	    frame.setResizable(true); // Allow the frame to be resized
+	    frame.setMinimumSize(new Dimension(400, 400)); 
+	    frame.setResizable(true); 
 
-	    // Add a component listener to detect window resizing
 	    frame.addComponentListener(new java.awt.event.ComponentAdapter() {
 	        @Override
 	        public void componentResized(java.awt.event.ComponentEvent evt) {
-	            updateBoardPanel(); // Update the board panel when the window is resized
+	            updateBoardPanel(); 
 	        }
 	    });
 	}
