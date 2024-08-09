@@ -162,7 +162,7 @@ public class BoardCell {
 					return Color.black;
 					
 				case 'W' :
-					return Color.yellow;
+					return Color.decode("#FFFF8F");
 					
 				case 'X' :
 					return Color.darkGray;

@@ -173,6 +173,7 @@ public class CardsGUIPanel extends JPanel {
 		field.setFont(field.getFont().deriveFont(Font.BOLD));
 		field.setText(card.getName());
 		field.setBackground(card.getColor());
+		field.setEditable(false);
 		
 		return field;
 	}

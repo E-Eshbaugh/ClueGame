@@ -69,8 +69,11 @@ public class ClueGame extends JPanel{
 	 * calls board.drawBoard()
 	 =====================================*/
 	private void setupGamePanel() {
-		JPanel gamePanel = board.drawBoard();
+		JPanel boardPanel = board.drawBoard();
+		JPanel gamePanel = new JPanel();
 		gamePanel.setPreferredSize(new Dimension(700,800));
+		gamePanel.setBackground(Color.black);
+		gamePanel.add(boardPanel, BorderLayout.CENTER);
 		frame.add(gamePanel, BorderLayout.CENTER);
 	}
 	
@@ -115,7 +118,7 @@ public class ClueGame extends JPanel{
 	
 	
 	
-	/*===========================
+	/*===============================
 	 * Displays splash frame
 	 ==============================*/
 	private static void showSplashFrame() { 

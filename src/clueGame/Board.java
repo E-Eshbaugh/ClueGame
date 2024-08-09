@@ -148,10 +148,10 @@ public class Board extends JPanel{
         int cellHeight = 770 / numRows;
 
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(690, 770));
+        layeredPane.setPreferredSize(new Dimension(700, 800));
 
         JPanel basePanel = new JPanel(new GridLayout(numRows, numColumns));
-        basePanel.setBounds(0, 0, 690, 770);
+        basePanel.setBounds(0, 0, 700, 800);
         layeredPane.add(basePanel, JLayeredPane.DEFAULT_LAYER);
 
         for (int row = 0; row < numRows; row++) {
