@@ -194,16 +194,33 @@ public class BoardCell {
 		 * paint function so each 
 		 * cell can paint itself
 		 ========================*/
-		public JPanel draw() {
+		public JPanel draw(ArrayList<Player> players) {
 		    JPanel cell = new JPanel() {
 		        @Override
 		        protected void paintComponent(Graphics g) {
 		            super.paintComponent(g);
 		            setBackground(getColor());
+
+		            
 		            if (isDoorway()) {
 		                drawDoorwayBorder(this);
 		            } else if (getInitial().charAt(0) == 'W' && !isDoorway()) {
 		                setBorder(new LineBorder(Color.black));
+		            }
+
+		            
+		            if (isOccupied) {
+		                Player player = playerToDraw(players);
+		                if (player != null) {
+		                    g.setColor(player.getColor());
+
+		                    int padding = 1; // leave space around the circle
+		                    int diameter = Math.min(getWidth(), getHeight()) - 2 * padding;
+		                    int x = (getWidth() - diameter) / 2;
+		                    int y = (getHeight() - diameter) / 2;
+
+		                    g.fillOval(x, y, diameter, diameter);
+		                }
 		            }
 		        }
 		    };
