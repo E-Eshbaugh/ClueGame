@@ -19,12 +19,12 @@ import javax.swing.*;
 public class ClueGame extends JPanel{
 	
 	Random rand = new Random();
-	private JFrame frame = new JFrame();
+	private static JFrame frame = new JFrame();
 	private static boolean isHumanTurn = true;
 	private static CardsGUIPanel cardsPanel;
 	private static GameControlPanel gameControlPanel;
 	private static JPanel gamePanel;
-	private Board board;
+	private static Board board;
 	protected static HumanPlayer humanPlayer;
 	private static Player currentPlayer;
 	private static ArrayList<Player> playerMoveOrder = new ArrayList<Player>();
@@ -93,7 +93,7 @@ public class ClueGame extends JPanel{
 	 * 
 	 * calls board.drawBoard()
 	 =====================================*/
-	private void setupGamePanel() {
+	private static void setupGamePanel() {
 	    JPanel boardPanel = board.drawBoard();
 	    gamePanel = new JPanel(new BorderLayout()); // Use BorderLayout to allow resizing
 	    gamePanel.setPreferredSize(new Dimension(650, 700));
@@ -198,6 +198,7 @@ public class ClueGame extends JPanel{
 		if (currentPlayer.isHuman() && isHumanTurn) humanPlayerTurn();
 		else currentPlayer.makeMove();
 		currentPlayerUpdate();
+		gamePanel.repaint();
 	}
 	
 	
