@@ -147,15 +147,16 @@ public class Board extends JPanel{
      * Draw Board
      =============================================*/
 
-    public JPanel drawBoard() {
+    public JPanel drawBoard(int width, int height) {
         JPanel basePanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                this.setSize(width, height);
                 paintBoard(g, this);
             }
         };
-
+        
         return basePanel;
     }
     private void paintBoard(Graphics g, JPanel basePanel) {
