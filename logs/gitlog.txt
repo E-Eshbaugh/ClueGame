@@ -1,3 +1,150 @@
+commit ac039498a29be22c0a08aa715362de236f0423ec
+Merge: 6e4716c 45dfc88
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 11 18:54:16 2024 -0400
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit 6e4716c2e3ca1fb92682c3fef46019d194581eb5
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 11 18:54:10 2024 -0400
+
+    fixed the resizing so it now resizes properly
+
+commit 45dfc88869021fc626ace7b93fdab1f19ec22973
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 11 17:40:35 2024 -0500
+
+    test output
+
+commit 1e56fe6573bb69d50bec54088b50a8c571815646
+Merge: 1f54655 ea31eae
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 11 17:32:46 2024 -0400
+
+    post merge commit
+
+commit 1f54655e2383b6ec85b55a62e3d854fee81d1725
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 11 17:31:08 2024 -0400
+
+    splash frame for invalid moves working
+
+commit ea31eaeacf4a67df2849e0594ddfff6485161fdb
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 11 16:29:34 2024 -0500
+
+    test output
+
+commit 8daf0f547ad87173adaebece1807614a40d068f7
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 11 16:18:03 2024 -0500
+
+    Roll Grpahic Fix
+
+commit 8fc3324102e5706837f0867e33adeddc7512a651
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 11 15:47:37 2024 -0500
+
+    graphic nmame fix
+
+commit 31632fbdce4f688626a247ef886418bb65eaa3fb
+Merge: a8a5e2f 7ddd2e1
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 11 15:40:14 2024 -0500
+
+    Merge branch 'main' of https://github.com/E-Eshbaugh/ClueGame
+
+commit a8a5e2f57c703ce5f8d308d2af6333f86592ebf5
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 11 15:40:04 2024 -0500
+
+    graphic nmame fix
+
+commit 7ddd2e141509cfb8c3dea054884d8b594357073c
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 11 16:35:36 2024 -0400
+
+    next button will not be valid until your move is made
+
+commit 2257b1bbf3729c5eb45eaf86b49bb596c7f753df
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Sun Aug 11 15:21:07 2024 -0500
+
+    player movement works
+
+commit 3e08528be85c0c0a1f66b488ec805741e65d7cdd
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Fri Aug 9 19:23:55 2024 -0500
+
+    redraw player fix
+
+commit 96bd047a22837980c4c4475741e0e9a79c7af226
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Aug 9 20:07:14 2024 -0400
+
+    added repaint to nextTurn to show movement after each turn
+
+commit 90943ac81fac6d3438e9610ca3e6b4026f1d9f6f
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Fri Aug 9 18:59:12 2024 -0500
+
+    redraw name fix
+
+commit 4519f4073bb33ae1e07686a7a1a3d2835d71b540
+Author: ClinMers <colin.myers013@gmail.com>
+Date:   Fri Aug 9 18:45:28 2024 -0500
+
+    redraw
+
+commit 40f8df11ec1f8147a4bb36414cfcbc50426a93ef
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Aug 9 19:27:09 2024 -0400
+
+    catch up push
+
+commit 71e602640bdc5455b199a572c580c69499400b1b
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Aug 9 18:58:04 2024 -0400
+
+    have the came control panel cycling through the players when next is clicked
+
+commit 4909da445e4e8efcbb0b476ba4f6e434a738dfea
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Aug 9 14:44:39 2024 -0400
+
+    got start to player moving started
+
+commit 80d75854e1ee7f6ecef5434a0370cf3fc64ed677
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Aug 9 14:02:29 2024 -0400
+
+    got the border dimensions a little better
+
+commit 8d3d191971ed63bd02f6782bb7e458eeb3891e6c
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Aug 9 13:57:28 2024 -0400
+
+    added more resizing functionality and changed walkways to a softer yellow thats easier to look at and easier to see the player pieces
+
+commit 1690899abf50919947a88c5fd7986adce63f989c
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Aug 9 13:34:52 2024 -0400
+
+    added some more organization to ClueGame
+
+commit a7029742990b414ab359caae319a2b98bce2b0cc
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Aug 9 13:23:10 2024 -0400
+
+    got the cardGUI to read from the player hand now
+
+commit a3f7fd9bfa9732e4dc5d97d17b43d8449eade16f
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Fri Aug 9 12:39:10 2024 -0400
+
+    reworked ClueGame to have actual methods to make it easier for game control later
+
 commit 96c4b13dd50c03bb7993e8ac960f3bce336d1be7
 Merge: 3773350 54ebbd8
 Author: E-Eshbaugh <eeshbaugh@mines.edu>

@@ -32,6 +32,6 @@ public class HumanPlayer extends Player {
      ====================================*/
     public void makeMove() {
         // Implementation for human player making a move
-        System.out.println(getName() + " is making a move.");
+        //System.out.println(getName() + " is making a move.");
     }
 }

@@ -100,7 +100,7 @@ public class ClueGame extends JPanel{
 	 * calls board.drawBoard()
 	 =====================================*/
 	private static void setupGamePanel() {
-	    gamePanel = new JPanel(new GridBagLayout()); // Use BorderLayout to allow resizing
+	    gamePanel = new JPanel(new GridBagLayout());
 	    JPanel boardPanel = new JPanel(new GridBagLayout());
 	    boardPanel.add(board.drawBoard(boardPanel.getWidth(), boardPanel.getHeight()));
 	    gamePanel.add(boardPanel);
@@ -109,17 +109,15 @@ public class ClueGame extends JPanel{
 	    gamePanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                // Get the size of gamePanel
+            	//find the new size for board
                 int gamePanelWidth = gamePanel.getWidth();
                 int gamePanelHeight = gamePanel.getHeight();
-                
-                // Calculate the new size for boardPanel
                 int newSize = Math.min(gamePanelWidth, gamePanelHeight);
                 
                 JPanel boardPanel = board.drawBoard(newSize, newSize);
                 boardPanel.setPreferredSize(new Dimension(newSize, newSize));
                 
-                // Revalidate and repaint the gamePanel to apply the changes
+                // Revalidate gamePanel to apply changes
                 gamePanel.removeAll();
                 gamePanel.add(boardPanel);
                 gamePanel.revalidate();
@@ -342,7 +340,7 @@ public class ClueGame extends JPanel{
 	    // Update the board state and repaint
 	    isHumanTurn = false;
 	    turnOver = true;
-	    System.out.println(humanPlayer.getName()+ "(human player) roller a " + roll + " and moved to (" + humanPlayer.getRow() + "," + humanPlayer.getCol() + ")");
+	    //System.out.println(humanPlayer.getName()+ "(human player) roller a " + roll + " and moved to (" + humanPlayer.getRow() + "," + humanPlayer.getCol() + ")");
 	    board.repaint(); // Repaint the board to reflect the new player position
 	}
 	
