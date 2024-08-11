@@ -159,27 +159,39 @@ public class Board extends JPanel{
         int cellHeight = basePanel.getHeight() / numRows;
 
         basePanel.removeAll();
-        basePanel.setLayout(new GridLayout(numRows, numColumns));
+        basePanel.setLayout(null);
 
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numColumns; col++) {
                 BoardCell cell = grid[row][col];
                 JPanel cellPanel = cell.draw(players);
 
-
-                cellPanel.setPreferredSize(new Dimension(cellWidth, cellHeight));
+                // Set the bounds for the cellPanel and add it to the basePanel
+                cellPanel.setBounds(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
                 basePanel.add(cellPanel);
 
+                // If the cell has a room label (using # to identify)
                 if (cell.getInitial().length() > 1 && cell.getInitial().charAt(1) == '#') {
                     JLabel label = new JLabel(cell.getRoom().getName(), SwingConstants.CENTER);
                     label.setForeground(Color.WHITE);
-                    label.setBounds((col - 2) * cellWidth, row * cellHeight, cellWidth * 5, cellHeight);
-                    cellPanel.add(label, JLayeredPane.PALETTE_LAYER);
+                    
+                    // Calculate the position and size for the label
+                    int xPosition = col * cellWidth - cellWidth; // Start before the cellPanel
+                    int yPosition = row * cellHeight; // Align vertically with the cellPanel
+                    int labelWidth = cellWidth * 5; // Span across multiple cells
+                    int labelHeight = cellHeight; // Same height as the cell
+
+                    // Set the bounds of the label
+                    label.setBounds(xPosition, yPosition, labelWidth, labelHeight);
+
+                    // Add the label to the basePanel
+                    basePanel.add(label, JLayeredPane.PALETTE_LAYER);
                 }
             }
         }
 
         basePanel.revalidate();
+        //basePanel.repaint();
     }
 	
 	/*===============================================
