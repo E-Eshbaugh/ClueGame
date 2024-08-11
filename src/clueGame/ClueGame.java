@@ -14,6 +14,8 @@ import java.util.Random;
 
 import javax.swing.*;
 import java.awt.event.MouseListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -98,10 +100,33 @@ public class ClueGame extends JPanel{
 	 * calls board.drawBoard()
 	 =====================================*/
 	private static void setupGamePanel() {
-	    JPanel boardPanel = board.drawBoard();
-	    gamePanel = new JPanel(new BorderLayout()); // Use BorderLayout to allow resizing
-	    gamePanel.setPreferredSize(new Dimension(650, 700));
-	    gamePanel.add(boardPanel, BorderLayout.CENTER);
+	    gamePanel = new JPanel(new GridBagLayout()); // Use BorderLayout to allow resizing
+	    JPanel boardPanel = new JPanel(new GridBagLayout());
+	    boardPanel.add(board.drawBoard(boardPanel.getWidth(), boardPanel.getHeight()));
+	    gamePanel.add(boardPanel);
+	    
+	    //listener for resizing
+	    gamePanel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                // Get the size of gamePanel
+                int gamePanelWidth = gamePanel.getWidth();
+                int gamePanelHeight = gamePanel.getHeight();
+                
+                // Calculate the new size for boardPanel
+                int newSize = Math.min(gamePanelWidth, gamePanelHeight);
+                
+                JPanel boardPanel = board.drawBoard(newSize, newSize);
+                boardPanel.setPreferredSize(new Dimension(newSize, newSize));
+                
+                // Revalidate and repaint the gamePanel to apply the changes
+                gamePanel.removeAll();
+                gamePanel.add(boardPanel);
+                gamePanel.revalidate();
+                gamePanel.repaint();
+            }
+        });
+	   
 	    frame.add(gamePanel, BorderLayout.CENTER);
 	}
 	
