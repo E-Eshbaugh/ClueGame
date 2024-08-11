@@ -176,8 +176,8 @@ public class Board extends JPanel{
                     label.setForeground(Color.WHITE);
                     
                     // Calculate the position and size for the label
-                    int xPosition = col * cellWidth - cellWidth; // Start before the cellPanel
-                    int yPosition = row * cellHeight; // Align vertically with the cellPanel
+                    int xPosition = col * cellWidth - cellWidth*2; // Start before the cellPanel
+                    int yPosition = row * cellHeight + cellHeight; // Align vertically with the cellPanel
                     int labelWidth = cellWidth * 5; // Span across multiple cells
                     int labelHeight = cellHeight; // Same height as the cell
 
