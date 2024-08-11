@@ -35,6 +35,7 @@ public class BoardCell extends JPanel{
 	 public boolean isOccupied;
 	 private boolean isHighlighted;
 	 private ArrayList<Player> players; // Add this member variable
+	 public int numPlayersInRoom;
 
 	 
 	 /*=====================
@@ -48,6 +49,7 @@ public class BoardCell extends JPanel{
 	        isOccupied = false;
 	        this.setOpaque(true);
 	        this.isHighlighted = false;
+	        this.numPlayersInRoom = 0;
 	    }
 
 	 
@@ -163,6 +165,12 @@ public class BoardCell extends JPanel{
 
 	    // Method to set occupation
 	    public void setOccupied(boolean occupied) {
+	    	if(occupied) {
+	    		numPlayersInRoom++;
+	    	}
+	    	if(!occupied) {
+	    		numPlayersInRoom--;
+	    	}
 	        this.isOccupied = occupied;
 	        repaint();
 	    }
@@ -232,8 +240,16 @@ public class BoardCell extends JPanel{
 	        }
 
 	        // Draw the player piece if the cell is occupied
-	        if (isOccupied) {
-	            Player player = playerToDraw(players);
+	        if (isOccupied && numPlayersInRoom >1) {
+	        	Player player = playerToDraw(players);
+	            if (player != null) {
+	                g.setColor(player.getColor());
+	                int padding = 1;
+	                int diameter = Math.min(getWidth(), getHeight()) - 2 * padding;
+	                g.fillOval(padding+(numPlayersInRoom-1), padding+(numPlayersInRoom-1), diameter, diameter);
+	            }
+	        } else if(isOccupied){
+	        	Player player = playerToDraw(players);
 	            if (player != null) {
 	                g.setColor(player.getColor());
 	                int padding = 2;
@@ -241,6 +257,7 @@ public class BoardCell extends JPanel{
 	                g.fillOval(padding, padding, diameter, diameter);
 	            }
 	        }
+	        
 	    }
 	
 

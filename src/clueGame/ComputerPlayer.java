@@ -46,7 +46,14 @@ public class ComputerPlayer extends Player {
 	    
 	    
 	    //set current spot to unoccupied for drawing purposes
-	    board.getCell(this.getRow(), this.getCol()).setOccupied(false);
+	    if(board.getCell(this.getRow(), this.getCol()).numPlayersInRoom == 1) {
+	    	board.getCell(this.getRow(), this.getCol()).setOccupied(false);
+	    	board.getCell(this.getRow(), this.getCol()).repaint();
+	    } else {
+	    	board.getCell(this.getRow(), this.getCol()).numPlayersInRoom--;
+	    	board.getCell(this.getRow(), this.getCol()).repaint();
+	    }
+	    
 
 	    board.calcTargets(board.getCell(getRow(), getCol()), diceRoll);
 	    Set<BoardCell> possibleTargets = board.getTargets();
@@ -73,6 +80,8 @@ public class ComputerPlayer extends Player {
 	    // Move the player 
 	    setRow(chosenTarget.getRow());
 	    setCol(chosenTarget.getCol());
+	    
+	    
 	    
 	    //set new cell to occupied
 	    board.getCell(this.getRow(), this.getCol()).setOccupied(true);
