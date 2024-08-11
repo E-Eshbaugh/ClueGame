@@ -284,6 +284,15 @@ public class ClueGame extends JPanel{
 		System.out.println("Accusation");
 	}
 		
+	// Getter for gameControlPanel
+    public static GameControlPanel getGameControlPanel() {
+        return gameControlPanel;
+    }
+
+    // Setter for gameControlPanel
+    public static void setGameControlPanel(GameControlPanel panel) {
+        gameControlPanel = panel;
+    }
 	
 	//=============================================================================================\\
 	//==============================------------- MAIN --------------==============================\\
@@ -295,4 +304,5 @@ public class ClueGame extends JPanel{
 		clueGame.displayGame();
 		showSplashFrame();
 	}
+	
 }
