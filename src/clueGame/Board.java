@@ -109,6 +109,10 @@ public class Board extends JPanel{
 		return grid[row][col];
 	}
 	
+	public BoardCell[][] getGrid() {
+		return grid;
+	}
+	
 	public Set<BoardCell> getAdjList(int i, int j) {
 		return getCell(i,j).getAdjList();
 	}

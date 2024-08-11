@@ -167,7 +167,7 @@ public class ClueGame extends JPanel{
 	
 	
 	/*===============================
-	 * Displays splash frame
+	 * Displays starting splash frame
 	 ==============================*/
 	private static void showSplashFrame() { 
 		String message = "You are: The " + humanPlayer.getName() + "\nCan you find the solution\nbefore the Computer players?";
@@ -224,6 +224,23 @@ public class ClueGame extends JPanel{
 
 	    // List to keep track of added listeners
 	    ArrayList<MouseListener> addedListeners = new ArrayList<>();
+	    
+	    //add mouseListeneres to non valid targets
+	    for (BoardCell[] row : board.getGrid()) {
+	    	for (BoardCell notTarget : row) {
+	    		if (!board.getTargets().contains(notTarget)) {
+	    			// Create and store the listener
+	    	        MouseListener listener = new MouseAdapter() {
+	    	            @Override
+	    	            public void mouseClicked(MouseEvent evt) {
+	    	                invalidMoveSelect();
+	    	            }
+	    	        };
+	    	        notTarget.addMouseListener(listener);
+	    	        addedListeners.add(listener); // Store the listener for later removal
+	    		}
+	    	}
+	    }
 
 	    // Highlight valid targets and add mouse listeners 
 	    for (BoardCell target : board.getTargets()) {
@@ -246,6 +263,19 @@ public class ClueGame extends JPanel{
 	    isHumanTurn = true;	
 	}
 	
+	
+	
+	/*===============================================
+	 * prints splash frame for invalid move select
+	 ==============================================*/
+	private static void invalidMoveSelect() { 
+		//display splash frame
+		String message = "That is not a valid move";
+        JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	
+	
 	private static void handlePlayerMove(BoardCell targetCell) {
 	    // Move the player to the clicked cell
 		BoardCell currentCell = board.getCell(humanPlayer.getRow(), humanPlayer.getCol());
@@ -256,15 +286,18 @@ public class ClueGame extends JPanel{
 	    targetCell.setOccupied(true); // Mark the new cell as occupied
 	    
 	    // Unhighlight all cells and remove listeners
-	    for (BoardCell cell : board.getTargets()) {
-	        cell.setHighlighted(false);
-
-	        // Remove all added listeners
-	        for (MouseListener listener : cell.getMouseListeners()) {
-	            cell.removeMouseListener(listener);
-	        }
-
-	        cell.repaint(); // Repaint to remove the highlight
+	    for (BoardCell[] row : board.getGrid()) {
+	    	for (BoardCell cell : row) {
+	    		if (board.getTargets().contains(cell)) {
+	    			cell.setHighlighted(false);
+	    			cell.repaint(); // Repaint to remove the highlight
+	    		}
+	
+		        // Remove all added listeners
+		        for (MouseListener listener : cell.getMouseListeners()) {
+		            cell.removeMouseListener(listener);
+		        }
+	    	}
 	    }
 
 	    // Update the board state and repaint
