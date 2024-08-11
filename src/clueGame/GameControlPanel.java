@@ -23,6 +23,7 @@ public class GameControlPanel extends JPanel {
     private JTextField guessResultField;
     private JButton accusationButton;
     private JButton nextButton;
+    private int rollValue;
 
     public GameControlPanel() {
         setLayout(new GridLayout(2, 0));
@@ -169,6 +170,14 @@ public class GameControlPanel extends JPanel {
      =================================*/
     public void setGuess(String guess) {
         guessField.setText(guess);
+    }
+    public int getRoll() {
+        return rollValue;
+    }
+
+    public void setRoll(int rollValue) {
+        this.rollValue = rollValue;
+        rollField.setText(String.valueOf(rollValue)); 
     }
 
     /*==================================

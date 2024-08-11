@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-public class BoardCell {
+public class BoardCell extends JPanel{
 	 public int row;
 	 public int col;
 	 private String roomSymbol; //Rooms -> A,B,BS,C,D,DT,G,K,L,SB,T,TD 
@@ -33,6 +33,8 @@ public class BoardCell {
 	 private Room room; // Reference to the Room class
 	 private Set<BoardCell> adjList;
 	 public boolean isOccupied;
+	 private boolean isHighlighted;
+	 private ArrayList<Player> players; // Add this member variable
 
 	 
 	 /*=====================
@@ -44,6 +46,8 @@ public class BoardCell {
 	        this.roomSymbol = symbol;
 	        this.adjList = new HashSet<>();
 	        isOccupied = false;
+	        this.setOpaque(true);
+	        this.isHighlighted = false;
 	    }
 
 	 
@@ -141,17 +145,27 @@ public class BoardCell {
 	        adjList.add(adj);
 	    }
 	    
-	    //[Occupation]
-	    public void setOccupied(boolean b) {
-			isOccupied = b;
-			
-		}
 	
 		public boolean getOccupied() {
 			return isOccupied;
 		}
 		
-		
+		public void setPlayers(ArrayList<Player> players) {
+	        this.players = players;
+	        repaint(); // Repaint when the players list is set
+	    }
+
+	    // Method to set highlight
+	    public void setHighlighted(boolean highlighted) {
+	        this.isHighlighted = highlighted;
+	        repaint();
+	    }
+
+	    // Method to set occupation
+	    public void setOccupied(boolean occupied) {
+	        this.isOccupied = occupied;
+	        repaint();
+	    }
 		
 		/*==========================
 		 * use switch to set and 
@@ -195,37 +209,40 @@ public class BoardCell {
 		 * cell can paint itself
 		 ========================*/
 		public JPanel draw(ArrayList<Player> players) {
-		    JPanel cell = new JPanel() {
-		        @Override
-		        protected void paintComponent(Graphics g) {
-		            super.paintComponent(g);
-		            setBackground(getColor());
-
-		            
-		            if (isDoorway()) {
-		                drawDoorwayBorder(this);
-		            } else if (getInitial().charAt(0) == 'W' && !isDoorway()) {
-		                setBorder(new LineBorder(Color.black));
-		            }
-
-		            
-		            if (isOccupied) {
-		                Player player = playerToDraw(players);
-		                if (player != null) {
-		                    g.setColor(player.getColor());
-
-		                    int padding = 1; // leave space around the circle
-		                    int diameter = Math.min(getWidth(), getHeight()) - 2 * padding;
-		                    int x = (getWidth() - diameter) / 2;
-		                    int y = (getHeight() - diameter) / 2;
-
-		                    g.fillOval(x, y, diameter, diameter);
-		                }
-		            }
-		        }
-		    };
-		    return cell;
+		    this.setPlayers(players); 
+		    return this;
 		}
+		
+		
+		@Override
+		protected void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+	        setBackground(getColor());
+
+	        if (isDoorway()) {
+	            drawDoorwayBorder(this);
+	        } else if (getInitial().charAt(0) == 'W' && !isDoorway()) {
+	            setBorder(new LineBorder(Color.black));
+	        }
+
+	        // Draw the highlight if needed
+	        if (isHighlighted) {
+	            g.setColor(new Color(0, 0, 255, 100)); // Semi-transparent blue for highlight
+	            g.fillRect(0, 0, getWidth(), getHeight());
+	        }
+
+	        // Draw the player piece if the cell is occupied
+	        if (isOccupied) {
+	            Player player = playerToDraw(players);
+	            if (player != null) {
+	                g.setColor(player.getColor());
+	                int padding = 2;
+	                int diameter = Math.min(getWidth(), getHeight()) - 2 * padding;
+	                g.fillOval(padding, padding, diameter, diameter);
+	            }
+	        }
+	    }
+	
 
 		private void drawDoorwayBorder(JPanel cell) {
 		    Border border = null;
