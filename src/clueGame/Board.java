@@ -49,22 +49,7 @@ public class Board extends JPanel{
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
 	private ArrayList<Character> legend = new ArrayList<Character>();
-	
 
-
-    /*=============================================
-     *  Private constructor for singleton pattern
-     =============================================*/
-    private Board() {
-    	roomMap = new HashMap<>();
-    	roomCenterMap = new HashMap<>();
-    	configFileCSV =  "ClueLayout.csv";
-    	configFileTXT = "ClueSetup.txt";
-    	csvFilePath = Paths.get("ClueInitFiles", "data", configFileCSV);
-    	txtFilePath = Paths.get("ClueInitFiles", "data", configFileTXT);
-    }
-
-    
     
     /*==================================
      * Getters & Setters
@@ -141,6 +126,21 @@ public class Board extends JPanel{
     	return null;
     }
 	
+    //=============================================================================================================\\
+    //=========================---------------------- BOARD CONSTRUCTION METHODS ---------------====================\\
+    //==============================================================================================================\\
+    
+    /*=============================================
+     *  Private constructor for singleton pattern
+     =============================================*/
+    private Board() {
+    	roomMap = new HashMap<>();
+    	roomCenterMap = new HashMap<>();
+    	configFileCSV =  "ClueLayout.csv";
+    	configFileTXT = "ClueSetup.txt";
+    	csvFilePath = Paths.get("ClueInitFiles", "data", configFileCSV);
+    	txtFilePath = Paths.get("ClueInitFiles", "data", configFileTXT);
+    }
     
     
     /*=============================================
@@ -199,7 +199,38 @@ public class Board extends JPanel{
         //basePanel.repaint();
     }
 	
-	/*===============================================
+    
+    //=====================================================================================================\\
+    //=====================-------------------- GAME SETUP METHODS ----------------=========================\\
+    //======================================================================================================\\
+    
+    
+    /* ==================================================================================
+	 * Initializes grid base on the files
+	 * Calls loadSetupConfig, loadLayoutConfig, and setAdjacencies
+	 * Calls visualizeMap if not commented out - prints map to console
+	 * Catches BadConfigFormatExceptions from loadLayoutConfig & loadSetupConfig
+	 * 
+	 * Runs once per board generation
+	 ===============================================================================*/
+    public void initialize() {
+	    try {
+	    	loadSetupConfig();
+			loadLayoutConfig();
+			setAdjacencies();
+			setupCardsAndPlayers();
+			updatePlayerMoves();
+			deal();
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+	    
+	    //====comment out to stop map from printing in console====
+	    //visualizeMap();
+    }
+    
+    
+    /*===============================================
 	 * Random selects a player to make the human player
 	 ==============================================*/
 	public void turnToHuman() {
@@ -216,9 +247,262 @@ public class Board extends JPanel{
 		players.set(tobeHuman, new HumanPlayer(name, color, row, col));
 		players.get(tobeHuman).makeHuman(true);
 	}
+	
+	
+	
+	/*================================================
+	 * Set the answer to the game
+	 * for testing purposes
+	 =================================================*/
+	public void setAnswer(Solution answer) {
+		theAnswer = answer;
+	}
     
 	
 	
+	/*=======================================================================
+	 * Creates and shuffles cards into a random order in cards ArrayList
+	 * Used by deal()
+	 ========================================================================*/
+	public void shuffle() {
+		Collections.shuffle(deck);
+	}
+	
+	
+	
+	/*========================================================
+	 * Static method to get the single instance of the Board
+	 ========================================================*/
+	public static Board getInstance() {
+		return theInstance;
+	}
+
+    
+    
+    /*===============================================================
+     * Sets up players and deck as well as numPlayers and numCards
+     * used by initialize
+     ===============================================================*/
+    public void setupCardsAndPlayers() {
+    	//make one player human player
+    	turnToHuman();
+    	
+    	//add player cards to deck 
+    	for (Player playerCard : players) {
+    		String pCardName = playerCard.getName();
+    		deck.add(new Card(pCardName, Card.CardType.PERSON));
+    	}
+    	
+    	//add room cards to deck
+    	for (Entry<Character, Room> roomCard : roomMap.entrySet()) {
+    		String rCardName = roomCard.getValue().getName();
+    		if (rCardName.equals("Unused") || rCardName.equals("Walkway")) continue;
+    		else deck.add(new Card(rCardName, Card.CardType.ROOM));
+    	}
+    	
+    	//get num cards and num players
+    	numCards = deck.size();
+    	numPlayers = players.size();   	
+    	
+    }
+    
+    
+    /* =================================================================
+	 * Fill the roomCenterMap
+	 * Maps all room center cells to their appropriate room symbols
+	 ==================================================================*/
+	private void setRoomCenterInitials() {
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numColumns; col++) {
+                BoardCell cell = grid[row][col];
+                if (cell.isRoomCenter()) {
+                    Room room = cell.getRoom();
+                    if (room != null) {
+                        room.setCenterCell(cell);
+						roomCenterMap.put(Character.valueOf(cell.getInitial().charAt(0)), cell.getRoom()); 
+						
+                    }
+                }
+            }
+        }
+    }
+	
+	
+	/*=============================================================================
+	 * Used by SetAdjacencies, adds doorways and secret passages to
+	 * the adj list for center room cells
+	 ==========================================================================*/
+	private void addRoomCenterAdjacencies(BoardCell cell) {
+	    //Room room = cell.getRoom();
+	    for (int r = 0; r < numRows; r++) {
+	        for (int c = 0; c < numColumns; c++) {
+	            BoardCell potentialDoor = grid[r][c];
+	            if (potentialDoor.isDoorway()) {
+	                BoardCell adj = null;
+	                switch (potentialDoor.getDoorDirection()) {
+	                    case UP:
+	                        adj = r > 0 ? grid[r - 1][c] : null;
+	                        break;
+	                    case DOWN:
+	                        adj = r < numRows - 1 ? grid[r + 1][c] : null;
+	                        break;
+	                    case LEFT:
+	                        adj = c > 0 ? grid[r][c - 1] : null;
+	                        break;
+	                    case RIGHT:
+	                        adj = c < numColumns - 1 ? grid[r][c + 1] : null;
+	                        break;
+	                    case NONE:
+	                    	break;
+	                }
+	                if (adj != null && adj.getRoom().getCenterCell().equals(cell)) {
+	                    cell.addAdj(potentialDoor);
+	                }
+	            }
+	            if (potentialDoor.getSecretPassage() != '\0' && potentialDoor.getRoom().getName().equals(cell.getRoom().getName())) {
+	                cell.addAdj(potentialDoor.getRoom().getCenterCell());
+	            }
+	        }
+	    }
+	}
+	
+	
+	
+	/*=============================================================================
+	 * Used by SetAdjacencies, adds center cell
+	 * the adj list for secret passages
+	 ==========================================================================*/
+	private void addSecretPassageAdjacency(BoardCell cell) {
+	    Room secretRoom = getRoom(cell.getSecretPassage());
+	    if (secretRoom != null) {
+	        BoardCell centerCell = secretRoom.getCenterCell();
+	        if (centerCell != null) {
+	            cell.addAdj(centerCell);
+	        }
+	    }
+	}
+	
+	
+	
+	/*================================================================
+	 * Searches whole board and maps all room cells to their 
+	 * correct room center tile
+	 ================================================================*/
+	private void setRoomsCenterCell() {
+	    for (int row = 0; row < numRows; row++) {
+	        for (int col = 0; col < numColumns; col++) {
+	            BoardCell cell = grid[row][col];
+	            char initial = cell.getInitial().charAt(0);
+	            if(cell.getInitial().length() == 2 ) {
+	            	initial = cell.getInitial().charAt(1);
+	            } 
+	            if (roomCenterMap.containsKey(initial)) {
+	                Room room = roomMap.get(initial);
+	                if (room != null) {
+	                    BoardCell centerCell = roomCenterMap.get(initial).getCenterCell();
+	                    cell.getRoom().setCenterCell(centerCell);
+	                }
+	            }
+	        }
+	    }
+	}
+	
+
+
+	
+	
+	
+	/*=============================================================================
+	 * initializes cell adjacency lists for each cell on the board
+	 * only runs once for whole game
+	 ==========================================================================*/
+	private void setAdjacencies() {
+	    for (int row = 0; row < numRows; row++) {
+	        for (int col = 0; col < numColumns; col++) {
+	            BoardCell cell = grid[row][col];
+
+	            if (cell.getInitial().equals("W") || cell.isDoorway()) {
+	                addWalkwayOrDoorAdjacencies(row, col, cell);
+	                addDoorwayCenterAdjacency(row, col, cell);
+	            }
+
+	            if (cell.isRoomCenter()) {
+	                addRoomCenterAdjacencies(cell);
+	            }
+
+	            if (cell.getSecretPassage() != '\0') {
+	                addSecretPassageAdjacency(cell);
+	            }
+	        }
+	    }
+	}
+	
+	
+	
+	/*=============================================================================
+	 * Used by setAdjacencies to add all possible walkways
+	 ==========================================================================*/
+	private void addWalkwayOrDoorAdjacencies(int row, int col, BoardCell cell) {
+	    addAdjacency(cell, row - 1, col); // Up
+	    addAdjacency(cell, row + 1, col); // Down
+	    addAdjacency(cell, row, col - 1); // Left
+	    addAdjacency(cell, row, col + 1); // Right
+	}
+	
+	
+	
+	/*=============================================================================
+	 * Used by addWalkwayOrDoorAdjacencies performs logic to ensure cell should 
+	 * be added and if so adds it.
+	 ==========================================================================*/
+	private void addAdjacency(BoardCell cell, int adjRow, int adjCol) {
+	    if (adjRow >= 0 && adjRow < numRows && adjCol >= 0 && adjCol < numColumns) {
+	        BoardCell adj = grid[adjRow][adjCol];
+	        if (adj.getInitial().equals("W") || adj.isDoorway()) {
+	            cell.addAdj(adj);
+	        }
+	    }
+	}
+	
+	
+	
+	/*=============================================================================
+	 * Used by SetAdjacencies, adds the center room cell to adjacencies list
+	 * for Doorways
+	 ==========================================================================*/
+	private void addDoorwayCenterAdjacency(int row, int col, BoardCell cell) {
+	    if (cell.isDoorway()) {
+	        BoardCell adj = null;
+	        switch (cell.getDoorDirection()) {
+	            case UP:
+	                adj = row > 0 ? grid[row - 1][col] : null;
+	                break;
+	            case DOWN:
+	                adj = row < numRows - 1 ? grid[row + 1][col] : null;
+	                break;
+	            case LEFT:
+	                adj = col > 0 ? grid[row][col - 1] : null;
+	                break;
+	            case RIGHT:
+	                adj = col < numColumns - 1 ? grid[row][col + 1] : null;
+	                break;
+	            case NONE:
+	            	break;
+	        }
+	        if (adj != null && adj.getRoom() != null) {
+	            BoardCell centerCell = adj.getRoom().getCenterCell();
+	            if (centerCell != null) {
+	                cell.addAdj(centerCell);
+	            }
+	        }
+	    }
+	}
+	
+	
+    //====================================================================================================\\
+    //======================-------------------- GAME FLOW MANAGEMENT METHODS -------------===============\\
+    //====================================================================================================\\
+    
 	
 	/*===============================================
 	 * Handle a suggestion made Process all the players in turn, 
@@ -242,7 +526,6 @@ public class Board extends JPanel{
 	
 	
 	
-	
 	/*================================================
 	 * Accusation checking, returns true if accusation
 	 * matches the Answer
@@ -253,15 +536,6 @@ public class Board extends JPanel{
 		else return false;
 	}
 	
-	
-	
-	/*================================================
-	 * Set the answer to the game
-	 * for testing purposes
-	 =================================================*/
-	public void setAnswer(Solution answer) {
-		theAnswer = answer;
-	}
 	
 	
 	/*========================================================
@@ -310,46 +584,6 @@ public class Board extends JPanel{
 	
 	
 	
-	/*=======================================================================
-	 * Creates and shuffles cards into a random order in cards ArrayList
-	 * Used by deal()
-	 ========================================================================*/
-	public void shuffle() {
-		Collections.shuffle(deck);
-	}
-	
-	
-	
-	/*=============================
-	 * board refresher for testing
-	 ===============================*/
-	public static void createInstance() {
-		theInstance = new Board();
-	}
-	
-    
-	/*========================================================
-	 * Static method to get the single instance of the Board
-	 ========================================================*/
-	public static Board getInstance() {
-		return theInstance;
-	}
-	
-	
-	
-	/*============================================
-	 * sets the config files and the 
-	 * relative paths to them
-	 ==============================================*/
-    public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
-        this.configFileCSV = layoutConfigFile;
-        this.configFileTXT = setupConfigFile;
-        this.csvFilePath = Paths.get("ClueInitFiles", "data", this.configFileCSV);
-    	this.txtFilePath = Paths.get("ClueInitFiles", "data", this.configFileTXT);
-    }
-	
-	
-	
 	/* ============================================================
 	 * Updates row and col nums based on the file and initializes grid
 	 * Uses File Scanner -> exceptions thrown handled in method
@@ -372,6 +606,69 @@ public class Board extends JPanel{
 	}
 	
 	
+	/*====================================================
+     * Updates occupied spaces based on where players are
+     ======================================================*/
+    public void updatePlayerMoves() {
+    	for (Player player : players) {
+    		grid[player.getRow()][player.getCol()].isOccupied = true;
+    	}
+    }
+    
+    
+    /*===============================================================
+     * Begins a BFD search, calculating targets for 
+     * where player can move using adjacency list
+     * 
+     * Calls findAllTargets
+     ================================================================*/
+    public void calcTargets(BoardCell boardCell, int pathLength) {
+        targets = new HashSet<>();
+        Set<BoardCell> visited = new HashSet<>();
+        visited.add(boardCell);
+        findAllTargets(boardCell, pathLength, visited);
+    }
+    
+    
+    
+    /*============================================================
+     * Meat of the BFD search for finding movement targets
+     * 
+     * Calls itself recursively on each item in adjList
+     =============================================================*/
+    private void findAllTargets(BoardCell cell, int steps, Set<BoardCell> visited) {
+    	
+//    	for all adjacent spots to each cell, starting at desired first cell
+        for (BoardCell currCell : cell.getAdjList()) {
+//        	if cell is occupied and isnt a room center, or has already been visited, skip this iteration
+            if (visited.contains(currCell) || (!currCell.isRoomCenter() && currCell.getOccupied())) continue;
+//            add current cell to list of visited cells
+            visited.add(currCell);
+//            if at last step, add to targets list
+            if (steps == 1 || currCell.isRoomCenter()) {
+                targets.add(currCell);
+            //continue until at step number passed into method
+            } else {
+                findAllTargets(currCell, steps - 1, visited);
+            }
+            visited.remove(currCell);
+        }
+    }    
+	
+	
+	//======================================================================================================\\
+	//=======================------------------- METHODS USED FOR TESTING SETUP ----------------============\\
+	//======================================================================================================\\
+	
+	
+	/*=============================
+	 * board refresher for testing
+	 ===============================*/
+	public static void createInstance() {
+		theInstance = new Board();
+	}
+	
+	
 	
 	/*==========================================
 	 * Visualizes map to console
@@ -383,73 +680,77 @@ public class Board extends JPanel{
 		//printRoomMap();
 		printDeck();
 	}
-
 	
 	
-	/* ==================================================================================
-	 * Initializes grid base on the files
-	 * Calls loadSetupConfig, loadLayoutConfig, and setAdjacencies
-	 * Calls visualizeMap if not commented out - prints map to console
-	 * Catches BadConfigFormatExceptions from loadLayoutConfig & loadSetupConfig
-	 * 
-	 * Runs once per board generation
-	 ===============================================================================*/
-    public void initialize() {
-	    try {
-	    	loadSetupConfig();
-			loadLayoutConfig();
-			setAdjacencies();
-			setupCardsAndPlayers();
-			updatePlayerMoves();
-			deal();
-	    } catch (Exception e) {
-	    	e.printStackTrace();
+	/*=================================
+	 * Prints out the Room map with the 
+	 * room initial and name
+	 ====================================*/
+	public void printRoomMap() {
+		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
+			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName());
+		}
+	}
+	
+	
+	/*==================================================
+	 * Provides a visual representation of the game map
+	 * for easier grid spot location
+	=================================================*/
+	public void printGrid() {
+		for (int row = 0; row < numRows; row++) {
+	        for (int col = 0; col < numColumns; col++) {
+	            String initial = grid[row][col].getInitial();
+	            if (initial.length() > 1) {
+	                System.out.print(initial + ""); // Add extra space if the value is more than one letter
+	            } else {
+	                System.out.print(initial + " ");
+	            }
+	        }
+	        System.out.println();
 	    }
-	    
-	    //====comment out to stop map from printing in console====
-	    //visualizeMap();
-    }
-    
-    
-    
-    /*===============================================================
-     * Sets up players and deck as well as numPlayers and numCards
-     * used by initialize
-     ===============================================================*/
-    public void setupCardsAndPlayers() {
-    	//make one player human player
-    	turnToHuman();
-    	
-    	//add player cards to deck 
-    	for (Player playerCard : players) {
-    		String pCardName = playerCard.getName();
-    		deck.add(new Card(pCardName, Card.CardType.PERSON));
-    	}
-    	
-    	//add room cards to deck
-    	for (Entry<Character, Room> roomCard : roomMap.entrySet()) {
-    		String rCardName = roomCard.getValue().getName();
-    		if (rCardName.equals("Unused") || rCardName.equals("Walkway")) continue;
-    		else deck.add(new Card(rCardName, Card.CardType.ROOM));
-    	}
-    	
-    	//get num cards and num players
-    	numCards = deck.size();
-    	numPlayers = players.size();   	
-    	
-    }
-    
-    /*====================================================
-     * Updates occupied spaces based on where players are
-     ======================================================*/
-    public void updatePlayerMoves() {
-    	for (Player player : players) {
-    		grid[player.getRow()][player.getCol()].isOccupied = true;
-    	}
-    }
+	}
 
+	
+	
+	
+	/*====================================
+	 * Prints out the CenterRoomMap with the 
+	 * room initial and room center cell
+	 ======================================*/
+	public void printCenterRoomMap() {
+		for (Map.Entry<Character, Room> entry : roomCenterMap.entrySet()) {
+			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName() +  entry.getValue().getCenterCell());
+		}
+	}
+	
+	
+	/*=================================
+	 * Prints out the deck of cards
+	 =================================*/
+	public void printDeck() {
+		for (Card card : deck) {
+	        System.out.println(card);
+	    }
+	}
+
+	
+	//===============================================================================================================\\
+    //=============================---------------------- FILE MANAGEMENT METHODS ---------------====================\\
+	//===============================================================================================================\\
+	
+	/*============================================
+	 * sets the config files and the 
+	 * relative paths to them
+	 ==============================================*/
+    public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
+        this.configFileCSV = layoutConfigFile;
+        this.configFileTXT = setupConfigFile;
+        this.csvFilePath = Paths.get("ClueInitFiles", "data", this.configFileCSV);
+    	this.txtFilePath = Paths.get("ClueInitFiles", "data", this.configFileTXT);
+    }
     
-    
+	
     /*==============================================================================================================================
      * Uses a switch to each lines info -room/space, player, or weapon- and assigns the information to the appropriate place
      * used by loadSetupConfig
@@ -604,286 +905,6 @@ public class Board extends JPanel{
 		}
 		
 	}
-	
-	
-	
-	/* =================================================================
-	 * Fill the roomCenterMap
-	 * Maps all room center cells to their appropriate room symbols
-	 ==================================================================*/
-	private void setRoomCenterInitials() {
-        for (int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numColumns; col++) {
-                BoardCell cell = grid[row][col];
-                if (cell.isRoomCenter()) {
-                    Room room = cell.getRoom();
-                    if (room != null) {
-                        room.setCenterCell(cell);
-						roomCenterMap.put(Character.valueOf(cell.getInitial().charAt(0)), cell.getRoom()); 
-						
-                    }
-                }
-            }
-        }
-    }
-	
-	
-
-	/*================================================================
-	 * Searches whole board and maps all room cells to their 
-	 * correct room center tile
-	 ================================================================*/
-	private void setRoomsCenterCell() {
-	    for (int row = 0; row < numRows; row++) {
-	        for (int col = 0; col < numColumns; col++) {
-	            BoardCell cell = grid[row][col];
-	            char initial = cell.getInitial().charAt(0);
-	            if(cell.getInitial().length() == 2 ) {
-	            	initial = cell.getInitial().charAt(1);
-	            } 
-	            if (roomCenterMap.containsKey(initial)) {
-	                Room room = roomMap.get(initial);
-	                if (room != null) {
-	                    BoardCell centerCell = roomCenterMap.get(initial).getCenterCell();
-	                    cell.getRoom().setCenterCell(centerCell);
-	                }
-	            }
-	        }
-	    }
-	}
-	
-
-	
-	/*==================================================
-	 * Provides a visual representation of the game map
-	 * for easier grid spot location
-	=================================================*/
-	public void printGrid() {
-		for (int row = 0; row < numRows; row++) {
-	        for (int col = 0; col < numColumns; col++) {
-	            String initial = grid[row][col].getInitial();
-	            if (initial.length() > 1) {
-	                System.out.print(initial + ""); // Add extra space if the value is more than one letter
-	            } else {
-	                System.out.print(initial + " ");
-	            }
-	        }
-	        System.out.println();
-	    }
-	}
-	
-	
-	
-	/*=================================
-	 * Prints out the Room map with the 
-	 * room initial and name
-	 ====================================*/
-	public void printRoomMap() {
-		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
-			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName());
-		}
-	}
-	
-	
-	
-	/*====================================
-	 * Prints out the CenterRoomMap with the 
-	 * room initial and room center cell
-	 ======================================*/
-	public void printCenterRoomMap() {
-		for (Map.Entry<Character, Room> entry : roomCenterMap.entrySet()) {
-			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName() +  entry.getValue().getCenterCell());
-		}
-	}
-	
-	public void printDeck() {
-		for (Card card : deck) {
-	        System.out.println(card);
-	    }
-	}
-	
-	
-	
-	/*=============================================================================
-	 * initializes cell adjacency lists for each cell on the board
-	 * only runs once for whole game
-	 ==========================================================================*/
-	private void setAdjacencies() {
-	    for (int row = 0; row < numRows; row++) {
-	        for (int col = 0; col < numColumns; col++) {
-	            BoardCell cell = grid[row][col];
-
-	            if (cell.getInitial().equals("W") || cell.isDoorway()) {
-	                addWalkwayOrDoorAdjacencies(row, col, cell);
-	                addDoorwayCenterAdjacency(row, col, cell);
-	            }
-
-	            if (cell.isRoomCenter()) {
-	                addRoomCenterAdjacencies(cell);
-	            }
-
-	            if (cell.getSecretPassage() != '\0') {
-	                addSecretPassageAdjacency(cell);
-	            }
-	        }
-	    }
-	}
-	
-	
-	
-	/*=============================================================================
-	 * Used by setAdjacencies to add all possible walkways
-	 ==========================================================================*/
-	private void addWalkwayOrDoorAdjacencies(int row, int col, BoardCell cell) {
-	    addAdjacency(cell, row - 1, col); // Up
-	    addAdjacency(cell, row + 1, col); // Down
-	    addAdjacency(cell, row, col - 1); // Left
-	    addAdjacency(cell, row, col + 1); // Right
-	}
-	
-	
-	
-	/*=============================================================================
-	 * Used by addWalkwayOrDoorAdjacencies performs logic to ensure cell should 
-	 * be added and if so adds it.
-	 ==========================================================================*/
-	private void addAdjacency(BoardCell cell, int adjRow, int adjCol) {
-	    if (adjRow >= 0 && adjRow < numRows && adjCol >= 0 && adjCol < numColumns) {
-	        BoardCell adj = grid[adjRow][adjCol];
-	        if (adj.getInitial().equals("W") || adj.isDoorway()) {
-	            cell.addAdj(adj);
-	        }
-	    }
-	}
-	
-	
-	
-	/*=============================================================================
-	 * Used by SetAdjacencies, adds the center room cell to adjacencies list
-	 * for Doorways
-	 ==========================================================================*/
-	private void addDoorwayCenterAdjacency(int row, int col, BoardCell cell) {
-	    if (cell.isDoorway()) {
-	        BoardCell adj = null;
-	        switch (cell.getDoorDirection()) {
-	            case UP:
-	                adj = row > 0 ? grid[row - 1][col] : null;
-	                break;
-	            case DOWN:
-	                adj = row < numRows - 1 ? grid[row + 1][col] : null;
-	                break;
-	            case LEFT:
-	                adj = col > 0 ? grid[row][col - 1] : null;
-	                break;
-	            case RIGHT:
-	                adj = col < numColumns - 1 ? grid[row][col + 1] : null;
-	                break;
-	            case NONE:
-	            	break;
-	        }
-	        if (adj != null && adj.getRoom() != null) {
-	            BoardCell centerCell = adj.getRoom().getCenterCell();
-	            if (centerCell != null) {
-	                cell.addAdj(centerCell);
-	            }
-	        }
-	    }
-	}
-	
-	
-	
-	/*=============================================================================
-	 * Used by SetAdjacencies, adds doorways and secret passages to
-	 * the adj list for center room cells
-	 ==========================================================================*/
-	private void addRoomCenterAdjacencies(BoardCell cell) {
-	    //Room room = cell.getRoom();
-	    for (int r = 0; r < numRows; r++) {
-	        for (int c = 0; c < numColumns; c++) {
-	            BoardCell potentialDoor = grid[r][c];
-	            if (potentialDoor.isDoorway()) {
-	                BoardCell adj = null;
-	                switch (potentialDoor.getDoorDirection()) {
-	                    case UP:
-	                        adj = r > 0 ? grid[r - 1][c] : null;
-	                        break;
-	                    case DOWN:
-	                        adj = r < numRows - 1 ? grid[r + 1][c] : null;
-	                        break;
-	                    case LEFT:
-	                        adj = c > 0 ? grid[r][c - 1] : null;
-	                        break;
-	                    case RIGHT:
-	                        adj = c < numColumns - 1 ? grid[r][c + 1] : null;
-	                        break;
-	                    case NONE:
-	                    	break;
-	                }
-	                if (adj != null && adj.getRoom().getCenterCell().equals(cell)) {
-	                    cell.addAdj(potentialDoor);
-	                }
-	            }
-	            if (potentialDoor.getSecretPassage() != '\0' && potentialDoor.getRoom().getName().equals(cell.getRoom().getName())) {
-	                cell.addAdj(potentialDoor.getRoom().getCenterCell());
-	            }
-	        }
-	    }
-	}
-	
-	
-	
-	/*=============================================================================
-	 * Used by SetAdjacencies, adds center cell
-	 * the adj list for secret passages
-	 ==========================================================================*/
-	private void addSecretPassageAdjacency(BoardCell cell) {
-	    Room secretRoom = getRoom(cell.getSecretPassage());
-	    if (secretRoom != null) {
-	        BoardCell centerCell = secretRoom.getCenterCell();
-	        if (centerCell != null) {
-	            cell.addAdj(centerCell);
-	        }
-	    }
-	}
-	
-	
-    /*===============================================================
-     * Begins a BFD search, calculating targets for 
-     * where player can move using adjacency list
-     * 
-     * Calls findAllTargets
-     ================================================================*/
-    public void calcTargets(BoardCell boardCell, int pathLength) {
-        targets = new HashSet<>();
-        Set<BoardCell> visited = new HashSet<>();
-        visited.add(boardCell);
-        findAllTargets(boardCell, pathLength, visited);
-    }
-    
-    
-    
-    /*============================================================
-     * Meat of the BFD search for finding movement targets
-     * 
-     * Calls itself recursively on each item in adjList
-     =============================================================*/
-    private void findAllTargets(BoardCell cell, int steps, Set<BoardCell> visited) {
-    	
-//    	for all adjacent spots to each cell, starting at desired first cell
-        for (BoardCell currCell : cell.getAdjList()) {
-//        	if cell is occupied and isnt a room center, or has already been visited, skip this iteration
-            if (visited.contains(currCell) || (!currCell.isRoomCenter() && currCell.getOccupied())) continue;
-//            add current cell to list of visited cells
-            visited.add(currCell);
-//            if at last step, add to targets list
-            if (steps == 1 || currCell.isRoomCenter()) {
-                targets.add(currCell);
-            //continue until at step number passed into method
-            } else {
-                findAllTargets(currCell, steps - 1, visited);
-            }
-            visited.remove(currCell);
-        }
-    }    
 }
+	
 

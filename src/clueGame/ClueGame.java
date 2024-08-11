@@ -233,6 +233,7 @@ public class ClueGame extends JPanel{
 	
 	/*==================================================
 	 * Called to handle more complex human player turn
+	 * calls humanPlayer.makeMove()
 	 ==================================================*/
 	private static void humanPlayerTurn() {
 
