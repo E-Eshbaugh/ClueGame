@@ -287,7 +287,16 @@ public class ClueGame extends JPanel{
 	    humanPlayer.setCol(targetCell.getCol());
 	    
 
-	    currentCell.setOccupied(false); // Mark the old cell as not occupied
+	     // Mark the old cell as not occupied
+	    if(currentCell.numPlayersInRoom == 1) {
+	    	currentCell.setOccupied(false);
+	    	currentCell.repaint();
+	    } else {
+	    	currentCell.numPlayersInRoom--;
+	    	currentCell.repaint();
+	    	
+	    }
+	    
 	    targetCell.setOccupied(true); // Mark the new cell as occupied
 	    
 	    // Unhighlight all cells and remove listeners
