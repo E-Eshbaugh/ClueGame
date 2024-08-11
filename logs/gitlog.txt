@@ -1,3 +1,9 @@
+commit 0ab02f407626ebbf0786fa93c1d79a889edefd13
+Author: E-Eshbaugh <eeshbaugh@mines.edu>
+Date:   Sun Aug 11 19:16:13 2024 -0400
+
+    last commit before subit
+
 commit ac039498a29be22c0a08aa715362de236f0423ec
 Merge: 6e4716c 45dfc88
 Author: E-Eshbaugh <eeshbaugh@mines.edu>

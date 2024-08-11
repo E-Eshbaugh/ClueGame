@@ -273,7 +273,14 @@ public class ClueGame extends JPanel{
 	        MouseListener listener = new MouseAdapter() {
 	            @Override
 	            public void mouseClicked(MouseEvent evt) {
-	                handlePlayerMove(target , diceRoll);
+	            	humanPlayer.setTarget(target);
+	            	humanPlayer.setRoll(diceRoll);
+	               humanPlayer.makeMove();
+	            // Update the board state and repaint
+	       	    isHumanTurn = false;
+	       	    turnOver = true;
+	       	    //System.out.println(humanPlayer.getName()+ "(human player) roller a " + roll + " and moved to (" + humanPlayer.getRow() + "," + humanPlayer.getCol() + ")");
+	       	    board.repaint(); // Repaint the board to reflect the new player position
 	            }
 	        };
 	        target.addMouseListener(listener);
@@ -295,53 +302,6 @@ public class ClueGame extends JPanel{
 		//display splash frame
 		String message = "That is not a valid move";
         JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
-	}
-	
-	
-	
-
-	/*==================================================
-	 * Called to handle players movement to cell and update of involved cells
-	 ==================================================*/
-	private static void handlePlayerMove(BoardCell targetCell, int roll) {
-	    // Move the player to the clicked cell
-		BoardCell currentCell = board.getCell(humanPlayer.getRow(), humanPlayer.getCol());
-	    humanPlayer.setRow(targetCell.getRow());
-	    humanPlayer.setCol(targetCell.getCol());
-	    
-
-	     // Mark the old cell as not occupied
-	    if(currentCell.numPlayersInRoom == 1) {
-	    	currentCell.setOccupied(false);
-	    	currentCell.repaint();
-	    } else {
-	    	currentCell.numPlayersInRoom--;
-	    	currentCell.repaint();
-	    	
-	    }
-	    
-	    targetCell.setOccupied(true); // Mark the new cell as occupied
-	    
-	    // Unhighlight all cells and remove listeners
-	    for (BoardCell[] row : board.getGrid()) {
-	    	for (BoardCell cell : row) {
-	    		if (board.getTargets().contains(cell)) {
-	    			cell.setHighlighted(false);
-	    			cell.repaint(); // Repaint to remove the highlight
-	    		}
-	
-		        // Remove all added listeners
-		        for (MouseListener listener : cell.getMouseListeners()) {
-		            cell.removeMouseListener(listener);
-		        }
-	    	}
-	    }
-
-	    // Update the board state and repaint
-	    isHumanTurn = false;
-	    turnOver = true;
-	    //System.out.println(humanPlayer.getName()+ "(human player) roller a " + roll + " and moved to (" + humanPlayer.getRow() + "," + humanPlayer.getCol() + ")");
-	    board.repaint(); // Repaint the board to reflect the new player position
 	}
 	
 	
