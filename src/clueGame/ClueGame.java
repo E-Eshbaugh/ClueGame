@@ -250,7 +250,7 @@ public class ClueGame extends JPanel{
 	        MouseListener listener = new MouseAdapter() {
 	            @Override
 	            public void mouseClicked(MouseEvent evt) {
-	                handlePlayerMove(target);
+	                handlePlayerMove(target , diceRoll);
 	            }
 	        };
 	        target.addMouseListener(listener);
@@ -261,8 +261,8 @@ public class ClueGame extends JPanel{
 	    }
 
 	    isHumanTurn = true;	
+	    
 	}
-	
 	
 	
 	/*===============================================
@@ -276,11 +276,16 @@ public class ClueGame extends JPanel{
 	
 	
 	
-	private static void handlePlayerMove(BoardCell targetCell) {
+
+	/*==================================================
+	 * Called to handle players movement to cell and update of involved cells
+	 ==================================================*/
+	private static void handlePlayerMove(BoardCell targetCell, int roll) {
 	    // Move the player to the clicked cell
 		BoardCell currentCell = board.getCell(humanPlayer.getRow(), humanPlayer.getCol());
 	    humanPlayer.setRow(targetCell.getRow());
 	    humanPlayer.setCol(targetCell.getCol());
+	    
 
 	    currentCell.setOccupied(false); // Mark the old cell as not occupied
 	    targetCell.setOccupied(true); // Mark the new cell as occupied
@@ -303,6 +308,7 @@ public class ClueGame extends JPanel{
 	    // Update the board state and repaint
 	    isHumanTurn = false;
 	    turnOver = true;
+	    System.out.println(humanPlayer.getName()+ "(human player) roller a " + roll + " and moved to (" + humanPlayer.getRow() + "," + humanPlayer.getCol() + ")");
 	    board.repaint(); // Repaint the board to reflect the new player position
 	}
 	
@@ -317,6 +323,15 @@ public class ClueGame extends JPanel{
 		System.out.println("Accusation");
 	}
 		
+	// Getter for gameControlPanel
+    public static GameControlPanel getGameControlPanel() {
+        return gameControlPanel;
+    }
+
+    // Setter for gameControlPanel
+    public static void setGameControlPanel(GameControlPanel panel) {
+        gameControlPanel = panel;
+    }
 	
 	//=============================================================================================\\
 	//==============================------------- MAIN --------------==============================\\
@@ -328,4 +343,5 @@ public class ClueGame extends JPanel{
 		clueGame.displayGame();
 		showSplashFrame();
 	}
+	
 }

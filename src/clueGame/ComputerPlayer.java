@@ -38,6 +38,11 @@ public class ComputerPlayer extends Player {
 		Board board = Board.getInstance();
 	    Random rand = new Random();
 	    int diceRoll = rand.nextInt(6) + 1; // Generate a random number between 1 and 6
+//	    ClueGame clueGame = ClueGame.getInstance();
+	    
+	    GameControlPanel currentPanel = ClueGame.getGameControlPanel();
+	    currentPanel.setRoll(diceRoll);
+	    ClueGame.setGameControlPanel(currentPanel);
 	    
 	    
 	    //set current spot to unoccupied for drawing purposes
