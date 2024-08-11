@@ -73,6 +73,8 @@ public class ComputerPlayer extends Player {
 	    board.getCell(this.getRow(), this.getCol()).setOccupied(true);
 
 	    System.out.println(getName() + " (computer) rolled a " + diceRoll + " and moved to " + chosenTarget);
+	    
+	    ClueGame.turnOver = true;
 	}
 	
 	/*================================================

@@ -118,7 +118,7 @@ public class GameControlPanel extends JPanel {
         nextButton.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
-        		ClueGame.nextTurn();
+        		if (ClueGame.turnOver) ClueGame.nextTurn();
         	}
         });
         return nextButton;

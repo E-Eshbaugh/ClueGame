@@ -24,6 +24,7 @@ public class ClueGame extends JPanel{
 	Random rand = new Random();
 	private static JFrame frame = new JFrame();
 	private static boolean isHumanTurn = true;
+	public static boolean turnOver = true;
 	private static CardsGUIPanel cardsPanel;
 	private static GameControlPanel gameControlPanel;
 	private static JPanel gamePanel;
@@ -197,11 +198,12 @@ public class ClueGame extends JPanel{
 	 * when next button is clicked
 	 ===============================*/
 	public static void nextTurn() {
-		gameControlPanel.setTurn(currentPlayer, 0);
-		if (currentPlayer.isHuman() && isHumanTurn) humanPlayerTurn();
-		else currentPlayer.makeMove();
-		currentPlayerUpdate();
-		gamePanel.repaint();
+			turnOver = false;
+			gameControlPanel.setTurn(currentPlayer, 0);
+			if (currentPlayer.isHuman() && isHumanTurn) humanPlayerTurn();
+			else currentPlayer.makeMove();
+			currentPlayerUpdate();
+			gamePanel.repaint();
 	}
 	
 	
@@ -267,6 +269,7 @@ public class ClueGame extends JPanel{
 
 	    // Update the board state and repaint
 	    isHumanTurn = false;
+	    turnOver = true;
 	    board.repaint(); // Repaint the board to reflect the new player position
 	}
 	
