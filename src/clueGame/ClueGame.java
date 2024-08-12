@@ -56,7 +56,9 @@ public class ClueGame extends JPanel{
 	
 	
 	/*================================
-	 * Sets up the game frame
+	 * Sets up the game JFrame
+	 * named frame
+	 * -static
 	 ==============================*/
 	private void setupFrame() {
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,11 +81,13 @@ public class ClueGame extends JPanel{
 	}
 	
 	
+	
 	/*=========================
 	 * Creates the CardsGUIPanel
 	 * on right side of game frame
 	 * 
 	 * calls CardsGUIPanel()
+	 * -static
 	 =============================*/
 	private void setupCardsPanel() {
 		cardsPanel = new CardsGUIPanel();
@@ -98,6 +102,7 @@ public class ClueGame extends JPanel{
 	 * game board
 	 * 
 	 * calls board.drawBoard()
+	 * -static
 	 =====================================*/
 	private static void setupGamePanel() {
 	    gamePanel = new JPanel(new GridBagLayout());
@@ -136,6 +141,7 @@ public class ClueGame extends JPanel{
 	 * the game frame
 	 * 
 	 * calls GameControlPanel()
+	 * -static
 	 ====================================*/
 	private void setupControlPanel() {
 		gameControlPanel = new GameControlPanel();
@@ -249,6 +255,7 @@ public class ClueGame extends JPanel{
 	    // List to keep track of added listeners
 	    ArrayList<MouseListener> addedListeners = new ArrayList<>();
 	    
+	    //handles mouse listeners for invalid targets
 	    //add mouseListeneres to non valid targets
 	    for (BoardCell[] row : board.getGrid()) {
 	    	for (BoardCell notTarget : row) {
@@ -266,6 +273,7 @@ public class ClueGame extends JPanel{
 	    	}
 	    }
 
+	    //handles mouse listeners for valid targets
 	    // Highlight valid targets and add mouse listeners 
 	    for (BoardCell target : board.getTargets()) {
 	        target.setHighlighted(true); // Highlight the cell
