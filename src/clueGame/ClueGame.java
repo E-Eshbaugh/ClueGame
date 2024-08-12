@@ -254,9 +254,21 @@ public class ClueGame extends JPanel{
 
 	    // List to keep track of added listeners
 	    ArrayList<MouseListener> addedListeners = new ArrayList<>();
+
+	    //handles mouse listeners for all spots
+	    invalidTargetListeners(addedListeners);
+	    validTargetListeners(addedListeners);
+
+	    isHumanTurn = true;	
 	    
-	    //handles mouse listeners for invalid targets
-	    //add mouseListeneres to non valid targets
+	}
+	
+	
+	/*=======================================================
+	 * Mouse Listener Functionality for non valid targets
+	 =======================================================*/
+	private static void invalidTargetListeners(ArrayList<MouseListener> addedListeners) {
+		//add mouseListeneres to non valid targets
 	    for (BoardCell[] row : board.getGrid()) {
 	    	for (BoardCell notTarget : row) {
 	    		if (!board.getTargets().contains(notTarget)) {
@@ -272,9 +284,13 @@ public class ClueGame extends JPanel{
 	    		}
 	    	}
 	    }
-
-	    //handles mouse listeners for valid targets
-	    // Highlight valid targets and add mouse listeners 
+	}
+	
+	/*===========================================
+	 * Mouse listener functionality for valid targets
+	 =================================================*/
+	private static void validTargetListeners(ArrayList<MouseListener> addedListeners) {
+		 // Highlight valid targets and add mouse listeners 
 	    for (BoardCell target : board.getTargets()) {
 	        target.setHighlighted(true); // Highlight the cell
 
@@ -297,9 +313,6 @@ public class ClueGame extends JPanel{
 	        
 	        target.repaint(); // Repaint the cell to show the highlight
 	    }
-
-	    isHumanTurn = true;	
-	    
 	}
 	
 	
