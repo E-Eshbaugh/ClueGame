@@ -43,8 +43,8 @@ public class Board extends JPanel{
 	private String configFileTXT;
 	private Path csvFilePath;
 	private Path txtFilePath;
-	public Map<Character, Room> roomMap;
-	public Map<Character, Room> roomCenterMap;
+	public Map<Character, Room> mapsIntialToRoom;
+	public Map<Character, Room> mapsRoomToCenters;
 	private static Board theInstance;
 	private Set<BoardCell> targets;
 	private static ArrayList<Player> players = new ArrayList<Player>();
@@ -77,7 +77,7 @@ public class Board extends JPanel{
     }
     
 	public Room getRoom(char initial) {
-		return roomMap.get(initial);
+		return mapsIntialToRoom.get(initial);
 	}
 
 	public Room getRoom(BoardCell cell) {
@@ -136,8 +136,8 @@ public class Board extends JPanel{
      *  Private constructor for singleton pattern
      =============================================*/
     private Board() {
-    	roomMap = new HashMap<>();
-    	roomCenterMap = new HashMap<>();
+    	mapsIntialToRoom = new HashMap<>();
+    	mapsRoomToCenters = new HashMap<>();
     	configFileCSV =  "ClueLayout.csv";
     	configFileTXT = "ClueSetup.txt";
     	csvFilePath = Paths.get("ClueInitFiles", "data", configFileCSV);
@@ -296,7 +296,7 @@ public class Board extends JPanel{
     	}
     	
     	//add room cards to deck
-    	for (Entry<Character, Room> roomCard : roomMap.entrySet()) {
+    	for (Entry<Character, Room> roomCard : mapsIntialToRoom.entrySet()) {
     		String rCardName = roomCard.getValue().getName();
     		if (rCardName.equals("Unused") || rCardName.equals("Walkway")) continue;
     		else deck.add(new Card(rCardName, Card.CardType.ROOM));
@@ -321,7 +321,7 @@ public class Board extends JPanel{
                     Room room = cell.getRoom();
                     if (room != null) {
                         room.setCenterCell(cell);
-						roomCenterMap.put(Character.valueOf(cell.getInitial().charAt(0)), cell.getRoom()); 
+						mapsRoomToCenters.put(Character.valueOf(cell.getInitial().charAt(0)), cell.getRoom()); 
 						
                     }
                 }
@@ -398,10 +398,10 @@ public class Board extends JPanel{
 	            if(cell.getInitial().length() == 2 ) {
 	            	initial = cell.getInitial().charAt(1);
 	            } 
-	            if (roomCenterMap.containsKey(initial)) {
-	                Room room = roomMap.get(initial);
+	            if (mapsRoomToCenters.containsKey(initial)) {
+	                Room room = mapsIntialToRoom.get(initial);
 	                if (room != null) {
-	                    BoardCell centerCell = roomCenterMap.get(initial).getCenterCell();
+	                    BoardCell centerCell = mapsRoomToCenters.get(initial).getCenterCell();
 	                    cell.getRoom().setCenterCell(centerCell);
 	                }
 	            }
@@ -689,7 +689,7 @@ public class Board extends JPanel{
 	 * room initial and name
 	 ====================================*/
 	public void printRoomMap() {
-		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
+		for (Map.Entry<Character, Room> entry : mapsIntialToRoom.entrySet()) {
 			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName());
 		}
 	}
@@ -721,7 +721,7 @@ public class Board extends JPanel{
 	 * room initial and room center cell
 	 ======================================*/
 	public void printCenterRoomMap() {
-		for (Map.Entry<Character, Room> entry : roomCenterMap.entrySet()) {
+		for (Map.Entry<Character, Room> entry : mapsRoomToCenters.entrySet()) {
 			System.out.println("Initial: " + entry.getKey() + ", Room: " + entry.getValue().getName() +  entry.getValue().getCenterCell());
 		}
 	}
@@ -775,7 +775,7 @@ public class Board extends JPanel{
 				char initial = parts[2].charAt(0);
 				if (type.equals("Room") || type.equals("Space")) {
 					Room room = new Room(roomName);
-					roomMap.put(initial, room);
+					mapsIntialToRoom.put(initial, room);
 					legend.add(initial);
 				}
 				break;
@@ -853,7 +853,7 @@ public class Board extends JPanel{
 					char initial = cellValue.charAt(0);
 					BoardCell cell = new BoardCell(row, col, cellValue);
 
-					Room originalRoom = roomMap.get(initial);
+					Room originalRoom = mapsIntialToRoom.get(initial);
 					if (originalRoom != null) {
 						Room roomCopy = new Room(originalRoom.getName());
 						cell.setRoom(roomCopy);
