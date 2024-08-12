@@ -20,6 +20,8 @@ import java.util.*;
 
 import javax.swing.*;
 
+//auto generated suppress warning
+@SuppressWarnings("serial")
 public abstract class Player extends JPanel {
 	
 	private String name;

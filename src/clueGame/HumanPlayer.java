@@ -15,10 +15,11 @@ package clueGame;
 import java.awt.Color;
 import java.awt.event.MouseListener;
 
+//auto generated suppress warning
+@SuppressWarnings("serial")
 public class HumanPlayer extends Player {
 	
 	private BoardCell targetCell;
-	private int roll;
 
 	/*==========================
 	 * HumanPlayer Constructor
@@ -32,9 +33,6 @@ public class HumanPlayer extends Player {
 	/*======================
 	 * Getters and setters
 	===================== */
-	public void setRoll(int roll) {
-		this.roll = roll;
-	}
 	
 	public void setTarget(BoardCell target) {
 		targetCell = target;

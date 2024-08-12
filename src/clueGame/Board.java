@@ -31,6 +31,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 
+//auto generated suppress warning
+@SuppressWarnings("serial")
 public class Board extends JPanel{
 	private BoardCell[][] grid;
 	public int numRows;

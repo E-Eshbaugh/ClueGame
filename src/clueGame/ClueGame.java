@@ -275,7 +275,6 @@ public class ClueGame extends JPanel{
 	            @Override
 	            public void mouseClicked(MouseEvent evt) {
 	            	humanPlayer.setTarget(target);
-	            	humanPlayer.setRoll(diceRoll);
 	               humanPlayer.makeMove();
 	            // Update the board state and repaint
 	       	    isHumanTurn = false;

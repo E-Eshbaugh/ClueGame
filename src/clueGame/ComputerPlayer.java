@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
+//auto generated suppress warning
+@SuppressWarnings("serial")
 public class ComputerPlayer extends Player {
 
 	// Constructor
