@@ -30,15 +30,6 @@ public class CardsGUIPanel extends JPanel {
 	private static ArrayList<Card> playerSeen = ClueGame.humanPlayer.getSeen();        
 	//-------------------------------------------------------------------------
 	
-	//==================== TESTING METHODS ===============================\\
-	//Use for now to initiate lists to make sure methods work
-	private void cardsInitiate() {
-		//hand - random colors chosen
-		playerHand.add(new Card("Room1", Card.CardType.ROOM, Color.YELLOW));
-		playerHand.add(new Card("weapon1", Card.CardType.WEAPON, Color.RED));
-		playerHand.add(new Card("person1", Card.CardType.PERSON, Color.black));
-	}
-	
 	//add to seen
 	private void addToSeen(Card card) {
 		playerSeen.add(card);
@@ -209,6 +200,7 @@ public class CardsGUIPanel extends JPanel {
 			gui.revalidate();
 			frame.setVisible(true);
 		}
+		scn.close();
 		
 	}
 }

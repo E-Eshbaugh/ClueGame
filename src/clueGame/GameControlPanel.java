@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 
+//auto generated suppress warning 
+@SuppressWarnings("serial")
 public class GameControlPanel extends JPanel {
     private JTextField currentTurnField;
     private JTextField rollField;
@@ -215,5 +217,6 @@ public class GameControlPanel extends JPanel {
 			panel.revalidate();
 			frame.setVisible(true);
 		}
+		scn.close();
     }
 }

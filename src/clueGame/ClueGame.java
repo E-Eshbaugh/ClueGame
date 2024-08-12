@@ -56,7 +56,9 @@ public class ClueGame extends JPanel{
 	
 	
 	/*================================
-	 * Sets up the game frame
+	 * Sets up the game JFrame
+	 * named frame
+	 * -static
 	 ==============================*/
 	private void setupFrame() {
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,11 +81,13 @@ public class ClueGame extends JPanel{
 	}
 	
 	
+	
 	/*=========================
 	 * Creates the CardsGUIPanel
 	 * on right side of game frame
 	 * 
 	 * calls CardsGUIPanel()
+	 * -static
 	 =============================*/
 	private void setupCardsPanel() {
 		cardsPanel = new CardsGUIPanel();
@@ -98,9 +102,10 @@ public class ClueGame extends JPanel{
 	 * game board
 	 * 
 	 * calls board.drawBoard()
+	 * -static
 	 =====================================*/
 	private static void setupGamePanel() {
-	    gamePanel = new JPanel(new GridBagLayout()); // Use BorderLayout to allow resizing
+	    gamePanel = new JPanel(new GridBagLayout());
 	    JPanel boardPanel = new JPanel(new GridBagLayout());
 	    boardPanel.add(board.drawBoard(boardPanel.getWidth(), boardPanel.getHeight()));
 	    gamePanel.add(boardPanel);
@@ -109,17 +114,15 @@ public class ClueGame extends JPanel{
 	    gamePanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                // Get the size of gamePanel
+            	//find the new size for board
                 int gamePanelWidth = gamePanel.getWidth();
                 int gamePanelHeight = gamePanel.getHeight();
-                
-                // Calculate the new size for boardPanel
                 int newSize = Math.min(gamePanelWidth, gamePanelHeight);
                 
                 JPanel boardPanel = board.drawBoard(newSize, newSize);
                 boardPanel.setPreferredSize(new Dimension(newSize, newSize));
                 
-                // Revalidate and repaint the gamePanel to apply the changes
+                // Revalidate gamePanel to apply changes
                 gamePanel.removeAll();
                 gamePanel.add(boardPanel);
                 gamePanel.revalidate();
@@ -138,6 +141,7 @@ public class ClueGame extends JPanel{
 	 * the game frame
 	 * 
 	 * calls GameControlPanel()
+	 * -static
 	 ====================================*/
 	private void setupControlPanel() {
 		gameControlPanel = new GameControlPanel();
@@ -235,6 +239,7 @@ public class ClueGame extends JPanel{
 	
 	/*==================================================
 	 * Called to handle more complex human player turn
+	 * calls humanPlayer.makeMove()
 	 ==================================================*/
 	private static void humanPlayerTurn() {
 
@@ -249,8 +254,21 @@ public class ClueGame extends JPanel{
 
 	    // List to keep track of added listeners
 	    ArrayList<MouseListener> addedListeners = new ArrayList<>();
+
+	    //handles mouse listeners for all spots
+	    invalidTargetListeners(addedListeners);
+	    validTargetListeners(addedListeners);
+
+	    isHumanTurn = true;	
 	    
-	    //add mouseListeneres to non valid targets
+	}
+	
+	
+	/*=======================================================
+	 * Mouse Listener Functionality for non valid targets
+	 =======================================================*/
+	private static void invalidTargetListeners(ArrayList<MouseListener> addedListeners) {
+		//add mouseListeneres to non valid targets
 	    for (BoardCell[] row : board.getGrid()) {
 	    	for (BoardCell notTarget : row) {
 	    		if (!board.getTargets().contains(notTarget)) {
@@ -266,8 +284,13 @@ public class ClueGame extends JPanel{
 	    		}
 	    	}
 	    }
-
-	    // Highlight valid targets and add mouse listeners 
+	}
+	
+	/*===========================================
+	 * Mouse listener functionality for valid targets
+	 =================================================*/
+	private static void validTargetListeners(ArrayList<MouseListener> addedListeners) {
+		 // Highlight valid targets and add mouse listeners 
 	    for (BoardCell target : board.getTargets()) {
 	        target.setHighlighted(true); // Highlight the cell
 
@@ -275,7 +298,13 @@ public class ClueGame extends JPanel{
 	        MouseListener listener = new MouseAdapter() {
 	            @Override
 	            public void mouseClicked(MouseEvent evt) {
-	                handlePlayerMove(target , diceRoll);
+	            	humanPlayer.setTarget(target);
+	               humanPlayer.makeMove();
+	            // Update the board state and repaint
+	       	    isHumanTurn = false;
+	       	    turnOver = true;
+	       	    //System.out.println(humanPlayer.getName()+ "(human player) roller a " + roll + " and moved to (" + humanPlayer.getRow() + "," + humanPlayer.getCol() + ")");
+	       	    board.repaint(); // Repaint the board to reflect the new player position
 	            }
 	        };
 	        target.addMouseListener(listener);
@@ -284,9 +313,6 @@ public class ClueGame extends JPanel{
 	        
 	        target.repaint(); // Repaint the cell to show the highlight
 	    }
-
-	    isHumanTurn = true;	
-	    
 	}
 	
 	
@@ -297,53 +323,6 @@ public class ClueGame extends JPanel{
 		//display splash frame
 		String message = "That is not a valid move";
         JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
-	}
-	
-	
-	
-
-	/*==================================================
-	 * Called to handle players movement to cell and update of involved cells
-	 ==================================================*/
-	private static void handlePlayerMove(BoardCell targetCell, int roll) {
-	    // Move the player to the clicked cell
-		BoardCell currentCell = board.getCell(humanPlayer.getRow(), humanPlayer.getCol());
-	    humanPlayer.setRow(targetCell.getRow());
-	    humanPlayer.setCol(targetCell.getCol());
-	    
-
-	     // Mark the old cell as not occupied
-	    if(currentCell.numPlayersInRoom == 1) {
-	    	currentCell.setOccupied(false);
-	    	currentCell.repaint();
-	    } else {
-	    	currentCell.numPlayersInRoom--;
-	    	currentCell.repaint();
-	    	
-	    }
-	    
-	    targetCell.setOccupied(true); // Mark the new cell as occupied
-	    
-	    // Unhighlight all cells and remove listeners
-	    for (BoardCell[] row : board.getGrid()) {
-	    	for (BoardCell cell : row) {
-	    		if (board.getTargets().contains(cell)) {
-	    			cell.setHighlighted(false);
-	    			cell.repaint(); // Repaint to remove the highlight
-	    		}
-	
-		        // Remove all added listeners
-		        for (MouseListener listener : cell.getMouseListeners()) {
-		            cell.removeMouseListener(listener);
-		        }
-	    	}
-	    }
-
-	    // Update the board state and repaint
-	    isHumanTurn = false;
-	    turnOver = true;
-	    System.out.println(humanPlayer.getName()+ "(human player) roller a " + roll + " and moved to (" + humanPlayer.getRow() + "," + humanPlayer.getCol() + ")");
-	    board.repaint(); // Repaint the board to reflect the new player position
 	}
 	
 	

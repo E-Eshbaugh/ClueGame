@@ -18,12 +18,12 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+//auto generated suppress warning
+@SuppressWarnings("serial")
 public class BoardCell extends JPanel{
 	 public int row;
 	 public int col;
@@ -286,6 +286,8 @@ public class BoardCell extends JPanel{
 		        case RIGHT:
 		            border = BorderFactory.createMatteBorder(thinBorder, thinBorder, thinBorder, thickBorder, Color.BLUE);
 		            break;
+		        default:
+		        	break;
 		    }
 
 		    if (border != null) {
