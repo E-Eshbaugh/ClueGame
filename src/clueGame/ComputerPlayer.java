@@ -88,7 +88,11 @@ public class ComputerPlayer extends Player {
 	    //set new cell to occupied
 	    board.getCell(this.getRow(), this.getCol()).setOccupied(true);
 
-	    //System.out.println(getName() + " (computer) rolled a " + diceRoll + " and moved to " + chosenTarget);
+	    
+	    if (board.getCell(this.getRow(), this.getCol()).isRoomCenter()) {
+	        Solution suggest = createSuggestion();
+	        board.handleSuggestion(suggest, this);
+	    }
 	    
 	    ClueGame.turnOver = true;
 	}
@@ -145,6 +149,7 @@ public class ComputerPlayer extends Player {
 	    
 	    //set new cell to occupied
 	    board.getCell(this.getRow(), this.getCol()).setOccupied(true);
+	    
 	}
 	
 	/*================================================

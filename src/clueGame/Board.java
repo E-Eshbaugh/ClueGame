@@ -563,10 +563,17 @@ public class Board extends JPanel{
 	    ClueGame.getGameControlPanel().setGuess(suggestionText);
 	    
 	    if (disprovingCard != null) {
-	        String resultText = "Disproved by " + disprovingPlayer.getName() + ": " + disprovingCard.getName();
+	        String resultText;
+	        if (accuser.isHuman()) {
+	            resultText = "Disproved by " + disprovingPlayer.getName() + ": " + disprovingCard.getName();
+	            ClueGame.humanPlayer.updateSeen(disprovingCard);
+	            accuser.updateSeen(disprovingCard);
+	            ClueGame.getCardsPanel().refresh();
+	        } else {
+	            resultText = "Disproved by " + disprovingPlayer.getName() + ".";
+	            accuser.updateSeen(disprovingCard);
+	        }
 	        ClueGame.getGameControlPanel().setGuessResult(resultText);
-	        ClueGame.humanPlayer.updateSeen(disprovingCard);
-	        ClueGame.getCardsPanel().refresh();
 	    } else {
 	        ClueGame.getGameControlPanel().setGuessResult("No one could disprove the suggestion.");
 	    }
