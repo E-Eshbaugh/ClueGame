@@ -14,6 +14,10 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 //auto generated suppress warning
 @SuppressWarnings("serial")
@@ -47,8 +51,12 @@ public class HumanPlayer extends Player {
     	// Move the player to the clicked cell
     	Board board = Board.getInstance();
    		BoardCell currentCell = board.getCell(getRow(), getCol());
+   		
    	    setRow(targetCell.getRow());
    	    setCol(targetCell.getCol());
+   	    
+   	// Check if the player was already in the room due to a previous suggestion and decided to stay
+   	    boolean wasInRoom = currentCell.isRoomCenter();
     	    
 
    	     // Mark the old cell as not occupied
@@ -77,5 +85,31 @@ public class HumanPlayer extends Player {
     		    }
     	    }
     	}
+   	    
+   	// Check if the player is in a room and wasn't already there due to a previous suggestion
+   	 if (targetCell.isRoomCenter() && !wasInRoom) {
+         // Create and display the suggestion dialog
+         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+         Room currentRoom = targetCell.getRoom();
+         ArrayList<String> people = new ArrayList<>();
+         ArrayList<String> weapons = new ArrayList<>();
+
+         // Fill the people and weapons lists from the game data
+         for (Card card : board.getCards()) {
+             if (card.getType() == Card.CardType.PERSON) people.add(card.getName());
+             if (card.getType() == Card.CardType.WEAPON) weapons.add(card.getName());
+         }
+
+         SuggestionDialog suggestionDialog = new SuggestionDialog(parentFrame, currentRoom.getName(), people, weapons);
+         suggestionDialog.setVisible(true);
+
+         // Get the suggestion and handle it
+         Solution suggestion = suggestionDialog.getSuggestion();
+         if (suggestion != null) {
+             board.handleSuggestion(suggestion, this);
+         }
+     }
+
+     ClueGame.turnOver = true;
     }
 }

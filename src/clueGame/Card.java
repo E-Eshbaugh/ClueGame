@@ -66,7 +66,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card " + "name= " + name  + ", type= " + type;
+        return name;
     }
 
 	public boolean getAnswer() {

@@ -253,7 +253,7 @@ public class BoardCell extends JPanel{
 	                int padding = 2;
 	                int diameter = Math.min(getWidth(), getHeight()) - 2 * padding;
 	                g.fillOval(padding+(3+(numInRoom-1)), padding, diameter, diameter);
-	                System.out.println(numPlayersInRoom);
+//	                System.out.println(numPlayersInRoom);
 	            }
 	        } else if(isOccupied){
 	        	Player player = playerToDraw(players);

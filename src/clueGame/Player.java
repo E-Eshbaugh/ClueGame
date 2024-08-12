@@ -65,7 +65,7 @@ public abstract class Player extends JPanel {
 	public Card disproveSuggestion(Solution suggestion) {
 		ArrayList<Card> possibleSol = new ArrayList<Card>();
 		for (Card card : hand) {
-			if (card.equals(suggestion.getPerson()) || card.equals(suggestion.getWeapon()) || card.equals(suggestion.getRoom())) { //.equals()
+			if ((card.equals(suggestion.getPerson()) || card.equals(suggestion.getWeapon()) || card.equals(suggestion.getRoom()))) { //.equals()
 				possibleSol.add(card);
 			}
 		}

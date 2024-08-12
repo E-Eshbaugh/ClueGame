@@ -73,7 +73,7 @@ public class Board extends JPanel{
     }
     
     public Solution revealAnswer() {
-    	return theAnswer;
+    	return theAnswer; 	
     }
     
 	public Room getRoom(char initial) {
@@ -513,17 +513,65 @@ public class Board extends JPanel{
 	 * first card that disputed the suggestion.
 	 ==============================================*/
 	public Card handleSuggestion(Solution suggestion, Player accuser) {
-	    for (Player player : players) {
-	        if (player.equals(accuser)) {
-	            continue; 
+	    Card disprovingCard = null;
+	    Player disprovingPlayer = null;
+	    
+	    // Get the room name from the suggestion
+	    String roomName = suggestion.getRoom().getName();
+	    BoardCell roomCenter = null;
+
+	    // Find the center cell of the room based on the room's initial
+	    for (int row = 0; row < numRows; row++) {
+	        for (int col = 0; col < numColumns; col++) {
+	            BoardCell cell = grid[row][col];
+	            if (cell.isRoomCenter() && cell.getRoom().getName().equals(roomName)) {
+	                roomCenter = cell;
+	                break;  // Exit the loop once we find the center cell
+	            }
 	        }
-	        
-	        Card disprovingCard = player.disproveSuggestion(suggestion);
-	        if (disprovingCard != null) {
-	            return disprovingCard; 
+	        if (roomCenter != null) break;  // Exit outer loop if center cell found
+	    }
+
+	    if (roomCenter != null) {
+	        // Move the suggested person to the center of the room
+	        for (Player player : players) {
+	            if (player.getName().equals(suggestion.getPerson().getName())) {
+	                player.setRow(roomCenter.getRow());
+	                player.setCol(roomCenter.getCol());
+	                roomCenter.setOccupied(true);
+	                repaint();
+	                break;
+	            }
+	        }
+	    } else {
+	        System.out.println("Error: Room center could not be found for " + roomName);
+	    }
+
+	    // Check if any player can disprove the suggestion
+	    for (Player player : players) {
+	        if (!player.equals(accuser)) {
+	            disprovingCard = player.disproveSuggestion(suggestion);
+	            if (disprovingCard != null) {
+	                disprovingPlayer = player;
+	                break;
+	            }
 	        }
 	    }
-	    return null;
+
+	    // Update the GameControlPanel with the result
+	    String suggestionText = suggestion.getPerson().getName() + " with the " + suggestion.getWeapon().getName() + " in the " + suggestion.getRoom().getName();
+	    ClueGame.getGameControlPanel().setGuess(suggestionText);
+	    
+	    if (disprovingCard != null) {
+	        String resultText = "Disproved by " + disprovingPlayer.getName() + ": " + disprovingCard.getName();
+	        ClueGame.getGameControlPanel().setGuessResult(resultText);
+	        ClueGame.humanPlayer.updateSeen(disprovingCard);
+	        ClueGame.getCardsPanel().refresh();
+	    } else {
+	        ClueGame.getGameControlPanel().setGuessResult("No one could disprove the suggestion.");
+	    }
+
+	    return disprovingCard;
 	}
 	
 	
@@ -566,7 +614,7 @@ public class Board extends JPanel{
         }
 
         theAnswer = new Solution(roomCard, personCard, weaponCard);
-
+        
         // Shuffle the remaining cards
         Collections.shuffle(remainingCards);
 

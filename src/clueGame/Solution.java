@@ -12,7 +12,7 @@ public class Solution {
 	}
 
 	public String toString() {
-		return "Solution " + "room=" + room + ", person=" + person + ", weapon=" + weapon;
+		return person +" in the " + room + " with the " + weapon;
 	}
 
 	@Override

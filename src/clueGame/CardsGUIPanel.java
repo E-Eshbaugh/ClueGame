@@ -152,7 +152,7 @@ public class CardsGUIPanel extends JPanel {
 		
 	}
 	
-	
+
 	
 	/*==========================
 	 * takes a card and turns it

@@ -333,7 +333,43 @@ public class ClueGame extends JPanel{
 	 * button is clicked
 	 ================================*/
 	public static void accusationClick() {
-		System.out.println("Accusation");
+		//System.out.println(board.revealAnswer());
+	    JFrame parentFrame = frame;  // Assuming 'frame' is the main game window
+
+	    // Gather the possible selections for people, weapons, and rooms
+	    ArrayList<String> people = new ArrayList<>();
+	    ArrayList<String> weapons = new ArrayList<>();
+	    ArrayList<String> rooms = new ArrayList<>();
+
+	    for (Card card : board.getCards()) {
+	        if (card.getType() == Card.CardType.PERSON) people.add(card.getName());
+	        if (card.getType() == Card.CardType.WEAPON) weapons.add(card.getName());
+	        if (card.getType() == Card.CardType.ROOM) rooms.add(card.getName());
+	    }
+
+	    // Create and show the accusation dialog
+	    AccusationDialog accusationDialog = new AccusationDialog(parentFrame, people, weapons, rooms);
+	    accusationDialog.setVisible(true);
+
+	    // Get the accusation from the dialog
+	    Solution accusation = accusationDialog.getAccusation();
+
+	    if (accusation != null) {
+	        // Check if the accusation is correct
+	        boolean isCorrect = board.accusationCheck(accusation);
+
+	        // Show the result to the player
+	        if (isCorrect) {
+	            JOptionPane.showMessageDialog(parentFrame, "Congratulations! You've won the game!", "Accusation Correct", JOptionPane.INFORMATION_MESSAGE);
+	            // Handle the game win scenario (e.g., end the game)
+	        } else {
+	            JOptionPane.showMessageDialog(parentFrame, "Sorry, that's not correct. You lose! \n It was the "+ board.revealAnswer(), "Accusation Incorrect was" , JOptionPane.ERROR_MESSAGE);
+	            // Handle the game loss scenario (e.g., end the game for this player)
+	        }
+	    } else {
+	        // The player canceled the accusation
+	        JOptionPane.showMessageDialog(parentFrame, "Accusation canceled.", "Canceled", JOptionPane.INFORMATION_MESSAGE);
+	    }
 	}
 		
 	// Getter for gameControlPanel
@@ -345,6 +381,12 @@ public class ClueGame extends JPanel{
     public static void setGameControlPanel(GameControlPanel panel) {
         gameControlPanel = panel;
     }
+	public static CardsGUIPanel getCardsPanel() {
+		return cardsPanel;
+	}
+	public static void setCardsPanel(CardsGUIPanel cardsPanel) {
+		ClueGame.cardsPanel = cardsPanel;
+	}
 	
 	//=============================================================================================\\
 	//==============================------------- MAIN --------------==============================\\
