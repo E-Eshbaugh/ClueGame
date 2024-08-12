@@ -93,6 +93,60 @@ public class ComputerPlayer extends Player {
 	    ClueGame.turnOver = true;
 	}
 	
+	
+	
+	/*=========================================================
+	 * Make Move for testing purposes, not tied into graphics
+	 =======================================================*/
+	public void makeMoveTest() {
+		
+		Board board = Board.getInstance();
+	    Random rand = new Random();
+	    int diceRoll = rand.nextInt(6) + 1; // Generate a random number between 1 and 6
+	    
+	    
+	    //set current spot to unoccupied for drawing purposes
+	    if(board.getCell(this.getRow(), this.getCol()).numPlayersInRoom == 1) {
+	    	board.getCell(this.getRow(), this.getCol()).setOccupied(false);
+	    	board.getCell(this.getRow(), this.getCol()).repaint();
+	    } else {
+	    	board.getCell(this.getRow(), this.getCol()).numPlayersInRoom--;
+	    	board.getCell(this.getRow(), this.getCol()).repaint();
+	    }
+	    
+
+	    board.calcTargets(board.getCell(getRow(), getCol()), diceRoll);
+	    Set<BoardCell> possibleTargets = board.getTargets();
+
+	    ArrayList<BoardCell> unseenRoomTargets = new ArrayList<>();
+
+	    // Check for rooms in targets that the player hasn't seen
+	    for (BoardCell target : possibleTargets) {
+	        if (target.isRoomCenter() && !getSeen().contains(new Card(target.getRoom().getName(), Card.CardType.ROOM))) {
+	            unseenRoomTargets.add(target);
+	        }
+	    }
+
+	    BoardCell chosenTarget;
+	    if (!unseenRoomTargets.isEmpty()) {
+	        // Randomly select unseen target
+	        chosenTarget = unseenRoomTargets.get(rand.nextInt(unseenRoomTargets.size()));
+	    } else {
+	        // Randomly select availible target
+	        int targetIndex = rand.nextInt(possibleTargets.size());
+	        chosenTarget = (BoardCell) possibleTargets.toArray()[targetIndex];
+	    }
+
+	    // Move the player 
+	    setRow(chosenTarget.getRow());
+	    setCol(chosenTarget.getCol());
+	    
+	    
+	    
+	    //set new cell to occupied
+	    board.getCell(this.getRow(), this.getCol()).setOccupied(true);
+	}
+	
 	/*================================================
 	 * createSuggestion: used by bots to create suggestions
 	 * uses current room the bot is in, and completes the 

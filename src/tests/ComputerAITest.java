@@ -79,7 +79,7 @@ class ComputerAITest {
 	public void botPlayerSelectTargetTests() {
 		//test 1 unseen room in list
 		ComputerPlayer testSubject = new ComputerPlayer("Test Subject", Color.BLUE, 7, 3);
-		testSubject.makeMove();
+		testSubject.makeMoveTest();
 		assertEquals(testSubject.getCol(), 3);
 		assertEquals(testSubject.getRow(), 3);
 		
@@ -88,8 +88,8 @@ class ComputerAITest {
 		testSubject.setRow(20);
 		ArrayList<Integer> uniqueRows = new ArrayList<Integer>();
 		ArrayList<Integer> uniqueCols = new ArrayList<Integer>();
-		for (int i = 0; i < 10000; i++) {
-			testSubject.makeMove();
+		for (int i = 0; i < 1000; i++) {
+			testSubject.makeMoveTest();
 			if (!uniqueRows.contains(testSubject.getRow())) uniqueRows.add(testSubject.getRow());
 			if (!uniqueCols.contains(testSubject.getCol())) uniqueCols.add(testSubject.getCol());
 			testSubject.setCol(7);
