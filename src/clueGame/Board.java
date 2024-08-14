@@ -607,6 +607,8 @@ public class Board extends JPanel{
         Card weaponCard = null;
 
         ArrayList<Card> remainingCards = new ArrayList<>();
+        
+        Collections.shuffle(deck);
 
         for (Card card : deck) {
             if (card.getType() == Card.CardType.ROOM && roomCard == null) {

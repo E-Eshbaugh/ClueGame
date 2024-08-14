@@ -23,3 +23,5 @@
 [X] Remove/reworking printing board methods once GUI is working               |
 [X] Computer player make move function change                                 |
 ------------------------------------------------------------------------------
+
+7
