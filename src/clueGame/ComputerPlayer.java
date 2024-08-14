@@ -21,6 +21,8 @@ import java.util.Set;
 //auto generated suppress warning
 @SuppressWarnings("serial")
 public class ComputerPlayer extends Player {
+	
+	private ArrayList<BoardCell> visitedRooms = new ArrayList<BoardCell>();
 
 	// Constructor
 	public ComputerPlayer(String name, Color pieceColor, int row, int column) {
@@ -62,9 +64,9 @@ public class ComputerPlayer extends Player {
 
 	    ArrayList<BoardCell> unseenRoomTargets = new ArrayList<>();
 
-	    // Check for rooms in targets that the player hasn't seen
+	    // Check for rooms in targets that the player hasn't been to
 	    for (BoardCell target : possibleTargets) {
-	        if (target.isRoomCenter() && !getSeen().contains(new Card(target.getRoom().getName(), Card.CardType.ROOM))) {
+	        if (target.isRoomCenter() && !visitedRooms.contains(target)) {
 	            unseenRoomTargets.add(target);
 	        }
 	    }
@@ -73,7 +75,8 @@ public class ComputerPlayer extends Player {
 	    if (!unseenRoomTargets.isEmpty()) {
 	        // Randomly select unseen target
 	        chosenTarget = unseenRoomTargets.get(rand.nextInt(unseenRoomTargets.size()));
-	    } else {
+	        visitedRooms.add(chosenTarget);
+	        } else {
 	        // Randomly select availible target
 	        int targetIndex = rand.nextInt(possibleTargets.size());
 	        chosenTarget = (BoardCell) possibleTargets.toArray()[targetIndex];

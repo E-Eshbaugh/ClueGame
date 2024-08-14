@@ -75,6 +75,12 @@ public class ClueGame extends JPanel{
 	        }
 	    });
 	}
+	
+	
+	private void frameResize(int height, int width) {
+		frame.setSize(height, width);
+	}
+	
 	private void updateBoardPanel() {
 	    gamePanel.revalidate();
 	    gamePanel.repaint();
@@ -109,6 +115,8 @@ public class ClueGame extends JPanel{
 	    JPanel boardPanel = new JPanel(new GridBagLayout());
 	    boardPanel.add(board.drawBoard(boardPanel.getWidth(), boardPanel.getHeight()));
 	    gamePanel.add(boardPanel);
+	    gamePanel.revalidate();
+	    gamePanel.repaint();
 	    
 	    //listener for resizing
 	    gamePanel.addComponentListener(new ComponentAdapter() {
