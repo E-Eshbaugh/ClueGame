@@ -73,7 +73,7 @@ public class ComputerPlayer extends Player {
 
 	    BoardCell chosenTarget;
 	    if (!unseenRoomTargets.isEmpty()) {
-	        // Randomly select unseen target
+	        // Randomly select unseen room target and then addd that room to visited rooms
 	        chosenTarget = unseenRoomTargets.get(rand.nextInt(unseenRoomTargets.size()));
 	        visitedRooms.add(chosenTarget);
 	        } else {

@@ -76,11 +76,6 @@ public class ClueGame extends JPanel{
 	    });
 	}
 	
-	
-	private void frameResize(int height, int width) {
-		frame.setSize(height, width);
-	}
-	
 	private void updateBoardPanel() {
 	    gamePanel.revalidate();
 	    gamePanel.repaint();
@@ -374,6 +369,9 @@ public class ClueGame extends JPanel{
 	            JOptionPane.showMessageDialog(parentFrame, "Sorry, that's not correct. You lose! \n It was the "+ board.revealAnswer(), "Accusation Incorrect was" , JOptionPane.ERROR_MESSAGE);
 	            // Handle the game loss scenario (e.g., end the game for this player)
 	        }
+	        
+	        //end the game
+	        System.exit(0);
 	    } else {
 	        // The player canceled the accusation
 	        JOptionPane.showMessageDialog(parentFrame, "Accusation canceled.", "Canceled", JOptionPane.INFORMATION_MESSAGE);
