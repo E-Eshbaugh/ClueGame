@@ -445,6 +445,7 @@ public class Board extends JPanel{
 	 * Used by setAdjacencies to add all possible walkways
 	 ==========================================================================*/
 	private void addWalkwayOrDoorAdjacencies(int row, int col, BoardCell cell) {
+		addAdjacency(cell, row , col);
 	    addAdjacency(cell, row - 1, col); // Up
 	    addAdjacency(cell, row + 1, col); // Down
 	    addAdjacency(cell, row, col - 1); // Left
@@ -536,6 +537,8 @@ public class Board extends JPanel{
 	        // Move the suggested person to the center of the room
 	        for (Player player : players) {
 	            if (player.getName().equals(suggestion.getPerson().getName())) {
+	            	//here
+	            	//player.setTempRoomForAdjacent(roomCenter);
 	                player.setRow(roomCenter.getRow());
 	                player.setCol(roomCenter.getCol());
 	                roomCenter.setOccupied(true);

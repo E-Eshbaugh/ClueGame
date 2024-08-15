@@ -31,6 +31,7 @@ public abstract class Player extends JPanel {
 	private ArrayList<Card> seen = new ArrayList<Card>();
 	private boolean isHuman;
 	
+	
 	/*=======================
 	 * Player Constructor
 	 =========================*/
@@ -39,6 +40,7 @@ public abstract class Player extends JPanel {
 		pieceColor = color;
 		this.row = row;
 		this.col = col;
+		
 	}
 	
 	
@@ -156,5 +158,9 @@ public abstract class Player extends JPanel {
     
     //================-- Abstract Methods --===============\\
     public abstract void makeMove();
+
+
+
+	protected abstract void setTempRoomForAdjacent(BoardCell roomCenter);
     
 }

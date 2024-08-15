@@ -199,5 +199,10 @@ public class ComputerPlayer extends Player {
 
         return new Solution(roomCard, personCard, weaponCard);
 	}
+
+	@Override
+	protected void setTempRoomForAdjacent(BoardCell roomCenter) {
+		return;
+	}
 }
 

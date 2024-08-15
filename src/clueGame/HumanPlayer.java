@@ -24,13 +24,15 @@ import javax.swing.SwingUtilities;
 public class HumanPlayer extends Player {
 	
 	private BoardCell targetCell;
-
+	private BoardCell tempRoomForAdjacent;
+	
 	/*==========================
 	 * HumanPlayer Constructor
 	 =======================*/
 	public HumanPlayer(String name, Color color, int row, int col) {
 		// TODO Auto-generated constructor stub
 		super(name, color, row, col);
+		
 	}
 	
 	
@@ -41,7 +43,14 @@ public class HumanPlayer extends Player {
 	public void setTarget(BoardCell target) {
 		targetCell = target;
 	}
-	
+	public BoardCell getTempRoomForAdjacent() {
+		return tempRoomForAdjacent;
+	}
+
+
+	public void setTempRoomForAdjacent(BoardCell tempRoomForAdjacent) {
+		this.tempRoomForAdjacent = tempRoomForAdjacent;
+	}
 
     @Override
     /*=====================================
@@ -112,4 +121,7 @@ public class HumanPlayer extends Player {
 
      ClueGame.turnOver = true;
     }
+
+
+	
 }
