@@ -107,7 +107,9 @@ public class Board extends JPanel{
 	public Set<BoardCell> getTargets() { 
 		return targets;
 	}
-	
+	public void addTarget(BoardCell Center) { 
+		targets.add(Center);
+	}
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
@@ -536,12 +538,12 @@ public class Board extends JPanel{
 	    if (roomCenter != null) {
 	        // Move the suggested person to the center of the room
 	        for (Player player : players) {
-	            if (player.getName().equals(suggestion.getPerson().getName())) {
-	            	//here
-	            	//player.setTempRoomForAdjacent(roomCenter);
-	                player.setRow(roomCenter.getRow());
-	                player.setCol(roomCenter.getCol());
-	                roomCenter.setOccupied(true);
+	            if (player.getName().equals(suggestion.getPerson().getName())) {	
+	            	player.setTempRoomForAdjacent(roomCenter);
+	            	//addTarget(roomCenter);
+//	                player.setRow(roomCenter.getRow());
+//	                player.setCol(roomCenter.getCol());
+//	                roomCenter.setOccupied(true);
 	                repaint();
 	                break;
 	            }

@@ -253,6 +253,10 @@ public class ClueGame extends JPanel{
 	    gameControlPanel.setRoll(diceRoll);
 	    // Calculate possible moves (e.g., 3 steps)
 	    board.calcTargets(startCell, diceRoll);
+	    if(humanPlayer.getTempRoomForAdjacent() != null) {
+	    	board.addTarget(humanPlayer.getTempRoomForAdjacent());
+	    }
+	    
 
 	    // List to keep track of added listeners
 	    ArrayList<MouseListener> addedListeners = new ArrayList<>();

@@ -60,7 +60,7 @@ public class HumanPlayer extends Player {
     	// Move the player to the clicked cell
     	Board board = Board.getInstance();
    		BoardCell currentCell = board.getCell(getRow(), getCol());
-   		
+   		board.addTarget(tempRoomForAdjacent);
    	    setRow(targetCell.getRow());
    	    setCol(targetCell.getCol());
    	    
@@ -79,8 +79,9 @@ public class HumanPlayer extends Player {
     	    }
     	    
    	    targetCell.setOccupied(true); // Mark the new cell as occupied
-    	    
+   	    
         // Unhighlight all cells and remove listeners
+   	    
    	    for (BoardCell[] row : board.getGrid()) {
    	    	for (BoardCell cell : row) {
    	    		if (board.getTargets().contains(cell)) {
@@ -94,9 +95,9 @@ public class HumanPlayer extends Player {
     		    }
     	    }
     	}
-   	    
+   	 //board.addTarget();
    	// Check if the player is in a room and wasn't already there due to a previous suggestion
-   	 if (targetCell.isRoomCenter() && !wasInRoom) {
+   	 if (targetCell.isRoomCenter() ) { //&& !wasInRoom
          // Create and display the suggestion dialog
          JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
          Room currentRoom = targetCell.getRoom();
