@@ -689,6 +689,7 @@ public class Board extends JPanel{
         targets = new HashSet<>();
         Set<BoardCell> visited = new HashSet<>();
         visited.add(boardCell);
+        targets.add(boardCell);
         findAllTargets(boardCell, pathLength, visited);
     }
     

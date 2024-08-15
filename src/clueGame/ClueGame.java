@@ -54,7 +54,6 @@ public class ClueGame extends JPanel{
 	}
 	
 	
-	
 	/*================================
 	 * Sets up the game JFrame
 	 * named frame
