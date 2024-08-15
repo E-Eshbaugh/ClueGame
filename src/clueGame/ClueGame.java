@@ -76,11 +76,6 @@ public class ClueGame extends JPanel{
 	    });
 	}
 	
-	
-	private void frameResize(int height, int width) {
-		frame.setSize(height, width);
-	}
-	
 	private void updateBoardPanel() {
 	    gamePanel.revalidate();
 	    gamePanel.repaint();

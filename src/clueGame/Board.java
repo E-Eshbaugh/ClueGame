@@ -623,6 +623,7 @@ public class Board extends JPanel{
         }
 
         theAnswer = new Solution(roomCard, personCard, weaponCard);
+        Collections.shuffle(deck);
         
         // Shuffle the remaining cards
         Collections.shuffle(remainingCards);
